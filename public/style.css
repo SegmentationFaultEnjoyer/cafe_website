@@ -1,0 +1,49 @@
+* {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+#app {
+	padding: 20px;
+}
+
+.price-label {
+    font-weight: lighter;
+    font-size: 1.25em;
+    text-align: center;
+}
+
+.picture {
+    max-height: 80%;
+    max-width: 100%;
+    border-radius: 10px;
+	pointer-events: none;
+}
+
+.flex-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+input[type="number"] {
+	background-color: #eee;
+	vertical-align: top;
+	outline: none;
+	padding: 0;
+	height: 40px;
+	line-height: 40px;    
+	text-indent: 10px;
+	display: inline-block;
+	width: 12%;
+	box-sizing: border-box;
+	border: 1px solid #ddd;
+	font-size: 14px;
+	border-radius: 3px;
+	flex-basis: auto
+} 
+ 
+input[type="number"]:focus {
+	outline: 2px solid green;
+}

@@ -1,0 +1,41 @@
+.addtocart{
+    display:block;
+    padding:0.5em 1em 0.5em 1em;
+    border-radius:10px;
+    border:none;
+    font-size:1.2em;
+    position:relative;
+    background:green;
+    cursor:pointer;
+    height:2em;
+    width:10em;
+    overflow:hidden;
+    transition:transform 0.1s;
+    z-index:1;
+}
+.addtocart:hover{
+    transform:scale(1.1);
+}
+.pretext{
+    color:#fff;
+    background:green;
+    position:absolute;
+    top:0;
+    left:0;
+    height:100%;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.done{
+    background:limegreen;
+    position:absolute;
+    width:100%;
+    top:0;
+    left:0;
+    transition:transform 0.3s ease;
+
+    transform:translate(-110%) skew(-40deg);
+}
