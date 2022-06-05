@@ -2,10 +2,6 @@
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
-#app {
-	padding: 20px;
-}
-
 .price-label {
     font-weight: lighter;
     font-size: 1.25em;
@@ -16,6 +12,13 @@
     max-height: 80%;
     max-width: 100%;
     border-radius: 10px;
+}
+
+.disable-select {
+	user-select: none; 
+}
+
+.disable-pick {
 	pointer-events: none;
 }
 
@@ -26,6 +29,14 @@
     align-items: center;
 }
 
+.column {
+	flex-direction: column;
+}
+
+.main-grid{
+	margin-left: 100px;
+	border: 2px solid red;
+}
 
 input[type="number"] {
 	background-color: #eee;
