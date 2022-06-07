@@ -5,6 +5,7 @@ const Context = require('./src/context.jsx');
 const Modal = require('./src/Modal.jsx');
 const Cart = require('./src/Cart.jsx');
 const SideBar = require('./src/SideNavBar.jsx');
+const TopBar = require('./src/TopBar.jsx');
 
 let root = ReactDOM.createRoot(document.getElementById("app"));
 let info = {
@@ -19,6 +20,7 @@ function MainApp() {
     return (
         <Context.Provider value={{counter: product_count, setCounter}}>
             <SideBar />
+            <TopBar />
             <Cart />
             <div className='main-grid'>
                 <Modal info={info}/>

@@ -18,6 +18,10 @@
 	align-items: center;
 }
 
+.side-bar div:hover {
+    background-color: chocolate;
+}
+
 .side-bar div:first-child {
 	border-radius: 0px 20px 0px 0px;
 }

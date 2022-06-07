@@ -1,5 +1,6 @@
 const AbstractModal = require('./AbsModal.jsx');
 const Context = require('./context.jsx');
+require('../../public/Cart.css');
 
 class Cart extends AbstractModal{
     constructor(props) {
