@@ -1,5 +1,5 @@
 const React = require('react');
-const {Context} = require('../context.jsx');
+const {Context} = require('../helpers/context.jsx');
 
 const Modal = require('../Modal.jsx');
 const Cart = require('../Cart.jsx');

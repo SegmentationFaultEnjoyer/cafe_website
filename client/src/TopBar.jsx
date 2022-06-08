@@ -1,5 +1,5 @@
 require('../../public/TopBar.css');
-const {pageContext} = require('./context.jsx');
+const {pageContext} = require('./helpers/context.jsx');
 
 class TopBar extends React.Component {
     constructor(props) {
@@ -18,7 +18,8 @@ class TopBar extends React.Component {
                 super(props);
                 this.value = props.value;
                 this.state = {isActive : this.value == 'Головна'};
-                TopBar.picked = TopBar.picked ?? this; 
+                //TopBar.picked = TopBar.picked ?? this; 
+                TopBar.picked = TopBar.picked != null ? TopBar.picked : this; 
                 this.page = props.page_type;
 
                 this.ClickHandler = this.ClickHandler.bind(this);

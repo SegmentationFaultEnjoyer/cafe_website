@@ -27,7 +27,6 @@
   },
   "scripts": {
     "dev": "nodemon --ext js jsx server/server.js",
-    "start": "node server/server.js && npx babel ./client/src --out-dir ./client/lib",
     "webpack": "webpack serve",
     "build": "webpack"
   }
