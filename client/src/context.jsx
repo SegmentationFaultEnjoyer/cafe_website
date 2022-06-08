@@ -1,3 +1,4 @@
 const Context = React.createContext();
+const pageContext = React.createContext();
 
-module.exports = Context;
+module.exports = {Context, pageContext};

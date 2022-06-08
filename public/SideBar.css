@@ -3,10 +3,10 @@
 	position: fixed;
 	left: 0px;
 	top: 0px;
-	width: 100px;
 	height: 100%;
 	justify-content: center;
 	align-items: center;
+	cursor: pointer;
 }
 
 .side-bar div {
@@ -32,5 +32,23 @@
 
 .picked {
     background-color: rgb(217, 217, 217) !important;
+}
+
+@media screen and (min-width: 601px) {
+	.side-bar {
+		width: 100px;
+	}
+	.side-bar div img{
+		transform: scale(0.85);
+	}
+  }
+
+@media screen and (max-width: 600px) {
+	.side-bar {
+		width: 70px;
+	}
+	.side-bar div img{
+		transform: scale(0.7);
+	}
 }
 

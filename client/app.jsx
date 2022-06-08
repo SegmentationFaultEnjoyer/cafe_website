@@ -1,31 +1,42 @@
 const ReactDOM = require('react-dom/client');
 const React = require('react');
 
-const Context = require('./src/context.jsx');
-const Modal = require('./src/Modal.jsx');
-const Cart = require('./src/Cart.jsx');
-const SideBar = require('./src/SideNavBar.jsx');
+const types = require('./src/helpers/types.js');
+const {pageContext} = require('./src/context.jsx');
+
+const MainPage = require('./src/pages/MainPage.jsx');
+const DeliveryPage = require('./src/pages/DeliveryPage.jsx');
+const AboutPage = require('./src/pages/AboutPage.jsx');
 const TopBar = require('./src/TopBar.jsx');
 
 let root = ReactDOM.createRoot(document.getElementById("app"));
-let info = {
-    name: 'Суп из семи залуп',
-    desc: 'В описании не нуждается',
-    price: 68,
-    img: 'soup'
-}
+
 
 function MainApp() {
-    const [product_count, setCounter] = React.useState(0);
+    const [page, pageSwitcher] = React.useState(types.MAIN_PAGE);
+    let name;
+
+    switch (page) {
+        case types.MAIN_PAGE:
+            name = <MainPage />;
+            break;
+        case types.DELIVERY_PAGE:
+            name = <DeliveryPage />
+            break;
+        case types.ABOUT_PAGE:
+            name = <AboutPage />
+            break;
+        default:
+            name = <h1>404 not found</h1>
+    }
+
     return (
-        <Context.Provider value={{counter: product_count, setCounter}}>
-            <SideBar />
-            <TopBar />
-            <Cart />
-            <div className='main-grid'>
-                <Modal info={info}/>
-            </div>
-        </Context.Provider>
+            <pageContext.Provider value={{page, pageSwitcher}}>
+                <TopBar />
+                {name}
+            </pageContext.Provider>
+
+       
     )
 }
 
