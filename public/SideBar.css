@@ -43,7 +43,7 @@
 	}
   }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 640px) {
 	.side-bar {
 		width: 70px;
 	}

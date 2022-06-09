@@ -6,7 +6,6 @@
     --coffee-color: rgb(164, 104, 32);
 }
 
-
 .price-label {
     font-weight: lighter;
     font-size: 1.25em;
@@ -36,12 +35,6 @@
 
 .column {
 	flex-direction: column;
-}
-
-.main-grid{
-	margin-left: 120px;
-	margin-top: 90px;
-	border: 2px solid red;
 }
 
 input[type="number"] {

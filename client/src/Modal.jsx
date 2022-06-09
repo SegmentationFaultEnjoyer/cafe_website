@@ -25,7 +25,8 @@ class Modal extends AbstractModal {
         let {name, desc, price, img} = this.product_info;
         return (
             this.modal_wrapper(
-                <button onClick={this.change_state}>Open window</button>,
+                <PreviewCard info={this.product_info} onClick={this.change_state}/>
+                ,
                 (<><h1>{name}</h1>
                         <p>{desc}</p>
                         <img className="picture disable-pick" src={`${img}.webp`} alt={img} />
@@ -40,6 +41,22 @@ class Modal extends AbstractModal {
             )
         )
     }
+}
+
+function PreviewCard(props) {
+    let {info, onClick} = props;
+    return (
+        <div className='flex-container column preview disable-select'>
+            <img className="picture disable-pick" src={`${info.img}.webp`} alt={info.img} />
+            <h3>{info.name}</h3>
+            <p className="price-label">{`${info.price} грн`}</p>
+            <button
+                className="addtocart" 
+                onClick={onClick}>
+                <div className="pretext">Замовити</div>
+            </button>
+        </div>
+    )
 }
 
 module.exports = Modal;
