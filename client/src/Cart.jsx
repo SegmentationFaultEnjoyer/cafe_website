@@ -1,4 +1,5 @@
 const AbstractModal = require('./AbsModal.jsx');
+const ProductToBuy = require('./ProductToBuy.jsx');
 const {Context} = require('./helpers/context.jsx');
 require('../../public/Cart.css');
 
@@ -8,18 +9,24 @@ class Cart extends AbstractModal{
     }
 
     render() {
-        let {counter, setCounter} = this.context;
+        let {product_info, addProduct} = this.context;
+        
         return (
             this.modal_wrapper(
                 <button className="round-button" onClick={this.change_state}>
                     <i className="fa fa-shopping-cart"></i>
-                    {counter > 0 && (<span className="count">{counter}</span>)}
+                    {product_info.count > 0 && 
+                    (<span className="count">{product_info.count}</span>)}
                 </button>,
-                (<>
-                    <h1>UNDER CONSTRUCTION</h1>
-                </>)
+                <>  
+                    {product_info.products.length > 0 
+                        ? product_info.products.map(el => {
+                            return <ProductToBuy info={el}/>})
+                        : <h1 style={{textAlign: 'center'}}>Корзина пуста 😔</h1>
+                        }
+                </>
+                )
             )
-        )
     }
 }
 

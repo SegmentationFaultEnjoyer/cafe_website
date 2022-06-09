@@ -12,15 +12,24 @@ let info = {
     img: 'soup'
 }
 
+function init_cart() {
+    return JSON.parse(localStorage.getItem('cart')) ?? {count: 0, products: []};
+     
+}
 
 function MainPage() {
-    const [product_count, setCounter] = React.useState(0);
+    const [product_info, addProduct] = React.useState(init_cart());
+   
     return (
-        <Context.Provider value={{counter: product_count, setCounter}}>
+        <Context.Provider value={{product_info, addProduct}}>
             <SideBar />
             <Cart />
             <div className='main-grid'>
                 <Modal info={info}/>
+                <button onClick={() => {
+                    console.log(localStorage);
+                    localStorage.clear()
+                    }}>CLEAR</button>
             </div>
         </Context.Provider>
     )

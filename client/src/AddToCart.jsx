@@ -19,9 +19,38 @@ class AddToCart extends React.Component {
 
     AddHandler() {
         this.Transition();
-        let {counter, setCounter} = this.context;
-        console.log(`added ${this.counter.current.value} of ${this.info.name}`);
-        setCounter(counter + Number(this.counter.current.value));
+        this.AddToCart();
+    }
+
+    ArrangeCart(product_info) {
+        let products;
+        let same_product = product_info.products.find(el => el.name == this.info.name);
+
+        if(same_product) {
+            same_product.amount += this.info.amount;
+            products = [
+                ...product_info.products.filter(el => el.name != same_product.name), 
+                same_product];
+        }
+        else
+            products = [...product_info.products, {...this.info}];
+
+        return products;
+    }
+
+    AddToCart() {
+        let {product_info, addProduct} = this.context;
+        
+        this.info.amount = Number(this.counter.current.value);
+        let total_amount = product_info.count + this.info.amount;
+        
+        let product = { 
+            count: total_amount,
+            products: this.ArrangeCart(product_info)
+        }
+
+        addProduct(product);
+        localStorage.setItem('cart', JSON.stringify(product));
     }
 
     render() {
