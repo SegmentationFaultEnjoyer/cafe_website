@@ -1,9 +1,9 @@
 const React = require('react');
 const {Context} = require('../helpers/context.jsx');
 
-const Cart = require('../Cart.jsx');
-const SideBar = require('../SideNavBar.jsx');
-const MainGrid = require('../Grid.jsx');
+const Cart = require('../components/Cart.jsx');
+const SideBar = require('../components/SideNavBar.jsx');
+const MainGrid = require('../components/Grid.jsx');
 
 function init_cart() {
     return JSON.parse(localStorage.getItem('cart')) ?? {count: 0, products: []};

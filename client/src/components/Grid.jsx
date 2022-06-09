@@ -1,4 +1,4 @@
-require('../../public/Grid.css');
+require('../../../public/Grid.css');
 const Modal = require('./Modal.jsx');
 
 let info = {

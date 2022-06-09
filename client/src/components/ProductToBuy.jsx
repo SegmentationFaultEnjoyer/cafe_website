@@ -1,4 +1,4 @@
-const {Context} = require('./helpers/context.jsx');
+const {Context} = require('../helpers/context.jsx');
 
 class ProductToBuy extends React.Component {
     constructor(props) {

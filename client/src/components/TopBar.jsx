@@ -1,5 +1,5 @@
-require('../../public/TopBar.css');
-const {pageContext} = require('./helpers/context.jsx');
+require('../../../public/TopBar.css');
+const {pageContext} = require('../helpers/context.jsx');
 
 class TopBar extends React.Component {
     constructor(props) {

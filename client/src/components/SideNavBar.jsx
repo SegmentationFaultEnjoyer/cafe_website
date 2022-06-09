@@ -1,4 +1,4 @@
-require('../../public/SideBar.css');
+require('../../../public/SideBar.css');
 
 class SideNavBar extends React.Component {
     constructor(props) {

@@ -1,7 +1,7 @@
 const AddToCart = require('./AddToCart.jsx');
 const AbstractModal = require('./AbsModal.jsx');
-require('../../public/Modal.css');
-require('../../public/animations.css');
+require('../../../public/Modal.css');
+require('../../../public/animations.css');
 
 class Modal extends AbstractModal {
     constructor(props) {
