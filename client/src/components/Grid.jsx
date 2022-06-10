@@ -2,7 +2,7 @@ require('../../../public/Grid.css');
 const Modal = require('./Modal.jsx');
 
 let info = {
-    name: 'Суп из семи залуп',
+    name: 'CUMPOT',
     desc: 'В описании не нуждается',
     price: 68,
     img: 'soup'

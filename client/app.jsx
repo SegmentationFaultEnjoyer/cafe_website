@@ -36,8 +36,6 @@ function MainApp() {
                 <TopBar />
                 {renderPage}
             </pageContext.Provider>
-
-       
     )
 }
 

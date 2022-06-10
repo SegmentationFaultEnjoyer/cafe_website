@@ -80,7 +80,7 @@ class OrderMaker extends AbstractModal {
                         <label htmlFor="payment" className="placeholder">Оплата</label>
                     </div>
                     <div className='input-container'>
-                            <button type='submit' className='brown checkout-btn'>Замовити</button>
+                        <button type='submit' className='brown checkout-btn'>Замовити</button>
                     </div>
                     
                 </form>

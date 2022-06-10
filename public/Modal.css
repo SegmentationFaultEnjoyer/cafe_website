@@ -32,14 +32,14 @@
 
 .modal-body i:hover {
     cursor: pointer;
-
 }
 
 .closeModal {
-	position: fixed;
+	position: absolute;
+    top: 5%;
+    right: 10%;
 	opacity: 0.2;
 	cursor: pointer;
-    left: 80%;
     transition: opacity ease 0.5s;
 }
 
