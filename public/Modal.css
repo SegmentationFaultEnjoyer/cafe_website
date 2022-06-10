@@ -13,18 +13,33 @@
 }
 
 .modal-body {
+    position: relative;
     padding: 1.5rem;
-    width: 400px;
+    width: 500px;
+    max-height: 80%;
     border-radius: 10px;
     background: whitesmoke;
+    overflow-y: auto;
+}
+
+.fit {
+   max-height: 300px;
+   width: 100%;
+   object-fit: cover;
+   object-position: 0 80%;
+} 
+
+
+.modal-body i:hover {
+    cursor: pointer;
+
 }
 
 .closeModal {
-	position: relative;
-	display: flex;
-    justify-content: flex-end;
+	position: fixed;
 	opacity: 0.2;
 	cursor: pointer;
+    left: 80%;
     transition: opacity ease 0.5s;
 }
 

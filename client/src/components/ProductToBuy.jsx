@@ -12,24 +12,25 @@ class ProductToBuy extends React.Component {
         let {product_info, addProduct} = this.context;
 
         let new_products = product_info.products.filter(el => el.name != this.info.name);
+    
         let updated = {
             count: product_info.count - this.info.amount,
             products: new_products
         }
 
-        addProduct(updated)
-
         localStorage.setItem('cart', JSON.stringify(updated));
-
+        
+        addProduct(updated);
     }
 
     render() {
         return (
-            <div className="flex-container">
+            <div className="cart-product">
                 <p>{this.info.name}</p>
-                <p>{this.info.amount}</p>
-                <p>{this.info.totalPrice}</p>
-                <button onClick={this.deleteHandler}>del</button>
+                <img className="disable-pick" src={`${this.info.img}.webp`} alt={this.info.img} />
+                <p>{`${this.info.amount} шт.`}</p>
+                <p className='price-label'>{`${this.info.totalPrice} ₴`}</p>
+                <i className="fa fa-times-circle-o" onClick={this.deleteHandler}></i>
             </div>
         )
     }

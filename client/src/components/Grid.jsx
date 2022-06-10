@@ -12,7 +12,13 @@ class MainGrid extends React.Component {
     constructor(props) {
         super(props);
         this.items = []; //will be fetched from server
-        this.items = new Array(10).fill(0).map(el => info);
+        this.items = new Array(10).fill(0).map(el => {return {...info}});
+        this.items[0].img = 'sandwich';
+        this.items[0].name = 'Биг Мак';
+        this.items[0].price = 97;
+        this.items[2].img = 'sandwich';
+        this.items[2].name = 'І Мак';
+        this.items[2].price = 97;
     }
 
     render() {

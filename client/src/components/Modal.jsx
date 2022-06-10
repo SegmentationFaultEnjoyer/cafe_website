@@ -29,7 +29,7 @@ class Modal extends AbstractModal {
                 ,
                 (<><h1>{name}</h1>
                         <p>{desc}</p>
-                        <img className="picture disable-pick" src={`${img}.webp`} alt={img} />
+                        <img className="picture disable-pick fit" src={`${img}.webp`} alt={img} />
                         <div className="flex-container">
                             <p className="price-label">{`${price} грн`}</p>
                             <input type="number" ref={this.counter_ref}

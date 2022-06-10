@@ -28,6 +28,9 @@
 }
 
 .preview img {
+    height: 200px;
+    width: 300px;
+	object-fit: cover;
     border-radius: 10px 10px 0 0;
 }
 
@@ -43,10 +46,6 @@
 }
 
 
-@media screen and (min-width: 601px) {
-	
-  }
-
 @media screen and (max-width: 624px) {
 	.main-grid {
         margin-left: 80px;
@@ -54,5 +53,8 @@
     .preview {
         width: 350px;
         justify-self: center;
+    }
+    .preview img {
+        width: 350px;
     }
 }

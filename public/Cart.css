@@ -50,3 +50,39 @@
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
   }
+
+.cart-product {
+	height: 60px;
+	margin-left: 20px;
+	margin-top: 30px;
+	display: grid;
+	grid-template-columns: repeat(5, 90px);
+	grid-template-rows: 70px;
+	column-gap: 15px;
+    justify-content: center;
+    align-items: center;
+	text-align: center;
+}
+
+.cart-product img {
+	border-radius: 10px;
+	height: 60px;
+    width: 70px;
+	object-fit: cover;
+	justify-self: center;
+}
+
+.cart-product p {
+	font-size: 1.1em;
+}
+
+.cart-product i {
+    font-size: 23px;
+}
+
+.sum-label {
+	
+	text-align: right;
+	font-weight: bolder;
+	font-size: 1.2em;
+}

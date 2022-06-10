@@ -1,0 +1,44 @@
+.brown {
+  --btn-bg-1: rgb(239, 134, 59);
+  --btn-bg-2: var(--coffee-color);
+}
+
+.green {
+  --btn-bg-1: lime;
+  --btn-bg-2: green;
+}
+
+.checkout-btn {
+    --clr-font-main: hsla(0 0% 20% / 100);
+    --btn-bg-color: hsla(360 100% 100% / 1);
+    --radii: 0.5em;
+    cursor: pointer;
+    padding: 0.9em 1.4em;
+    min-width: 120px;
+    min-height: 44px;
+    width: 100%;
+    font-size: 1.2em;
+    font-weight: 500;
+    transition: 0.8s;
+    background-size: 280% auto;
+    background-image: linear-gradient(325deg, var(--btn-bg-2) 0%, var(--btn-bg-1) 55%, var(--btn-bg-2) 90%);
+    border: none;
+    border-radius: var(--radii);
+    color: var(--btn-bg-color);
+    box-shadow: 0px 0px 20px rgba(178, 255, 71, 0.5), 0px 5px 5px -1px rgba(103, 220, 40, 0.25), inset 4px 4px 8px rgba(7, 220, 75, 0.5), inset -4px -4px 8px rgba(3, 146, 84, 0.35);
+  }
+  
+  .checkout-btn:hover {
+    background-position: right top;
+  }
+  
+  .checkout-btn:is(:focus, :focus-within,:active) {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--btn-bg-color), 0 0 0 6px var(--btn-bg-2);
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .checkout-btn {
+      transition: linear;
+    }
+  }
