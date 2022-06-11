@@ -1,11 +1,15 @@
 const path = require("path");
+const RELEASE = false;
+
+let mode = RELEASE ? "release" : "development";
+let outputPath = RELEASE ? path.resolve(__dirname, "./public") : "/";
 
 module.exports = {
-    mode: "development",
+    mode: mode,
     entry: "./client/app.jsx", // входная точка - исходный файл
     output:{
         // path: path.resolve(__dirname, "./public"),     // путь к каталогу выходных файлов - папка public
-        path: '/',
+        path: outputPath,
         publicPath: "/",
         filename: "bundle.js"       // название создаваемого файла
     },

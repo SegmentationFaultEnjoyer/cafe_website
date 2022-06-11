@@ -32,10 +32,10 @@ function MainApp() {
     }
     
     return (
-            <pageContext.Provider value={{page, pageSwitcher}}>
-                <TopBar />
-                {renderPage}
-            </pageContext.Provider>
+        <pageContext.Provider value={{page, pageSwitcher}}>
+            <TopBar />
+            {renderPage}
+        </pageContext.Provider>
     )
 }
 

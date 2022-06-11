@@ -23,7 +23,7 @@ class Cart extends AbstractModal{
         setTimeout(() => {
             this.change_state();
             this.setState({MakingOrder: true});
-        }, 500)
+        }, 300)
     }
 
     render() {

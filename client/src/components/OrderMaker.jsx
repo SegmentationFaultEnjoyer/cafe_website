@@ -1,4 +1,5 @@
 const AbstractModal = require('./AbsModal.jsx')
+const ErrorMsg = require('../helpers/ErrorMsg.jsx');
 require('../../../public/Form.css');
 
 class OrderMaker extends AbstractModal {
@@ -12,11 +13,84 @@ class OrderMaker extends AbstractModal {
             phoneNumber: "",
             eMail: "",
             addres: "",
-            isOpen: true
+            isOpen: true,
+            isValid: true
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.select = React.createRef();
+    }
+
+    lengthMatch(length, lengthBoundaries) {
+        return length <= lengthBoundaries.max && length >= lengthBoundaries.min;
+    }
+
+    dataTypeMatch(data, type) {
+        if(!type) return true;
+
+        let RegExp;
+
+        switch(type) {
+            case 'digit':
+                RegExp = /[0-9]/;
+                break;
+            case 'char':
+                RegExp = /[a-zа-яё]/i;
+                break;
+            default:
+                console.warn('Wrong type passed to restrictedSymbol parametr');
+                return false;
+        }
+        return !RegExp.test(data);
+    }
+
+    translatePropToUkr(string, ...props) {
+       const translate = (prop) => {
+            switch(prop) {
+                case 'name':
+                    return "Ім'я";
+                case 'number':
+                    return 'Номер телефону';
+                case 'addres':
+                    return 'Адреса';
+                default:
+                    return 'СЛАВА УКРАЇНІ!';
+            }
+        }
+
+        return props.reduce((finalString, value) => {
+            return `${translate(value)}${finalString}`;
+        }, string[1]);
+    }
+
+    validateForm(formData, validationOptions) {
+        if(validationOptions.length != Object.keys(formData).length) {
+            console.warn('Wrong amount of options passed for validation');
+            return {valid: false, errors: []};
+        }
+
+        let errors = [];
+        let optionCounter = 0;
+
+        for(let key in formData) {
+            let data = formData[key];
+            let option = validationOptions[optionCounter];
+           
+            if(!option) continue;
+
+            if(!this.lengthMatch(data.length, option.length))
+                errors.push(this.translatePropToUkr`${key} має некоректну довжину`);
+
+            if(!this.dataTypeMatch(data, option.restrictedSymbol))
+                errors.push(this.translatePropToUkr`${key} містить заборонений символ`);
+
+            optionCounter++;
+        }
+
+        return {
+            valid: errors.length == 0,
+            errors: errors
+        }
     }
 
     handleSubmit(e) {
@@ -29,8 +103,32 @@ class OrderMaker extends AbstractModal {
             addres: formData.get('addres'),
             payment: this.select.current.selectedIndex
         }
-        console.log('ЗАКАЗЧИК', order);
-        console.log('ЗАКАЗ', this.orderInfo);
+
+        let isValid = this.validateForm(order, [
+            {
+                length: {min: 2, max: 25},
+                restrictedSymbol: 'digit'
+            },
+            {
+                length: {min: 10, max: 13},
+                restrictedSymbol: 'char'
+            },
+            {
+                length: {min: 10, max: 100},
+                restrictedSymbol: null
+            },
+            null
+        ]);
+
+        this.setState({isValid: isValid.valid});
+
+        if(!isValid.valid) {
+            this.errors = isValid.errors;
+            return;
+        }
+
+        console.table(order);
+        console.log(this.orderInfo);
     }
 
     change_state() {
@@ -84,6 +182,7 @@ class OrderMaker extends AbstractModal {
                     </div>
                     
                 </form>
+                {!this.state.isValid && <ErrorMsg errors={this.errors} context={this}/>}
                 </>
             )
         )

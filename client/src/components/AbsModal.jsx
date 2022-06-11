@@ -17,9 +17,9 @@ class AbstractModal extends React.Component {
     fade_out() {
         return new Promise(resolve => {
             if(this.state.isOpen) {
-                this.window.current.style.animationName = 'gone'
-                this.window.current.style.animationDuration = '0.5s'
-                setTimeout(() => {resolve();}, 500);
+                this.window.current.style.animationName = 'gone';
+                this.window.current.style.animationDuration = '0.3s';
+                setTimeout(() => {resolve();}, 300);
             }
             else resolve();
         })
