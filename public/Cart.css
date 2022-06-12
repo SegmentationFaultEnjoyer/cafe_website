@@ -1,5 +1,6 @@
 .round-button {
 	position: fixed;
+	top: 10%;
 	right: 5%;
 	font-weight: 500;
 	font-size: 30px;

@@ -11,6 +11,12 @@
 	/* border: 2px solid red; */
 }
 
+.grid-title {
+    margin-left: 140px;
+    margin-block-start: 40px;
+    color: var(--coffee-color);
+}
+
 .preview {
     padding: 0 0 15px 0;
     border-radius: 20px;

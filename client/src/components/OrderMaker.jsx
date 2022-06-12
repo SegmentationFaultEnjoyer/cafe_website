@@ -14,7 +14,9 @@ class OrderMaker extends AbstractModal {
             eMail: "",
             addres: "",
             isOpen: true,
-            isValid: true
+            _nameInput: this.nameInput,
+            _phoneInput: this.phoneInput,
+            _addresInput: this.addresInput
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -75,14 +77,17 @@ class OrderMaker extends AbstractModal {
         for(let key in formData) {
             let data = formData[key];
             let option = validationOptions[optionCounter];
-           
+            let error_list = [];
+
             if(!option) continue;
 
             if(!this.lengthMatch(data.length, option.length))
-                errors.push(this.translatePropToUkr`${key} має некоректну довжину`);
+                error_list.push(this.translatePropToUkr`${key} має некоректну довжину`);
+ 
+            else if(!this.dataTypeMatch(data, option.restrictedSymbol))
+                error_list.push(this.translatePropToUkr`${key} містить заборонений символ`);
 
-            if(!this.dataTypeMatch(data, option.restrictedSymbol))
-                errors.push(this.translatePropToUkr`${key} містить заборонений символ`);
+            if(error_list.length > 0) errors.push({field: key, list: error_list});
 
             optionCounter++;
         }
@@ -93,18 +98,44 @@ class OrderMaker extends AbstractModal {
         }
     }
 
+    showErrors(errors) {
+        for(let error of errors) {
+            let error_list = error.list.map(error => {
+                return <p className='error'>{error}</p>
+            })
+
+            switch(error.field) {
+                case 'name':
+                    if(this.state._nameInput.length <= 3)
+                    this.setState({_nameInput: [...this.state._nameInput, error_list]});
+                    break;
+                case 'number':
+                    if(this.state._phoneInput.length <= 3)
+                    this.setState({_phoneInput: [...this.state._phoneInput, error_list]});
+                    break;
+                case 'addres':
+                    if(this.state._addresInput.length <= 3)
+                    this.setState({_addresInput: [...this.state._addresInput, error_list]});
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+    }
+
+    CleanErrors = () => {
+        for(let key in this.state) {
+            if(key.toString()[0] == '_' && this.state[key].length > 3) {
+                this.setState({[key] : this.state[key].splice(0, 3)})
+            }
+        }   
+    }
+
     handleSubmit(e) {
         e.preventDefault();
-        const formData = new FormData(e.target);
 
-        let order = {
-            name: formData.get('name'),
-            number: formData.get('phoneNumber'),
-            addres: formData.get('addres'),
-            payment: this.select.current.selectedIndex
-        }
-
-        let isValid = this.validateForm(order, [
+        const validationOptions = [
             {
                 length: {min: 2, max: 25},
                 restrictedSymbol: 'digit'
@@ -118,12 +149,21 @@ class OrderMaker extends AbstractModal {
                 restrictedSymbol: null
             },
             null
-        ]);
+        ];
 
-        this.setState({isValid: isValid.valid});
+        const formData = new FormData(e.target);
+
+        let order = {
+            name: formData.get('name'),
+            number: formData.get('phoneNumber'),
+            addres: formData.get('addres'),
+            payment: this.select.current.selectedIndex
+        }
+
+        let isValid = this.validateForm(order, validationOptions);
 
         if(!isValid.valid) {
-            this.errors = isValid.errors;
+            this.showErrors(isValid.errors);
             return;
         }
 
@@ -140,6 +180,24 @@ class OrderMaker extends AbstractModal {
             .catch((error) => console.error(error));
     }
 
+    nameInput = [
+        <input className='input' type="text" name='name' placeholder=" " onFocus={this.CleanErrors}/>,
+        <div className="cut cut-short"></div>,
+        <label htmlFor="name" className="placeholder">Ім'я</label>
+    ]
+
+    phoneInput = [
+        <input className='input' type="tel" name="phoneNumber" placeholder=" " onFocus={this.CleanErrors}/>,
+        <div className="cut cut-long"></div>,
+        <label htmlFor="phoneNumber" className="placeholder">Номер телефону</label>
+    ]
+
+    addresInput = [
+        <input className='input' type="text" name="addres" placeholder=" " onFocus={this.CleanErrors} />,
+        <div className="cut"></div>,
+        <label htmlFor="addres" className="placeholder">Адреса</label>
+    ]
+
     render() {
         return (
             this.modal_wrapper(<></>, 
@@ -147,9 +205,7 @@ class OrderMaker extends AbstractModal {
                 <h1 className='title'>Оформлення замовлення</h1>
                 <form onSubmit={this.handleSubmit} className="form">
                     <div className='input-container'>
-                        <input className='input' type="text" name='name' placeholder=" "/>
-                        <div className="cut cut-short"></div>
-                        <label htmlFor="name" className="placeholder">Ім'я</label>
+                        {this.state._nameInput}
                     </div>
                     {/* <div className='input-container'>
                         <input className='input' type="email" name="email" placeholder=" "/>
@@ -157,14 +213,10 @@ class OrderMaker extends AbstractModal {
                         <label htmlFor="email" className="placeholder">Пошта</label>
                     </div> */}
                     <div className='input-container'>
-                        <input className='input' type="tel" name="phoneNumber" placeholder=" " />
-                        <div className="cut cut-long"></div>
-                        <label htmlFor="phoneNumber" className="placeholder">Номер телефону</label>
+                        {this.state._phoneInput}
                     </div>
                     <div className='input-container'>
-                        <input className='input' type="text" name="addres" placeholder=" " />
-                        <div className="cut"></div>
-                        <label htmlFor="addres" className="placeholder">Адреса</label>
+                        {this.state._addresInput}
                     </div>
                     <div className='input-container'>
                         <select className='input' name='payment'
@@ -182,7 +234,6 @@ class OrderMaker extends AbstractModal {
                     </div>
                     
                 </form>
-                {!this.state.isValid && <ErrorMsg errors={this.errors} context={this}/>}
                 </>
             )
         )

@@ -19,17 +19,23 @@ class MainGrid extends React.Component {
         this.items[2].img = 'sandwich';
         this.items[2].name = 'І Мак';
         this.items[2].price = 97;
+        
+        this.title = 'Популярні позиції';
     }
 
     render() {
         return (
-            <div className='main-grid'>
+            <>
+             <h1 className='grid-title disable-select'>{this.title}</h1>
+             <div className='main-grid'>
                 {this.items.map(el => <Modal info={el} />)}
                 <button onClick={() => {
                     console.log(localStorage);
                     localStorage.clear()
                     }}>CLEAR</button>
             </div>
+            </>
+           
         )
     }
 }

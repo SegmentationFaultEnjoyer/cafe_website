@@ -5,6 +5,7 @@
     width: 320px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 20px;
   }
 
 .title {
@@ -13,11 +14,20 @@
     color: var(--coffee-color);
 }
 
+.error {
+  display: inline-block;
+  color: red;
+  margin-block-start: 2px;
+  margin-block-end: 2px;
+  padding-left: 10px;
+  width: 400px;
+}
+
 .input-container {
     height: 50px;
     position: relative;
     width: 100%;
-    margin-top: 40px;
+    margin-top: 45px;
 }
 
 .input {
