@@ -1,34 +1,62 @@
 require('../../../public/Grid.css');
 const Modal = require('./Modal.jsx');
-
-let info = {
-    name: 'CUMPOT',
-    desc: 'В описании не нуждается',
-    price: 68,
-    img: 'soup'
-}
+const {mainPageContext} = require('../helpers/context.jsx');
+const type = require('../helpers/types.js');
+const GeneratorID = require('../helpers/id_generator.js');
 
 class MainGrid extends React.Component {
     constructor(props) {
         super(props);
-        this.items = []; //will be fetched from server
-        this.items = new Array(10).fill(0).map(el => {return {...info}});
+        this.items = props.items;
         this.items[0].img = 'sandwich';
         this.items[0].name = 'Биг Мак';
         this.items[0].price = 97;
+        this.items[0].category = type.SANDWHICH;
         this.items[2].img = 'sandwich';
         this.items[2].name = 'І Мак';
         this.items[2].price = 97;
+        this.items[2].category = type.SANDWHICH;
+    }
+
+    getTitle(category) {
+        switch(category) {
+            case type.COFFEE:
+                return 'Кава';
+            case type.ICE_COFFEE:
+                return 'Холодна кава';
+            case type.TEA:
+                return 'Не кавові напої';
+            case type.LEMONADE:
+                return 'Холодні напої';
+            case type.MILKSHAKE:
+                return 'Молочні коктейлі';
+            case type.SANDWHICH:
+                return 'Сендвічі';
+            case type.SALAD:
+                return 'Салати';
+            case type.BOUL:
+                return 'Боули';
+            case type.BREAKFAST:
+                return 'Сніданки';
+            default:
+                return 'Популярні позиції'
+        }
+    }
+
+    getItemsList(category) {
+        if(category == 0) return this.items;
         
-        this.title = 'Популярні позиції';
+        return this.items.filter(item => item.category === category);
     }
 
     render() {
+        let {pickedCategory} = this.context;
+        
         return (
             <>
-             <h1 className='grid-title disable-select'>{this.title}</h1>
+             <h1 className='grid-title disable-select'>{this.getTitle(pickedCategory)}</h1>
              <div className='main-grid'>
-                {this.items.map(el => <Modal info={el} />)}
+                {this.getItemsList(pickedCategory).map(el => <Modal info={el} key={GeneratorID.next().value}/>)}
                 <button onClick={() => {
                     console.log(localStorage);
                     localStorage.clear()
@@ -40,5 +68,6 @@ class MainGrid extends React.Component {
     }
 }
 
+MainGrid.contextType = mainPageContext;
 
 module.exports = MainGrid;

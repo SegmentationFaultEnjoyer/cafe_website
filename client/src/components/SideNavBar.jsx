@@ -1,18 +1,20 @@
 require('../../../public/SideBar.css');
+const {mainPageContext} = require('../helpers/context.jsx');
+const type = require('../helpers/types.js');
 
 class SideNavBar extends React.Component {
     constructor(props) {
         super(props);
         let icons = [
-            'coffee',
-            'iced-coffee',
-            'tea',
-            'lemonade',
-            'milkshake',
-            'sandwhich',
-            'salad',
-            'boul',
-            'breakfast'
+            {name: 'coffee', type: type.COFFEE},
+            {name: 'iced-coffee', type: type.ICE_COFFEE},
+            {name: 'tea', type: type.TEA},
+            {name: 'lemonade', type: type.LEMONADE},
+            {name: 'milkshake', type: type.MILKSHAKE},
+            {name: 'sandwhich', type: type.SANDWHICH},
+            {name: 'salad', type: type.SALAD},
+            {name: 'boul', type: type.BOUL},
+            {name: 'breakfast', type: type.BREAKFAST},
         ]
         
         this.picked = null;
@@ -21,7 +23,8 @@ class SideNavBar extends React.Component {
         class NavBarEl extends React.Component  {
             constructor(props) {
                 super(props);
-                this.value = props.value;
+                this.value = props.value.name;
+                this.type = props.value.type;
                 this.state = {isActive : false}
                 this.ClickHandler = this.ClickHandler.bind(this);
             }
@@ -31,7 +34,13 @@ class SideNavBar extends React.Component {
                     SideBar.depickPrevious();
                     SideBar.picked = this;
                     this.ChangeState();
+                    this.ChangeItemsCategory();
                 }   
+            }
+
+            ChangeItemsCategory() {
+                let {changeCategory} = this.context;
+                changeCategory(this.type);
             }
 
             ChangeState() {
@@ -48,6 +57,8 @@ class SideNavBar extends React.Component {
                         </div>)
             }
         }
+
+        NavBarEl.contextType = mainPageContext;
 
         this.els = [];
 
