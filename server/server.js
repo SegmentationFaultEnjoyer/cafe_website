@@ -2,6 +2,8 @@ const get_host = require('./helpers/get_host');
 
 const PORT = process.env.PORT ?? 8080;
 const HOST = get_host();
+const DataBase = require('./mongodb/db');
+DataBase.connect();
 
 const { 
     express, 

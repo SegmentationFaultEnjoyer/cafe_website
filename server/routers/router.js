@@ -4,4 +4,6 @@ const controller = require('../controllers/controller');
 
 router.get('/', controller.ShowMainPage);
 
+router.get('/getItems', controller.GetItems);
+
 module.exports = router;

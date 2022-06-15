@@ -347,11 +347,12 @@ class Database {
         ])
     }
     async getProducts() {
-        return await this.items.find();
+        return await this.items.find().toArray();
     }
     async close() {
         await this.client.close()
     }
+
 }
 // async function main() {
 //     let db = new Database();
