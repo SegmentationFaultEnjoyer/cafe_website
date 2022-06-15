@@ -51,7 +51,7 @@ class MainGrid extends React.Component {
 
     render() {
         let {pickedCategory} = this.context;
-        
+        console.log('render grid');
         return (
             <>
              <h1 className='grid-title disable-select'>{this.getTitle(pickedCategory)}</h1>

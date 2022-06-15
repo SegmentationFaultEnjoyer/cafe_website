@@ -29,7 +29,7 @@ class Cart extends AbstractModal{
     render() {
         let {product_info} = this.context;
         let price = this.countTotalPrice(product_info.products);
-
+        console.log('render cart');
         return (
             this.modal_wrapper(
                 <>

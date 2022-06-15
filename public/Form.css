@@ -91,3 +91,8 @@
   .input:focus ~ .placeholder {
     color: #dc2f55;
   }
+
+
+  @media screen and (max-width: 624px) {
+    
+  }

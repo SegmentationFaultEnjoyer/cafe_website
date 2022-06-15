@@ -64,3 +64,9 @@
 .closeModal::after {
 	transform: rotate(-45deg);
 }
+
+@media screen and (max-width: 624px) {
+    .modal-body {
+        width: 80%;
+    }
+}

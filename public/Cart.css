@@ -87,3 +87,9 @@
 	font-weight: bolder;
 	font-size: 1.2em;
 }
+
+@media screen and (max-width: 624px) {
+	.cart-product {
+		grid-template-columns: repeat(5, 70px);
+	}
+}
