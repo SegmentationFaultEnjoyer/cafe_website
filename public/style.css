@@ -1,5 +1,13 @@
 #app {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	scroll-behavior: smooth;
+}
+
+.logo {
+	width: 350px;
+	position: absolute;
+	right: 0;
+	top: 0;
 }
 
 .disable-interactions {
@@ -62,4 +70,10 @@ input[type="number"] {
  
 input[type="number"]:focus {
 	outline: 2px solid green;
+}
+
+@media screen and (max-width: 768px) {
+    .logo {
+		display: none;
+	}
 }

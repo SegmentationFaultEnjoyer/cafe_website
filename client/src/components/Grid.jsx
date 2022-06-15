@@ -2,7 +2,6 @@ require('../../../public/Grid.css');
 const Modal = require('./Modal.jsx');
 const {mainPageContext} = require('../helpers/context.jsx');
 const type = require('../helpers/types.js');
-const GeneratorID = require('../helpers/id_generator.js');
 
 class MainGrid extends React.Component {
     constructor(props) {
@@ -38,7 +37,6 @@ class MainGrid extends React.Component {
 
     getItemsList(category) {
         if(category == 0) return this.items;
-        console.log(this.items.filter(item => item.type === category));
         return this.items.filter(item => item.type === category);
     }
 

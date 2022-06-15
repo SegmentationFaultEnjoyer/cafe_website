@@ -28,20 +28,20 @@ class Modal extends AbstractModal {
             this.modal_wrapper(
                 <PreviewCard info={this.product_info} onClick={this.change_state}/>
                 ,
-                (<><h1>{name}</h1>
-                        <p>{desc}</p>
-                        <img className="picture fit disable-pick" src={img} alt={img} 
-                            onError={(e) => {e.target.src = 'not_found.webp'}}/>
-                        <div className="flex-container">
-                            <p className="price-label">{`${price} грн`}</p>
-                            <input type="number" ref={this.counter_ref}
-                                    defaultValue={1} min={1} max={25} 
-                                    onChange={this.CounterHandler}
-                                    />
-                            <AddToCart counter={this.counter_ref} info={this.product_info}/>
-                        </div>
-                        
-                        </>)
+                (<>     
+                    <h1>{name}</h1>
+                    <p>{desc}</p>
+                    <img className="picture fit disable-pick" src={img} alt={img}
+                        onError={(e) => {e.target.src = 'not_found.webp'}}/>
+                    <div className="flex-container">
+                        <p className="price-label">{`${price} грн`}</p>
+                        <input type="number" ref={this.counter_ref}
+                            defaultValue={1} min={1} max={25} 
+                            onChange={this.CounterHandler}
+                            />
+                        <AddToCart counter={this.counter_ref} info={this.product_info}/>
+                    </div>
+                </>)
             )
         )
     }

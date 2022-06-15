@@ -1,7 +1,6 @@
 const React = require('react');
 const {Context, mainPageContext} = require('../helpers/context.jsx');
 
-
 const type = require('../helpers/types.js');
 
 const Cart = require('../components/Cart.jsx');
@@ -23,31 +22,29 @@ let info = {
     img: 'soup'
 }
 
-let items_list = [];
-
 function MainPage() {
     const [product_info, addProduct] = React.useState(init_cart());
     const [pickedCategory, changeCategory] = React.useState(0);
     const [isLoading, setLoading] = React.useState(true);
+    const [gridItems, setGridItems] = React.useState([]);
     // let items = new Array(10).fill(0).map(el => {return {...info}});
     
     React.useEffect(() => {
         fetch('getItems')
             .then((items) => items.json())
             .then(({products}) => {
-                console.log(products);
-                items_list = products;
+                setGridItems(products);
                 setLoading(false);
             })
     }, []);
    
-    console.log('render MAinPage');
     return (
         <Context.Provider value={{product_info, addProduct}}>
-            <mainPageContext.Provider value={{pickedCategory, changeCategory}}>
+            <img className='logo disable-interactions' src='logo/logo.png' alt='logo'></img>
+            <mainPageContext.Provider value={{pickedCategory, changeCategory, gridItems, setGridItems}}>
                 <SideBar />
                 <Search />
-                {isLoading ? <Loader /> : <MainGrid items={items_list}/>}
+                {isLoading ? <Loader /> : <MainGrid items={gridItems}/>}
             </mainPageContext.Provider>
             <Cart />
         </Context.Provider>

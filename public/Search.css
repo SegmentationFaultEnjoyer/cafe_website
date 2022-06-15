@@ -42,6 +42,7 @@
 .search__input::placeholder {
     color: color(#575756 a(0.8));
     font-size: 18px;
+    user-select: none;
 }
 
 .search__input:focus {
@@ -55,6 +56,7 @@
 
 @media screen and (max-width: 624px) {
     .search__container {
-        margin-left: 100px
+        margin-left: 100px;
+        width: 60%;
     }
 }

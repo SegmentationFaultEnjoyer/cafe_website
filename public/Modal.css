@@ -16,10 +16,10 @@
     position: relative;
     padding: 1.5rem;
     width: 500px;
-    
     border-radius: 10px;
     background: whitesmoke;
-    
+    max-height: 90%;
+    overflow-y: auto;
 }
 
 .fit {
