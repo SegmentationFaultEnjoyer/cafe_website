@@ -354,15 +354,15 @@ class Database {
     }
 
 }
-async function main() {
-    let db = new Database();
-    await db.connect();
-    await db.setProducts();
-    let res = await db.getProducts();
-    //await res.forEach(doc => console.dir(doc))
-    console.log(res);
-    await db.close();
-}
-main();
+// async function main() {
+//     let db = new Database();
+//     await db.connect();
+//     await db.setProducts();
+//     let res = await db.getProducts();
+//     //await res.forEach(doc => console.dir(doc))
+//     console.log(res);
+//     await db.close();
+// }
+// main();
 
 module.exports = new Database();

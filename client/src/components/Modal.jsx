@@ -30,7 +30,8 @@ class Modal extends AbstractModal {
                 ,
                 (<><h1>{name}</h1>
                         <p>{desc}</p>
-                        <img className="picture fit disable-pick" src={`${img}.webp`} alt={img} />
+                        <img className="picture fit disable-pick" src={img} alt={img} 
+                            onError={(e) => {e.target.src = 'not_found.webp'}}/>
                         <div className="flex-container">
                             <p className="price-label">{`${price} грн`}</p>
                             <input type="number" ref={this.counter_ref}
@@ -50,8 +51,11 @@ function PreviewCard(props) {
     let {info, onClick} = props;
     return (
         <div className='flex-container column preview disable-select'>
-            <img className="picture disable-pick" src={`${info.img}.webp`} alt={info.img} />
-            <h3>{info.name}</h3>
+            <img className="picture disable-pick" src={info.img} alt={info.img} 
+                onError={(e) => {e.target.src = 'not_found.webp'}} />
+            <div className='title-container'>
+                <h3>{info.name}</h3>
+            </div>
             <p className="price-label">{`${info.price} грн`}</p>
             <button
                 className="addtocart" 

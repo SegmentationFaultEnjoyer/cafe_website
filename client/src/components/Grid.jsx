@@ -9,14 +9,6 @@ class MainGrid extends React.Component {
         super(props);
         this.items = props.items;
         console.log(this.items);
-        this.items[0].img = 'sandwich';
-        this.items[0].name = 'Биг Мак';
-        this.items[0].price = 97;
-        this.items[0].category = type.SANDWHICH;
-        this.items[2].img = 'sandwich';
-        this.items[2].name = 'І Мак';
-        this.items[2].price = 97;
-        this.items[2].category = type.SANDWHICH;
     }
 
     getTitle(category) {
@@ -46,7 +38,7 @@ class MainGrid extends React.Component {
 
     getItemsList(category) {
         if(category == 0) return this.items;
-        
+        console.log(this.items.filter(item => item.type === category));
         return this.items.filter(item => item.type === category);
     }
 
@@ -57,7 +49,7 @@ class MainGrid extends React.Component {
             <>
              <h1 className='grid-title disable-select'>{this.getTitle(pickedCategory)}</h1>
              <div className='main-grid'>
-                {this.getItemsList(pickedCategory).map((el, i) => <Modal info={el} key={i}/>)}
+                {this.getItemsList(pickedCategory).map(el => <Modal info={el} key={el._id}/>)}
                 <button onClick={() => {
                     console.log(localStorage);
                     localStorage.clear()

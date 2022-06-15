@@ -62,11 +62,11 @@
 
 @media screen and (max-width: 640px) {
 	.top-bar a div p {
-		font-size: 3vw;
+		font-size: 4vw;
 	}
 	.top-bar {
-		width: 50%;
-		margin-left: 80px;
+		width: 70%;
+		margin-left: 100px;
 	}
 }
 

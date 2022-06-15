@@ -27,7 +27,7 @@ class ProductToBuy extends React.Component {
         return (
             <div className="cart-product">
                 <p>{this.info.name}</p>
-                <img className="disable-pick" src={`${this.info.img}.webp`} alt={this.info.img} />
+                <img className="disable-pick" src={this.info.img} alt={this.info.img} />
                 <p>{`${this.info.amount} шт.`}</p>
                 <p className='price-label'>{`${this.info.totalPrice} ₴`}</p>
                 <i className="fa fa-times-circle-o" onClick={this.deleteHandler}></i>

@@ -52,3 +52,9 @@
     border-radius: 0;
     background-position: 100% center;
 }
+
+@media screen and (max-width: 624px) {
+    .search__container {
+        margin-left: 100px
+    }
+}
