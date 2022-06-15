@@ -23,6 +23,7 @@ class Modal extends AbstractModal {
 
     render() {
         let {name, desc, price, img} = this.product_info;
+        console.log('render modal');
         return (
             this.modal_wrapper(
                 <PreviewCard info={this.product_info} onClick={this.change_state}/>

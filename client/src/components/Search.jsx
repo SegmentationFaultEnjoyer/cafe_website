@@ -26,6 +26,12 @@ class Search extends React.Component {
         this.search.current.value = "";
     }
 
+    find(items, searchValue) {
+        return items.filter(item => {
+            return item.name.toLowerCase().includes(searchValue.toLowerCase());
+        })
+    }
+
     render() {
         return (
             <div className="search__container">

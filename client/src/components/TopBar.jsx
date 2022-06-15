@@ -1,5 +1,6 @@
 require('../../../public/TopBar.css');
-const {pageContext} = require('../helpers/context.jsx');
+const type = require('../helpers/types.js');
+const {Link} = require('react-router-dom');
 
 class TopBar extends React.Component {
     constructor(props) {
@@ -17,22 +18,32 @@ class TopBar extends React.Component {
             constructor(props) {
                 super(props);
                 this.value = props.value;
-                this.state = {isActive : this.value == 'Головна'};
+                this.state = {isActive : props.page_type === type.MAIN_PAGE};
                 TopBar.picked = TopBar.picked ?? this; 
                 //TopBar.picked = TopBar.picked != null ? TopBar.picked : this; 
                 this.page = props.page_type;
-
+                this.route = this.getRoute();
                 this.ClickHandler = this.ClickHandler.bind(this);
+            }
+
+            getRoute() {
+                switch(this.page) {
+                    case type.MAIN_PAGE:
+                        return '/';
+                    case type.DELIVERY_PAGE:
+                        return 'delivery';
+                    case type.ABOUT_PAGE:
+                        return 'about';
+                    default:
+                        return 'not_found';
+                }
             }
 
             ClickHandler() {
                 if(!this.state.isActive) {
                     TopBar.depickPrevious();
                     TopBar.picked = this;
-                    let {pageSwitcher} = this.context;
-
                     this.ChangeState();
-                    pageSwitcher(this.page);
                 }   
             }
 
@@ -43,16 +54,18 @@ class TopBar extends React.Component {
             render() {
                 let class_name = this.state.isActive ? 'picked_top' : '';
                 return (
-                    <div onClick={this.ClickHandler} className={class_name}>
-                        <p>{this.value}</p>
-                    </div>
+                    <Link to={this.route} className={class_name}>
+                        <div onClick={this.ClickHandler}>
+                            <p>{this.value}</p>
+                        </div>
+                    </Link>
+                    
                 )
             }
         }
-        NavBarEl.contextType = pageContext;
 
         for(let i = 0; i < els.length; i++) {
-            this.els.push(<NavBarEl value={els[i]} page_type={i}/>)
+            this.els.push(<NavBarEl value={els[i]} page_type={i} key={i}/>)
         }
     }
 

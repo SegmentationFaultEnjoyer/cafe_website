@@ -24,8 +24,9 @@ let info = {
 function MainPage() {
     const [product_info, addProduct] = React.useState(init_cart());
     const [pickedCategory, changeCategory] = React.useState(0);
-
     let items = new Array(10).fill(0).map(el => {return {...info}});
+    
+    console.log('render mainpage');
     return (
         <Context.Provider value={{product_info, addProduct}}>
             <mainPageContext.Provider value={{pickedCategory, changeCategory}}>

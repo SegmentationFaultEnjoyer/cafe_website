@@ -6,7 +6,7 @@
     column-gap: 100px;
     justify-content: center;
     align-items: center;
-	margin-left: 100px;
+	margin-left: 120px;
 	margin-top: 40px;
 	/* border: 2px solid red; */
 }
@@ -57,10 +57,10 @@
         margin-left: 80px;
     }
     .preview {
-        width: 350px;
+        width: 65vw;
         justify-self: center;
     }
     .preview img {
-        width: 350px;
+        width: 65vw;
     }
 }
