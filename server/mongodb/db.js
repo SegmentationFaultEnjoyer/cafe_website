@@ -21,7 +21,7 @@ class Database {
                 desc: "Свіжий тунець, запечена картопля, спаржева квасоля, половинка булочки бейгл, смажене яйце, фета, оливки, свіжі овочі, ромен, зелене масло, лимон.",
                 price: 210,
                 type: type,
-                img: "tuna_nisuaz",
+                img: "tuna_nisuaz.webp",
                 extras: [{
                     name: "смажене яйце",
                     price: 10
@@ -32,7 +32,7 @@ class Database {
                 desc: "Слабосолений лосось, половинка авокадо, крем-сир, мікс оливок, огірок, помідор, мікс салату, оливкова олія, смажене яйце, булочка бейгл. В додатках може додати ще додаткове смажене яйце або замінити його на скрамбл з двох яєць.",
                 price: 200,
                 type: type,
-                img: "continental_breakfast_with_salmon",
+                img: "continental_breakfast_with_salmon.webp",
                 extras: [{
                     name: "смажене яйце",
                     price: 10
@@ -55,7 +55,7 @@ class Database {
                 desc: "Прошуто, половинка авокадо, крем-сир, мікс оливок, огірок, помідор, мікс салату, оливкова олія, смажене яйце, булочка бейгл. В додатках може додати ще додаткове смажене яйце або замінити його на скрамбл з двох яєць.",
                 price: 200,
                 type: type,
-                img: "continental_breakfast_with_prosciutto",
+                img: "continental_breakfast_with_prosciutto.webp", //нет фото
                 extras: [{
                     name: "смажене яйце",
                     price: 10
@@ -74,7 +74,7 @@ class Database {
                 desc: "Скрамбл з двох яєць, на тості з вугільного хліба, креветки на грилі, половинка авокадо,міні салат, кулька рікоти.",
                 price: 200,
                 type: type,
-                img: "scramble_avocado_shrimp",
+                img: "scramble_avocado_shrimp.webp",
                 extras: [{
                     name: "креветки",
                     price: 65
@@ -93,7 +93,7 @@ class Database {
                 desc: "Мікс м'яса (курка, індичка, телятина), омлет з трьох яєць на вершках та вершковому маслі, зелене масло, міні салат(листовий мікс з сезонними овочами та фруктами, заправлений лимонним дресінгом та міксом насіння і горіхів) та два шматочки хліба на грилі",
                 price: 150,
                 type: type,
-                img: "meat_omelet",
+                img: "meat_omelet.webp",
                 extras: [{
                     name: "моцарела",
                     price: 40
@@ -105,10 +105,10 @@ class Database {
             },
             {
                 name: "Омлет сирний",
-                desc: "моцарела, бринза, кулька рікоти, дор блю, омлет з трьох яєць на вершках та вершковому маслі, зелене масло, міні салат(листовий мікс з сезонними овочами та фруктами, заправлений лимонним дресінгом та міксом насіння і горіхів) та два шматочки хліба на грилі",
+                desc: "Моцарела, бринза, кулька рікоти, дор блю, омлет з трьох яєць на вершках та вершковому маслі, зелене масло, міні салат(листовий мікс з сезонними овочами та фруктами, заправлений лимонним дресінгом та міксом насіння і горіхів) та два шматочки хліба на грилі",
                 price: 150,
                 type: type,
-                img: "cheese_omelette",
+                img: "cheese_omelette.webp",
                 extras: [{
                     name: "курка",
                     price: 35
@@ -127,11 +127,11 @@ class Database {
                 }]
             },
             {
-                name: "скрамбл на тості",
-                desc: "грінка з бездріжджового хліба, скрамб з трьох яєць з вершками, смажений на вершковому маслі, зелене масло, міні салат(листовий мікс з сезонними овочами та фруктами, заправлений лимонним дресінгом та міксом насіння і горіхів)",
+                name: "Скрамбл на тості",
+                desc: "Грінка з бездріжджового хліба, скрамб з трьох яєць з вершками, смажений на вершковому маслі, зелене масло, міні салат(листовий мікс з сезонними овочами та фруктами, заправлений лимонним дресінгом та міксом насіння і горіхів)",
                 price: 130,
                 type: type,
-                img: "scramble_on_toast",
+                img: "scramble_on_toast.webp",
                 extras: [{
                     name: "моцарела",
                     price: 40
@@ -166,7 +166,7 @@ class Database {
                 desc: "Тост з бездріжджового хліба, хумус, авокадо, огірок, боби едамаме, оливки, спаржева квасоля або броколі, мікс зелені.",
                 price: 150,
                 type: type,
-                img: "green_toast",
+                img: "green_toast.webp",
                 extras: [{
                     name: "авокадо",
                     price: 45
@@ -197,11 +197,11 @@ class Database {
                 }]
             },
             {
-                name: "шакшука",
-                desc: "томатно-овочеве рагу, подвійна яєшня, зелене масло, міні салат(листовий мікс з сезонними овочами та фруктами, заправлений лимонним дресінгом та міксом насіння і горіхів) та два шматочки хліба на грилі",
+                name: "Шакшука",
+                desc: "Томатно-овочеве рагу, подвійна яєшня, зелене масло, міні салат(листовий мікс з сезонними овочами та фруктами, заправлений лимонним дресінгом та міксом насіння і горіхів) та два шматочки хліба на грилі",
                 price: 150,
                 type: type,
-                img: "shakshuka",
+                img: "shakshuka.webp",
                 extras: [{
                     name: "моцарела",
                     price: 40
@@ -237,7 +237,7 @@ class Database {
                 desc: "Булочка бріош, курка печена, помідор, зелене масло, соус ніжний карі, листя салату",
                 price: 110,
                 type: type,
-                img: "chicken_sandwich",
+                img: "chicken_sandwich.webp",
                 extras: [{
                     name: "моцарела",
                     price: 40
@@ -253,7 +253,7 @@ class Database {
                 desc: "Булка бріош, індичка печена, грильований кабачок, зелене масло, соус ніжний карі, листя салату",
                 price: 120,
                 type: type,
-                img: "turkey_sandwich",
+                img: "turkey_sandwich.webp",
                 extras: [{
                     name: "моцарела",
                     price: 40
@@ -273,7 +273,7 @@ class Database {
                 desc: "Булка бейгл, рікота, моцарела, томати, зелене масло, листя салату/шпинат",
                 price: 120,
                 type: type,
-                img: "mozzarella_sandwich",
+                img: "mozzarella_sandwich.webp",
                 extras: [{
                     name: "курка",
                     price: 35
@@ -301,7 +301,7 @@ class Database {
                 desc: "Булка бейгл, рікота, слабосолений лосось, свіжий огірок, зелене масло, тапенад з темних маслин, листя салату/шпинат",
                 price: 140,
                 type: type,
-                img: "salmon_sandwich",
+                img: "salmon_sandwich.webp",
                 options: [{name: "булка/хліб", contains: ["бейгл", "бріош", "хліб вугільний пшеничний"]}]
             },
             {
@@ -309,7 +309,7 @@ class Database {
                 desc: "Булка бейгл, тунець у власному соці, мариновий огірок, яйце варене, соус солодко-пряний, зелене масло, листя салату/шпинату",
                 price: 135,
                 type: type,
-                img: "tuna_sandwich",
+                img: "tuna_sandwich.webp",
                 extras: [{
                     name: "моцарела",
                     price: 40
@@ -321,7 +321,7 @@ class Database {
                 desc: "Булка бейгл, рікота, фета, тапенад з темних маслин, помідори, зелене масло, листя салату",
                 price: 120,
                 type: type,
-                img: "feta_sandwich",
+                img: "feta_sandwich.webp",
                 extras: [{
                     name: "курка",
                     price: 35
@@ -354,14 +354,15 @@ class Database {
     }
 
 }
-// async function main() {
-//     let db = new Database();
-//     await db.connect();
-//     //await db.setProducts();
-//     let res = await db.getProducts();
-//     await res.forEach(doc => console.dir(doc))
-//     await db.close();
-// }
-// main();
+async function main() {
+    let db = new Database();
+    await db.connect();
+    await db.setProducts();
+    let res = await db.getProducts();
+    //await res.forEach(doc => console.dir(doc))
+    console.log(res);
+    await db.close();
+}
+main();
 
 module.exports = new Database();
