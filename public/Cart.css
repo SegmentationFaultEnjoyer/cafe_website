@@ -1,6 +1,6 @@
 .round-button {
 	position: fixed;
-	top: 10%;
+	top: 20%;
 	right: 5%;
 	font-weight: 500;
 	font-size: 30px;
@@ -50,6 +50,7 @@
     color: white;
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
+	user-select: none;
   }
 
 .cart-product {
@@ -90,6 +91,6 @@
 
 @media screen and (max-width: 624px) {
 	.cart-product {
-		grid-template-columns: repeat(5, 70px);
+		grid-template-columns: repeat(5, 63px);
 	}
 }

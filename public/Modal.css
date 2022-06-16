@@ -16,14 +16,14 @@
     position: relative;
     padding: 1.5rem;
     width: 500px;
-    max-height: 80%;
     border-radius: 10px;
     background: whitesmoke;
+    max-height: 90%;
     overflow-y: auto;
 }
 
 .fit {
-   max-height: 300px;
+   max-height: 350px;
    width: 100%;
    object-fit: cover;
    object-position: 0 80%;

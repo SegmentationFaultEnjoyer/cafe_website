@@ -2,20 +2,12 @@ require('../../../public/Grid.css');
 const Modal = require('./Modal.jsx');
 const {mainPageContext} = require('../helpers/context.jsx');
 const type = require('../helpers/types.js');
-const GeneratorID = require('../helpers/id_generator.js');
 
 class MainGrid extends React.Component {
     constructor(props) {
         super(props);
         this.items = props.items;
-        this.items[0].img = 'sandwich';
-        this.items[0].name = 'Биг Мак';
-        this.items[0].price = 97;
-        this.items[0].category = type.SANDWHICH;
-        this.items[2].img = 'sandwich';
-        this.items[2].name = 'І Мак';
-        this.items[2].price = 97;
-        this.items[2].category = type.SANDWHICH;
+        console.log(this.items);
     }
 
     getTitle(category) {
@@ -45,8 +37,7 @@ class MainGrid extends React.Component {
 
     getItemsList(category) {
         if(category == 0) return this.items;
-        
-        return this.items.filter(item => item.category === category);
+        return this.items.filter(item => item.type === category);
     }
 
     render() {
@@ -56,7 +47,7 @@ class MainGrid extends React.Component {
             <>
              <h1 className='grid-title disable-select'>{this.getTitle(pickedCategory)}</h1>
              <div className='main-grid'>
-                {this.getItemsList(pickedCategory).map(el => <Modal info={el} key={GeneratorID.next().value}/>)}
+                {this.getItemsList(pickedCategory).map(el => <Modal info={el} key={el._id}/>)}
                 <button onClick={() => {
                     console.log(localStorage);
                     localStorage.clear()

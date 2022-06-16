@@ -867,6 +867,7 @@ class Database {
     async close() {
         await this.client.close()
     }
+
 }
 // async function main() {
 //     let db = new Database();
