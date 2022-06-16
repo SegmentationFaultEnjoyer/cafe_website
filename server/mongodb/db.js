@@ -10,8 +10,13 @@ class Database {
         this.items = this.db.collection('items');
     }
     async setProducts() {
-        await this.addBreakfast();
-        await this.addSandwiches();
+        // await this.addBreakfast();
+        // await this.addSandwiches();
+        await this.addBouls();
+        await this.addSalads();
+        await this.addDesserts();
+        await this.addDrinks();
+        await this.addCoffee();
     }
     async addBreakfast() {
         const type = 11;
@@ -229,6 +234,121 @@ class Database {
             }
         ])    
     }
+    async addBouls() {
+        const type = 10;
+        await this.items.insertMany([
+            {
+                name: "Боул зелений",
+                desc: "Запечені та свіжі овочі, мікс бобових та зернових(булгур, сочевиця, боби маш, кіноа, чорний рис), зелене масло, лимонний дресінг, яйце смажене",
+                price: 160,
+                type: type,
+                img: "Bowl_green.webp",
+                extras: [{
+                    name: "лосось",
+                    price: 60
+                },
+                {
+                    name: "тунець у власному соці",
+                    price: 30
+                },
+                {
+                    name: "креветки",
+                    price: 65
+                },
+                {
+                    name: "яйце варене",
+                    price: 10
+                },
+                {
+                    name: "яйце смажене",
+                    price: 10
+                },
+                {
+                    name: "авокадо",
+                    price: 45
+                }]
+            },
+            {
+                name: "Боул з куркою",
+                desc: "Запечені та свіжі овочі, мікс бобових та зернових(булгур, сочевиця, боби маш, кіноа, чорний рис), зелене масло, лимонний дресінг, курка печена",
+                price: 170,
+                type: type,
+                img: "Bowl_chicken.webp",
+                extras: [
+                {
+                    name: "яйце варене",
+                    price: 10
+                },
+                {
+                    name: "яйце смажене",
+                    price: 10
+                }]
+            },
+            {
+                name: "Боул з індиком",
+                desc: "Запечені та свіжі овочі, мікс бобових та зернових(булгур, сочевиця, боби маш, кіноа, чорний рис), зелене масло, лимонний дресінг, індичка печена",
+                price: 180,
+                type: type,
+                img: "Bowl_turkey.webp",
+                extras: [
+                {
+                    name: "яйце варене",
+                    price: 10
+                },
+                {
+                    name: "яйце смажене",
+                    price: 10
+                }]
+            },
+            {
+                name: "Боул з яловичиною",
+                desc: "Запечені та свіжі овочі, мікс бобових та зернових(булгур, сочевиця, боби маш, кіноа, чорний рис), зелене масло, лимонний дресінг, яловичина печена",
+                price: 190,
+                type: type,
+                img: "Bowl_beef.webp",
+                extras: [
+                {
+                    name: "яйце варене",
+                    price: 10
+                },
+                {
+                    name: "яйце смажене",
+                    price: 10
+                }]
+            },
+            {
+                name: "Хумус класичний",
+                desc: "Нутове пюре з тахінною пастою, томатно-овочеве рагу з грінками",
+                price: 150,
+                type: type,
+                img: "Hummus_classic.webp",
+                extras: [
+                {
+                    name: "курка",
+                    price: 35
+                },
+                {
+                    name: "індичка",
+                    price: 40 
+                },
+                {
+                    name: "телятина",
+                    price: 50
+                },{
+                    name: "креветки",
+                    price: 65
+                },
+                {
+                    name: "запечені овочі",
+                    price: 35
+                },
+                {
+                    name: "хліб",
+                    price: 0
+                }]
+            }
+        ])    
+    }
     async addSandwiches() {
         const type = 8;
         await this.items.insertMany([
@@ -346,6 +466,401 @@ class Database {
             },
         ])
     }
+    async addSalads() {
+        const type = 9;
+        await this.items.insertMany([
+            {
+                name: "Салат з куркою",
+                desc: "Листовий мікс з сезонними овочами та фруктами, заправлений лимонним дресінгом, зеленим маслом та міксом насіння і горіхів, курка запечена",
+                price: 140,
+                type: type,
+                img: "Chicken_salad.webp",
+                extras: [{
+                    name: "моцарела",
+                    price: 40
+                },
+                {
+                    name: "фета",
+                    price: 35
+                },
+                {
+                    name: "рікота",
+                    price: 35
+                },
+                {
+                    name: "хліб",
+                    price: 0
+                }]
+            },
+            {
+                name: "Салат з яловичиною",
+                desc: "Листовий мікс з сезонними овочами та фруктами, заправлений лимонним дресінгом, зеленим маслом та міксом насіння і горіхів, яловичина печена",
+                price: 175,
+                type: type,
+                img: "Beef_salad.webp",
+                extras: [{
+                    name: "моцарела",
+                    price: 40
+                },
+                {
+                    name: "фета",
+                    price: 35
+                },
+                {
+                    name: "рікота",
+                    price: 35
+                },
+                {
+                    name: "хліб",
+                    price: 0
+                }]
+            },
+            {
+                name: "Салат з індичкою",
+                desc: "Листовий мікс з сезонними овочами та фруктами, заправлений лимонним дресінгом, зеленим маслом та міксом насіння і горіхів, індичка печена",
+                price: 160,
+                type: type,
+                img: "Salad_turkey.webp",
+                extras: [{
+                    name: "моцарела",
+                    price: 40
+                },
+                {
+                    name: "фета",
+                    price: 35
+                },
+                {
+                    name: "рікота",
+                    price: 35
+                },
+                {
+                    name: "хліб",
+                    price: 0
+                }]
+            },
+            {
+                name: "Салат з тунцем",
+                desc: "Листовий мікс з сезонними овочами та фруктами, заправлений лимонним дресінгом, зеленим маслом та міксом насіння і горіхів, тунець у власному соці, яйце варене",
+                price: 190,
+                type: type,
+                img: "Tuna_salad.webp",
+                extras: [{
+                    name: "яйце варене",
+                    price: 10
+                },
+                {
+                    name: "яйце смажене",
+                    price: 10
+                },
+                {
+                    name: "хліб 2 шматочки",
+                    price: 0
+                }]
+            },
+            {
+                name: "Салат з лососем",
+                desc: "Листовий мікс з сезонними овочами та фруктами, заправлений лимонним дресінгом, зеленим маслом та міксом насіння і горіхів, лосось слабосолений, рікота",
+                price: 190,
+                type: type,
+                img: "Salmon_salad.webp",
+                extras: [{
+                    name: "моцарела",
+                    price: 40
+                },
+                {
+                    name: "фета",
+                    price: 35
+                },
+                {
+                    name: "яйце варене",
+                    price: 10
+                },
+                {
+                    name: "яйце смажене",
+                    price: 10
+                },
+                {
+                    name: "хліб 2 шматочки",
+                    price: 0
+                }]
+            },
+            {
+                name: "Салат з сирами",
+                desc: "Листовий мікс з сезонними овочами та фруктами, заправлений лимонним дресінгом, зеленим маслом та міксом насіння і горіхів, рікота, моцарела, дор блю, бринза/фета",
+                price: 160,
+                type: type,
+                img: "Cheese_salad.webp",
+                extras: [
+                {
+                    name: "курка",
+                    price: 35
+                },
+                {
+                    name: "індичка",
+                    price: 40 
+                },
+                {
+                    name: "яловичина",
+                    price: 50
+                },
+                {
+                    name: "лосось",
+                    price: 60
+                },
+                {
+                    name: "хліб 2 шматочки",
+                    price: 0
+                }]
+            },
+            {
+                name: "Салат авокадо шрімпс",
+                desc: "Креветки на грилі, авокадо, рікота, листовий мікс з сезонними овочами та фруктами, заправлений лимонним дресінгом, зеленим маслом та міксом насіння і горіхів.",
+                price: 220,
+                type: type,
+                img: "Shrimp_avocado_salad.webp",
+                extras: [
+                {
+                    name: "хліб 2 шматочки",
+                    price: 0
+                }]
+            },
+            {
+                name: "Салат з прошуто",
+                desc: "Листовий мікс з сезонними овочами та фруктами, заправлений лимонним дресінгом, зеленим маслом та міксом насіння і горіхів, прошуто",
+                price: 175,
+                type: type,
+                img: "Prosciutto_salad.webp",
+                extras: [{
+                    name: "моцарела",
+                    price: 40
+                },
+                {
+                    name: "фета",
+                    price: 35
+                },
+                {
+                    name: "рікота",
+                    price: 35
+                },
+                {
+                    name: "авокадо",
+                    price: 45
+                },
+                {
+                    name: "хліб",
+                    price: 0
+                }]
+            }
+        ])    
+    }
+    async addDesserts() {
+        const type = 5;
+        await this.items.insertMany([
+            {
+                name: "Шоколадний мус",
+                desc: "Молочний шоколад, білий шоколад, вершки, яйця, кюлі манго-маракуя, чіа",
+                price: 75,
+                type: type,
+                img: "Chocolate_mousse.webp"
+            },
+            {
+                name: "Наполеон",
+                desc: "Листкове тісто, заварний крем",
+                price: 68,
+                type: type,
+                img: "Napoleon.webp"
+            },
+            {
+                name: "Тірамісу",
+                desc: "Печиво савоярді, еспресо, маскарпоне, цукор, яйце, какао",
+                price: 70,
+                type: type,
+                img: "Tiramisu.webp"
+            },
+            {
+                name: "Горішки класичні",
+                desc: "Згущене молоко, масло, грецький горіх, пісочне тісто",
+                price: 55,
+                type: type,
+                img: "classic_nuts.webp"
+            },
+            {
+                name: "Горішки веганські",
+                desc: "Два види фініків, журавлина, кокосові вершки, грецький горіх, тісто без яєць та цукру з маком, стевія",
+                price: 65,
+                type: type,
+                img: "Vegan_nuts.webp"
+            },
+            {
+                name: "Лимонний тарт",
+                desc: "Пісочна основа, лимонний курд, меренга",
+                price: 58,
+                type: type,
+                img: "Lemon_tart.webp"
+            },
+            {
+                name: "Шоколадний тарт з солоною карамеллю",
+                desc: "Пісочна основа, солена карамель, шоколадний ганаш, горіхи",
+                price: 58,
+                type: type,
+                img: "Chocolate_tart_with_salted_caramel.webp"
+            },
+            {
+                name: "Фісташковий профітроль",
+                desc: "Заварний крем, фісташкова паста, заварне тісто.",
+                price: 60,
+                type: type,
+                img: "Pistachio_profiteroles.webp"
+            },
+            {
+                name: "Карамельний профітроль",
+                desc: "Заварний крем, солена карамель, заварне тісто.",
+                price: 53,
+                type: type,
+                img: "Caramel_profiteroles.webp"
+            },
+            {
+                name: "Ягідний пай",
+                desc: "Пісочне тісто, слива, чорна смородина, полуниця, вишня, кранч з маку, горіхів та цедри апельсину.",
+                price: 55,
+                type: type,
+                img: "Berry_pie.webp"
+            },
+            {
+                name: "Яблучний пай",
+                desc: "Пісочне тісто, яблука, коряця",
+                price: 55,
+                type: type,
+                img: "Apple_pie.webp"
+            },
+            {
+                name: "А-ля штрудель",
+                desc: "Масляне тісто, вишня, яблуко, грецький горіх, цукор, крихта.",
+                price: 75,
+                type: type,
+                img: "A_la_strudel.webp"
+            },
+            {
+                name: "Гранола",
+                desc: "Вівсяні пластівці, сушена журавлина, родзинки, фініки, курага, мед, соняшникове насіння, гарбузове насіння, кунжутна паста, соняшникова олія",
+                price: 55,
+                type: type,
+                img: "Granola.webp"
+            },
+            {
+                name: "Печиво вівсяне",
+                desc: "Печиво вівсяне",
+                price: 50,
+                type: type,
+                img: "Oatmeal_cookies.webp"
+            },
+            {
+                name: "Печиво шоколадне",
+                desc: "Печиво шоколадне",
+                price: 70,
+                type: type,
+                img: "Chocolate_cookies.webp"
+            }
+        ])    
+    }
+    async addDrinks() {
+        const type = 6;
+        await this.items.insertMany([
+            {
+                name: "Цитрусовий лимонад",
+                desc: "Лимонний та апельсиновий фреш, імбир, цукор, вода. Об'єм 330 мл.",
+                price: 35,
+                type: type,
+                img: "citrus_lemonade.webp"
+            },
+            {
+                name: "А-ля камбуча",
+                desc: "Ячмінний напій з цикорієм природної ферментації. Об'єм 330 мл.",
+                price: 40,
+                type: type,
+                img: "a_la_kambucha.webp"
+            },
+            {
+                name: "Смузі банан/полуниця",
+                desc: "Банан, полуниця, ванільний цукор, готується на основі освітленого яблучного соку або молока. Об'єм 330 мл.",
+                price: 80,
+                type: type,
+                img: "banana_strawberry_strips.webp",
+                options: [{name: "основа", contains: ["яблучний сік", "молоко"]}]
+            },
+            {
+                name: "Смузі буряк/чорна смородина/чорниця",
+                desc: "Буряк, чорна смородина, чорниця, м'ята, готується на основі освітленого яблучного соку або води. Об'єм 330 мл.",
+                price: 80,
+                type: type,
+                img: "beet_black_currant_blueberry_strips.webp",
+                options: [{name: "основа", contains: ["яблучний сік", "вода"]}]
+            },
+            {
+                name: "Смузі шпинат/ківі",
+                desc: "Шпинат, ківі, огірок, чіа, м'ята, готується на основі освітленого яблучного соку або води. Об'єм 330 мл.",
+                price: 80,
+                type: type,
+                img: "spinach_kiwi_strips.webp",
+                options: [{name: "основа", contains: ["яблучний сік", "вода"]}]
+            },
+            {
+                name: "Фреш",
+                desc: "Об'єм 330 мл.",
+                price: 100,
+                type: type,
+                img: "Fresh.webp",
+                options: [{name: "наповнення", contains: ["апельсин", "яблуко", "грейпфрут", "морква"]}]
+            },
+            {
+                name: "Обліпиховий чай",
+                desc: "Обліпиха, цукор, аніс, апельсин. Чай відправляємо напівфабрикатом(заморожене пюре). Вам потрібно лише залити його кип'ятком",
+                price: 55,
+                type: type,
+                img: "Sea_buckthorn_tea.webp"
+            },
+            {
+                name: "Смородиновий чай",
+                desc: "Смородина, цукор, розмарин. Чай відправляємо напівфабрикатом(заморожене пюре). Вам потрібно лише залити його кип'ятком",
+                price: 50,
+                type: type,
+                img: "Currant_tea.webp"
+            },
+            {
+                name: "Чай калина-малина",
+                desc: "Калина, малина, цукор, яблуко. Чай відправляємо напівфабрикатом(заморожене пюре). Вам потрібно лише залити його кип'ятком",
+                price: 50,
+                type: type,
+                img: "Viburnum_raspberry_tea.webp"
+            }
+        ])    
+    }
+    async addCoffee() {
+        const type = 3;
+        await this.items.insertMany([
+            {
+                name: "Бразилія Сантос в зернах",
+                desc: "100% арабіка обсмажена під еспресо. Вага: 150 гр.",
+                price: 150,
+                type: type,
+                img: "Brazil_Santos_in_grains.webp"
+            },
+            {
+                name: "Ефіопія фільтр",
+                desc: "100% арабіка обсмажена та змелена під фільтр. Вага: 150 гр.",
+                price: 150,
+                type: type,
+                img: "Ethiopia_filter.webp"
+            },
+            {
+                name: "Бразилія Сантос мелена",
+                desc: "100% арабіка обсмажена під еспресо. Вага: 150 гр.",
+                price: 150,
+                type: type,
+                img: "Brazil_Santos_ground.webp"
+            }
+        ])    
+    }
     async getProducts() {
         return await this.items.find().toArray();
     }
@@ -358,9 +873,6 @@ class Database {
 //     let db = new Database();
 //     await db.connect();
 //     await db.setProducts();
-//     let res = await db.getProducts();
-//     //await res.forEach(doc => console.dir(doc))
-//     console.log(res);
 //     await db.close();
 // }
 // main();
