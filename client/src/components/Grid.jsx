@@ -6,8 +6,6 @@ const type = require('../helpers/types.js');
 class MainGrid extends React.Component {
     constructor(props) {
         super(props);
-        this.items = props.items;
-        console.log(this.items);
     }
 
     getTitle(category) {
@@ -30,24 +28,21 @@ class MainGrid extends React.Component {
                 return 'Боули';
             case type.BREAKFAST:
                 return 'Сніданки';
+            case type.SEARCH:
+                return 'Результати пошуку';
             default:
                 return 'Популярні позиції'
         }
     }
 
-    getItemsList(category) {
-        if(category == 0) return this.items;
-        return this.items.filter(item => item.type === category);
-    }
-
     render() {
-        let {pickedCategory} = this.context;
+        let {gridItems} = this.context;
         console.log('render grid');
         return (
             <>
-             <h1 className='grid-title disable-select'>{this.getTitle(pickedCategory)}</h1>
+             <h1 className='grid-title disable-select'>{this.getTitle(gridItems.category)}</h1>
              <div className='main-grid'>
-                {this.getItemsList(pickedCategory).map(el => <Modal info={el} key={el._id}/>)}
+                {gridItems.products.map(el => <Modal info={el} key={el._id}/>)}
                 <button onClick={() => {
                     console.log(localStorage);
                     localStorage.clear()

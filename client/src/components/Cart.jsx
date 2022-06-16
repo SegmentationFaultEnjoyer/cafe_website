@@ -12,9 +12,15 @@ class Cart extends AbstractModal{
         this.state = {MakingOrder: false};
     }
 
+    countExtrasPrice(extras) {
+        return extras.reduce((price, extra) => {
+            return price + extra[0] * extra[2];
+        }, 0)
+    }
+
     countTotalPrice(products) {
         let price = products.reduce((price, product) => {
-            return price + product.price * product.amount;
+            return price + (product.price + this.countExtrasPrice(product.extras)) * product.amount;
         }, 0);
         return price;
     }

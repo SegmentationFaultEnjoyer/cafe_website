@@ -1,5 +1,6 @@
 require('../../../public/Search.css');
 const {mainPageContext} = require('../helpers/context.jsx');
+const type = require('../helpers/types.js');
 
 class Search extends React.Component {
     constructor(props) {
@@ -37,7 +38,16 @@ class Search extends React.Component {
     }
 
     onInputChange() {
+        if(!this.ValidateInput(this.search.current.value)) {
+            this.ShowError();
+            return;
+        }
 
+        let {gridItems, setGridItems} = this.context;
+        setGridItems({...gridItems,
+            category: type.SEARCH, 
+            products: this.find(gridItems.init_products, this.search.current.value)
+        })
     }
 
     render() {
@@ -48,7 +58,9 @@ class Search extends React.Component {
                 type="text" 
                 placeholder="Я шукаю..." 
                 ref={this.search}
-                onChange={this.onInputChange}/>
+                onChange={this.onInputChange}
+                onBlur={() => {this.search.current.value = "";}}
+                />
                 <i className="fa fa-search" onClick={this.SubmitHandler}></i>
             </div>
         );

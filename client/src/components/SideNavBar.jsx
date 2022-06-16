@@ -33,14 +33,28 @@ class SideNavBar extends React.Component {
                 if(!this.state.isActive) {
                     SideBar.depickPrevious();
                     SideBar.picked = this;
+                    let {gridItems} = this.context;
                     this.ChangeState();
-                    this.ChangeItemsCategory();
+                    this.ChangeGrid();
                 }   
             }
 
-            ChangeItemsCategory() {
-                let {changeCategory} = this.context;
-                changeCategory(this.type);
+            ChangeGrid() {
+                let {gridItems, setGridItems} = this.context;
+                setGridItems({...gridItems, 
+                    category: this.type, 
+                    products: this.getItemsList()
+                })
+            }   
+
+            getItemsList() {
+                let {gridItems} = this.context;
+                let {init_products} = gridItems;
+                const category = this.type;
+                
+                if(category == 0) return init_products;
+
+                return init_products.filter(item => item.type === category);
             }
 
             ChangeState() {

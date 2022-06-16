@@ -24,16 +24,15 @@ let info = {
 
 function MainPage() {
     const [product_info, addProduct] = React.useState(init_cart());
-    const [pickedCategory, changeCategory] = React.useState(0);
     const [isLoading, setLoading] = React.useState(true);
-    const [gridItems, setGridItems] = React.useState([]);
+    const [gridItems, setGridItems] = React.useState({});
     // let items = new Array(10).fill(0).map(el => {return {...info}});
     
     React.useEffect(() => {
         fetch('getItems')
             .then((items) => items.json())
             .then(({products}) => {
-                setGridItems(products);
+                setGridItems({category: 0, products, init_products: products});
                 setLoading(false);
             })
     }, []);
@@ -41,10 +40,10 @@ function MainPage() {
     return (
         <Context.Provider value={{product_info, addProduct}}>
             <img className='logo disable-interactions' src='logo/logo.png' alt='logo'></img>
-            <mainPageContext.Provider value={{pickedCategory, changeCategory, gridItems, setGridItems}}>
+            <mainPageContext.Provider value={{gridItems, setGridItems}}>
                 <SideBar />
                 <Search />
-                {isLoading ? <Loader /> : <MainGrid items={gridItems}/>}
+                {isLoading ? <Loader /> : <MainGrid />}
             </mainPageContext.Provider>
             <Cart />
         </Context.Provider>

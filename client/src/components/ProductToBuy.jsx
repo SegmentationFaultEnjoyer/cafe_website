@@ -4,8 +4,14 @@ class ProductToBuy extends React.Component {
     constructor(props) {
         super(props);
         this.info = props.info;
-        this.info.totalPrice = this.info.price * this.info.amount;
+        this.info.totalPrice = (this.info.price + this.countExtrasPrice()) * this.info.amount;
         this.deleteHandler = this.deleteHandler.bind(this);
+    }
+
+    countExtrasPrice() {
+        return this.info.extras.reduce((price, extra) => {
+            return price + extra[0] * extra[2];
+        }, 0)
     }
 
     deleteHandler() {
@@ -24,7 +30,9 @@ class ProductToBuy extends React.Component {
     }
 
     render() {
+        console.log(this.info.extras);
         return (
+            <>
             <div className="cart-product">
                 <p>{this.info.name}</p>
                 <img className="disable-pick" src={this.info.img} alt={this.info.img} 
@@ -33,6 +41,17 @@ class ProductToBuy extends React.Component {
                 <p className='price-label'>{`${this.info.totalPrice} ₴`}</p>
                 <i className="fa fa-times-circle-o" onClick={this.deleteHandler}></i>
             </div>
+            <ul className='extras-list'>
+                {this.info.extras.map(el => {
+                    return <>
+                        <li><i className="fa fa-plus-square-o"></i>
+                        <span>{el[1]}</span>
+                        <span>{`${el[0]} шт.`}</span>
+                        </li>
+                    </>
+                })}
+            </ul>
+        </>
         )
     }
 }

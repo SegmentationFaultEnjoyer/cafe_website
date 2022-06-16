@@ -4,10 +4,10 @@
 }
 
 .logo {
-	width: 350px;
+	width: 250px;
 	position: absolute;
-	right: 0;
-	top: 0;
+	right: 50px;
+	top: 20px;
 }
 
 .disable-interactions {
@@ -77,3 +77,4 @@ input[type="number"]:focus {
 		display: none;
 	}
 }
+

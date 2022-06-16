@@ -6,7 +6,8 @@ class AddToCart extends React.Component {
         super(props);
         this.AddHandler = this.AddHandler.bind(this);
         this.counter = props.counter;
-        this.info = props.info;
+        this.extras = props.extras;
+        this.info = {...props.info};
         this.done = React.createRef();
     }
 
@@ -38,16 +39,45 @@ class AddToCart extends React.Component {
         return products;
     }
 
+    GetExtras() {
+        let children = this.extras.current.childNodes;
+        let extras_raw = [];
+        children.forEach(el => extras_raw.push(el.childNodes));
+
+        extras_raw = extras_raw.map(item => {
+            let items = [];
+            for(let i = 0; i < item.length; i++) {
+                if(i == 0) {
+                    if(item[i].valueAsNumber < 1)
+                       break;
+                    items.push(item[i].valueAsNumber);
+                }
+                else
+                    items.push(i == 2 ? parseInt(item[i].innerText) : item[i].innerText);
+            }
+
+            return items;
+        })
+        
+        return extras_raw.filter(el => el.length > 0);
+    }
+
     AddToCart() {
         let {product_info, addProduct} = this.context;
         
         this.info.amount = Number(this.counter.current.value);
         let total_amount = product_info.count + this.info.amount;
+
+        this.info.extras = this.GetExtras();
         
         let product = { 
             count: total_amount,
             products: this.ArrangeCart(product_info)
         }
+
+        
+        console.log(product);
+
         addProduct(product);
         localStorage.setItem('cart', JSON.stringify(product));
     }

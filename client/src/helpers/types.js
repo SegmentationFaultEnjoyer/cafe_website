@@ -12,6 +12,8 @@ exports.SANDWHICH = 8;
 exports.SALAD = 9;
 exports.BOUL = 10;
 exports.BREAKFAST = 11;
+
+exports.SEARCH = 12;
 // module.exports = {
 //     MAIN_PAGE,
 //     DELIVERY_PAGE,
