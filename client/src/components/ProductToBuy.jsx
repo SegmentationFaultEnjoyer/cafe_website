@@ -30,7 +30,6 @@ class ProductToBuy extends React.Component {
     }
 
     render() {
-        console.log(this.info.extras);
         return (
             <>
             <div className="cart-product">

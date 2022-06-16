@@ -74,10 +74,7 @@ class AddToCart extends React.Component {
             count: total_amount,
             products: this.ArrangeCart(product_info)
         }
-
         
-        console.log(product);
-
         addProduct(product);
         localStorage.setItem('cart', JSON.stringify(product));
     }

@@ -12,14 +12,10 @@ class MainGrid extends React.Component {
         switch(category) {
             case type.COFFEE:
                 return 'Кава';
-            case type.ICE_COFFEE:
-                return 'Холодна кава';
-            case type.TEA:
-                return 'Не кавові напої';
-            case type.LEMONADE:
+            case type.DESSERTS:
+                return 'Десерти';
+            case type.DRINKS:
                 return 'Холодні напої';
-            case type.MILKSHAKE:
-                return 'Молочні коктейлі';
             case type.SANDWHICH:
                 return 'Сендвічі';
             case type.SALAD:

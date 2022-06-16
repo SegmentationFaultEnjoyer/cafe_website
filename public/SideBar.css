@@ -11,7 +11,7 @@
 
 .side-bar div {
 	display: flex;
-	height: calc(100% / 9);
+	height: calc(100% / 7);
 	width: 100%;
 	background-color: var(--coffee-color);
 	justify-content: center;

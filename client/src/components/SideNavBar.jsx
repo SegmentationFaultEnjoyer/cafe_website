@@ -7,10 +7,8 @@ class SideNavBar extends React.Component {
         super(props);
         let icons = [
             {name: 'coffee', type: type.COFFEE},
-            {name: 'iced-coffee', type: type.ICE_COFFEE},
-            {name: 'tea', type: type.TEA},
-            {name: 'lemonade', type: type.LEMONADE},
-            {name: 'milkshake', type: type.MILKSHAKE},
+            {name: 'desserts', type: type.DESSERTS},
+            {name: 'lemonade', type: type.DRINKS},
             {name: 'sandwhich', type: type.SANDWHICH},
             {name: 'salad', type: type.SALAD},
             {name: 'boul', type: type.BOUL},
@@ -33,9 +31,13 @@ class SideNavBar extends React.Component {
                 if(!this.state.isActive) {
                     SideBar.depickPrevious();
                     SideBar.picked = this;
-                    let {gridItems} = this.context;
                     this.ChangeState();
                     this.ChangeGrid();
+                    window.scrollTo({
+                        top: 0,
+                        left: 0,
+                        behavior: 'smooth'
+                    });
                 }   
             }
 
