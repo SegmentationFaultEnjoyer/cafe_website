@@ -11,11 +11,11 @@ class MainGrid extends React.Component {
     getTitle(category) {
         switch(category) {
             case type.COFFEE:
-                return 'Кава';
+                return 'Вагова кава';
             case type.DESSERTS:
                 return 'Десерти';
             case type.DRINKS:
-                return 'Холодні напої';
+                return 'Напої';
             case type.SANDWHICH:
                 return 'Сендвічі';
             case type.SALAD:
@@ -39,10 +39,6 @@ class MainGrid extends React.Component {
              <h1 className='grid-title disable-select'>{this.getTitle(gridItems.category)}</h1>
              <div className='main-grid'>
                 {gridItems.products.map(el => <Modal info={el} key={el._id}/>)}
-                <button onClick={() => {
-                    console.log(localStorage);
-                    localStorage.clear()
-                    }}>CLEAR</button>
             </div>
             </>
            

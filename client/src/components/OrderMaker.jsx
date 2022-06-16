@@ -222,9 +222,8 @@ class OrderMaker extends AbstractModal {
                         <select className='input' name='payment'
                         ref={this.select}>
                             <option value={0}>Безготівковий розрахунок</option>
-                            <option value={1}>Готівка</option>
+                            <option value={1}>Переказ на картку</option>
                             <option value={2}>Сракою</option>
-                            <option value={3}>Душа</option>
                         </select>
                         <div className="cut"></div>
                         <label htmlFor="payment" className="placeholder">Оплата</label>

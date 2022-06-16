@@ -6,13 +6,13 @@ class SideNavBar extends React.Component {
     constructor(props) {
         super(props);
         let icons = [
-            {name: 'coffee', type: type.COFFEE},
-            {name: 'desserts', type: type.DESSERTS},
-            {name: 'lemonade', type: type.DRINKS},
             {name: 'sandwhich', type: type.SANDWHICH},
             {name: 'salad', type: type.SALAD},
-            {name: 'boul', type: type.BOUL},
             {name: 'breakfast', type: type.BREAKFAST},
+            {name: 'boul', type: type.BOUL},
+            {name: 'lemonade', type: type.DRINKS},
+            {name: 'desserts', type: type.DESSERTS},
+            {name: 'coffee', type: type.COFFEE}
         ]
         
         this.picked = null;

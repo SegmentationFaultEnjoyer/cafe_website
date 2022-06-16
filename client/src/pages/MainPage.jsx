@@ -14,19 +14,10 @@ function init_cart() {
      
 }
 
-let info = {
-    category: type.BREAKFAST,
-    name: 'CUMPOT',
-    desc: 'В описании не нуждается',
-    price: 68,
-    img: 'soup'
-}
-
 function MainPage() {
     const [product_info, addProduct] = React.useState(init_cart());
     const [isLoading, setLoading] = React.useState(true);
     const [gridItems, setGridItems] = React.useState({});
-    // let items = new Array(10).fill(0).map(el => {return {...info}});
     
     React.useEffect(() => {
         fetch('getItems')
