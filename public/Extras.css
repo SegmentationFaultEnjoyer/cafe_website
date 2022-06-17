@@ -19,3 +19,19 @@
 .extras-container div input[type="number"] {
     width: 70%;
 }
+
+.options-container {
+    display: grid;
+	grid-template-columns: repeat(auto-fill, 240px);
+    justify-content: space-around;
+    align-items: center;
+    row-gap: 20px;
+}
+
+.options-container div span {
+    position: relative;
+    bottom: 3px;
+    left: 5px;
+}
+
+

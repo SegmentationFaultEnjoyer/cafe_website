@@ -15,6 +15,7 @@
 .modal-body {
     position: relative;
     padding: 1.5rem;
+    padding-left: 2rem;
     width: 500px;
     border-radius: 10px;
     background: whitesmoke;

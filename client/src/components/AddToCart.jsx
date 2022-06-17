@@ -7,6 +7,7 @@ class AddToCart extends React.Component {
         this.AddHandler = this.AddHandler.bind(this);
         this.counter = props.counter;
         this.extras = props.extras;
+        this.options = props.options;
         this.info = {...props.info};
         this.done = React.createRef();
     }
@@ -15,7 +16,7 @@ class AddToCart extends React.Component {
         this.done.current.style.transform = "translate(0px)";
         setTimeout(() => {
             this.done.current.style.transform = "translate(-110%) skew(-40deg)";
-        }, 1000);
+        }, 500);
     }
 
     AddHandler() {
@@ -25,12 +26,12 @@ class AddToCart extends React.Component {
 
     ArrangeCart(product_info) {
         let products;
-        let same_product = product_info.products.find(el => el.name == this.info.name);
+        let same_product = product_info.products.find(el => el.key === this.info.key);
 
         if(same_product) {
             same_product.amount += this.info.amount;
             products = [
-                ...product_info.products.filter(el => el.name != same_product.name), 
+                ...product_info.products.filter(el => el.key != same_product.key), 
                 same_product];
         }
         else
@@ -39,10 +40,16 @@ class AddToCart extends React.Component {
         return products;
     }
 
+    ExtractNodes(parentNode) {
+        let children = [];
+        parentNode.childNodes.forEach(el => children.push(el.childNodes));
+        return children;
+    }
+
     GetExtras() {
-        let children = this.extras.current.childNodes;
-        let extras_raw = [];
-        children.forEach(el => extras_raw.push(el.childNodes));
+        if(this.extras.current == null) return [];
+
+        let extras_raw = this.ExtractNodes(this.extras.current);
 
         extras_raw = extras_raw.map(item => {
             let items = [];
@@ -62,6 +69,15 @@ class AddToCart extends React.Component {
         return extras_raw.filter(el => el.length > 0);
     }
 
+    GetOptions() {
+        if(this.options.current == null) return null;
+
+        let options_raw = this.ExtractNodes(this.options.current);
+        let pickedNode = options_raw.find(node => node[0].checked == true);
+        
+        return pickedNode[1].innerText;
+    }
+
     AddToCart() {
         let {product_info, addProduct} = this.context;
         
@@ -69,15 +85,30 @@ class AddToCart extends React.Component {
         let total_amount = product_info.count + this.info.amount;
 
         this.info.extras = this.GetExtras();
+        this.info.options = this.GetOptions();
+        this.info.key = this.makeKeyId(this.info);
         
         let product = { 
             count: total_amount,
             products: this.ArrangeCart(product_info)
         }
-        
+        console.log('Додано продукт', this.info);
         addProduct(product);
         localStorage.setItem('cart', JSON.stringify(product));
     }
+
+    makeKeyId(product) {
+        let extrasKeyPart = [];
+        for(let extra of product.extras) {
+            for(let i = 0; i < extra.length - 1; i++) {
+                extrasKeyPart.push(extra[i])
+            }
+        }
+        let finalKey = [product._id, ...extrasKeyPart, product.options ?? ''].join('_');
+        console.log(finalKey);
+        return finalKey;
+    }
+
 
     render() {
         return (

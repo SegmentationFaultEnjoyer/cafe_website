@@ -52,7 +52,7 @@ class Cart extends AbstractModal{
                 <>  
                     {product_info.products.length > 0 
                         ? product_info.products.map(el => {
-                            return <ProductToBuy info={el} key={el.name}/>})
+                            return <ProductToBuy info={el} key={el.key}/>})
                         : <h1 style={{textAlign: 'center'}}>Корзина пуста 😔</h1>
                         }
 

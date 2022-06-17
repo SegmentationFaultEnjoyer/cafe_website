@@ -27,7 +27,7 @@ function MainPage() {
                 setLoading(false);
             })
     }, []);
-   
+
     return (
         <Context.Provider value={{product_info, addProduct}}>
             <img className='logo disable-interactions' src='logo/logo.png' alt='logo'></img>
