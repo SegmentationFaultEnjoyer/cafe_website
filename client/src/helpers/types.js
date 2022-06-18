@@ -4,6 +4,7 @@ exports.ABOUT_PAGE = 2;
 
 
 exports.COFFEE = 3;
+exports.SOUP = 4;
 exports.DESSERTS = 5;
 exports.DRINKS = 6;
 exports.SANDWHICH = 8;
