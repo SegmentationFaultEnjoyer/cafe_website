@@ -884,12 +884,41 @@ class Database {
     async close() {
         await this.client.close()
     }
-
+    async addOne(obj) {
+        try {
+            await this.items.insertOne(obj);
+            return 0;
+        }
+        catch {
+            return 1;
+        }
+    }
+    async updateOne(filter, update) {
+        try {
+            await this.items.updateOne(
+                filter,
+                {$set: update}
+            );
+            return 0;
+        }
+        catch {
+            return 1;
+        }
+    }
+    async deleteOne(filter) {
+        try {
+            await this.items.deleteOne(filter);
+            return 0;
+        }
+        catch {
+            return 1;
+        }
+    }
 }
 // async function main() {
 //     let db = new Database();
 //     await db.connect();
-//     await db.setProducts();
+//     await db.deleteOne({name: "test"})
 //     await db.close();
 // }
 // main();
