@@ -11,7 +11,7 @@ class SideNavBar extends React.Component {
             {name: 'breakfast', type: type.BREAKFAST},
             {name: 'boul', type: type.BOUL},
             {name: 'lemonade', type: type.DRINKS},
-            {name: 'desserts', type: type.DESSERTS},
+            {name: 'dessert', type: type.DESSERTS},
             {name: 'coffee', type: type.COFFEE}
         ]
         
@@ -64,9 +64,10 @@ class SideNavBar extends React.Component {
             }
 
             render() {
+               
                 let class_name = this.state.isActive ? 'picked' : '';
                 let img = this.state.isActive ? `icons/${this.value}_picked.png` : `icons/${this.value}.png`;
-                
+            
                 return (
                     <div onClick={this.ClickHandler} className={class_name}>
                         <img className="disable-pick picture"

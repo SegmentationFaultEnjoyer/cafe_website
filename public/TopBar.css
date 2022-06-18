@@ -27,7 +27,7 @@
 }
 
 .top-bar a:hover {
-	background-color: chocolate;
+	background-color: rgb(183, 136, 79);
 	transform: translateY(5px);
 	height: 60px;
 }

@@ -5,6 +5,7 @@ const {BrowserRouter, Routes, Route} = require('react-router-dom');
 const MainPage = require('./src/pages/MainPage.jsx');
 const DeliveryPage = require('./src/pages/DeliveryPage.jsx');
 const AboutPage = require('./src/pages/AboutPage.jsx');
+const ErrorPage = require('./src/pages/ErrorPage.jsx');
 
 const TopBar = require('./src/components/TopBar.jsx');
 
@@ -19,7 +20,7 @@ function MainApp() {
             <Route path='/' element={<MainPage />}/>
             <Route path='/delivery' element={<DeliveryPage />}/>
             <Route path='/about' element={<AboutPage />}/>
-            <Route path='*' element={<h1>404 not found</h1>}/>
+            <Route path='*' element={<ErrorPage />}/>
         </Routes>
         </>
     )

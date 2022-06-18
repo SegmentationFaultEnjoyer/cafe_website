@@ -42,7 +42,7 @@ class Modal extends AbstractModal {
                 (<>     
                     <h1>{name}</h1>
                     <p>{desc}</p>
-                    <img className="picture fit disable-pick" loading='lazy' src={img} alt={img}
+                    <img className="picture fit disable-pick" src={img} alt={img}
                         onError={(e) => {e.target.src = 'not_found.webp'}}/>
                     
                     {options && (
@@ -120,7 +120,7 @@ function PreviewCard(props) {
     let {info, onClick} = props;
     return (
         <div className='flex-container column preview disable-select'>
-            <img className="picture disable-pick" loading='lazy' src={info.img} alt={info.img} 
+            <img className="picture disable-pick" src={info.img} alt={info.img} 
                 onError={(e) => {e.target.src = 'not_found.webp'}} />
             <div className='title-container'>
                 <h3>{info.name}</h3>

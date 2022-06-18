@@ -18,11 +18,11 @@ class TopBar extends React.Component {
             constructor(props) {
                 super(props);
                 this.value = props.value;
-                this.state = {isActive : props.page_type === type.MAIN_PAGE};
-                TopBar.picked = TopBar.picked ?? this; 
-                //TopBar.picked = TopBar.picked != null ? TopBar.picked : this; 
                 this.page = props.page_type;
                 this.route = this.getRoute();
+
+                this.state = {isActive : this.route === window.location.pathname};
+                TopBar.picked = this.state.isActive ? this : TopBar.picked; 
                 this.ClickHandler = this.ClickHandler.bind(this);
             }
 
@@ -31,11 +31,11 @@ class TopBar extends React.Component {
                     case type.MAIN_PAGE:
                         return '/';
                     case type.DELIVERY_PAGE:
-                        return 'delivery';
+                        return '/delivery';
                     case type.ABOUT_PAGE:
-                        return 'about';
+                        return '/about';
                     default:
-                        return 'not_found';
+                        return '/not_found';
                 }
             }
 

@@ -17,9 +17,10 @@ const router = require('./routers/router');
 const app = express();
 const compiler = webpack(webpackConfig);
 
-app.use(router);
+
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(express.static(path.join(__dirname, '..', 'views', 'assets')));
 app.use(webpackMiddleware(compiler, { publicPath }));
+app.use(router);
 
 app.listen(PORT, HOST, () => console.log(`http://${HOST}:${PORT}`));
