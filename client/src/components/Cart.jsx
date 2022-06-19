@@ -3,7 +3,7 @@ const ProductToBuy = require('./ProductToBuy.jsx');
 const OrderMaker = require('./OrderMaker.jsx');
 const {Context} = require('../helpers/context.jsx');
 require('../../../public/Cart.css');
-require('../../../public/CheckOutButton.css');
+require('../../../public/buttons/CheckOutButton.css');
 
 class Cart extends AbstractModal{
     constructor(props) {

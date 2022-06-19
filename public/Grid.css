@@ -60,13 +60,14 @@
     text-align: center;
 }
 
-
-@media screen and (max-width: 624px) {
+@media screen and (max-width: 724px) {
 	.main-grid {
         margin-left: 70px;
     }
     .grid-title {
         margin-left: 100px;
+        margin-top: 20px;
+        margin-block-end: 50px;
         font-size: 27px;
     }
     .preview {

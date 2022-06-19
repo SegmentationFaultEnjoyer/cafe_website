@@ -1,5 +1,5 @@
-require('../../../public/AboutPage.css');
-require('../../../public/InstagramButton.css');
+require('../../../public/pages/AboutPage.css');
+require('../../../public/buttons/InstagramButton.css');
 
 function AboutPage() {
     return (

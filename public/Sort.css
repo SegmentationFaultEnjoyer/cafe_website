@@ -1,0 +1,80 @@
+.fake-body {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.sort-container { 
+    position: absolute;
+    left: 70vw;
+    top: 23.5%;
+}
+.sort-container .field {
+	width: 240px; 
+    background: var(--coffee-color); 
+    border-radius: 10px;
+    color:#fff; 
+    padding:5px; 
+    border:none; 
+    cursor:pointer;
+	font-size:1em;
+	border:solid 1px var(--coffee-color);
+	-webkit-transition: all .4s ease-in-out;
+	transition: all .4s ease-in-out;
+    text-align: center;
+}
+.sort-container .field:hover {
+	border:solid 1px #fff;
+	-moz-box-shadow:0 0 5px #999; 
+    -webkit-box-shadow:0 0 5px #999; 
+    box-shadow:0 0 5px #999;
+    background-color: rgb(183, 136, 79);
+}
+.sort-container div ul.list { 
+    display:block;
+	position: fixed; 
+    left: 70vw;
+    top: 23.5%;
+    z-index: 999;
+	width: 240px;
+	margin:0; 
+    padding:10px; 
+    list-style:none;
+	background:#fff; color:#333;
+    border-radius: 10px;
+    box-shadow:0 0 10px #999
+}
+.sort-container div ul.list li {
+	padding:10px;
+	border-bottom: solid 1px #ccc;
+}
+.sort-container div ul.list li:hover {
+	background:rgb(183, 136, 79); 
+    color:#fff;
+    cursor: pointer;
+}
+.sort-container div ul.list li:last-child { border:none }
+
+@media screen and (max-width: 1190px) {
+    .sort-container, .sort-container div ul.list { 
+        left: 60%;
+        top: 23.5%;
+    }
+}
+
+@media screen and (max-width: 930px) {
+    .sort-container, .sort-container div ul.list { 
+        left: 55%;
+        top: 23.5%;
+    }
+}
+
+@media screen and (max-width: 724px) {
+    .sort-container, .sort-container div ul.list { 
+        left: 108px;
+        top: 25%;
+    }
+}

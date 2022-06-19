@@ -1,4 +1,5 @@
 .side-bar {
+	--amount: 8;
 	display: inline-flex;
 	position: fixed;
 	left: 0px;
@@ -11,7 +12,7 @@
 
 .side-bar div {
 	display: flex;
-	height: calc(100% / 7);
+	height: calc(100% / var(--amount));
 	width: 100%;
 	background-color: var(--coffee-color);
 	justify-content: center;
@@ -43,7 +44,7 @@
 	}
   }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 724px) {
 	.side-bar {
 		width: 70px;
 	}

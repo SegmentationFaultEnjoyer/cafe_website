@@ -1,4 +1,4 @@
-require('../../../public/TopBar.css');
+require('../../../public/navbars/TopBar.css');
 const type = require('../helpers/types.js');
 const {Link} = require('react-router-dom');
 

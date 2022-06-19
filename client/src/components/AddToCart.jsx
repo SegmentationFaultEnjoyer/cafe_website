@@ -1,5 +1,5 @@
 const {Context} = require('../helpers/context.jsx');
-require('../../../public/AddToCartButton.css');
+require('../../../public/buttons/AddToCartButton.css');
 
 class AddToCart extends React.Component {
     constructor(props) {

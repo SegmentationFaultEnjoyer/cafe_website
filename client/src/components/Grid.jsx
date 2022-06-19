@@ -27,7 +27,7 @@ class MainGrid extends React.Component {
             case type.SEARCH:
                 return 'Результати пошуку';
             default:
-                return 'Популярні позиції'
+                return 'ціKavi пропозиції'
         }
     }
 

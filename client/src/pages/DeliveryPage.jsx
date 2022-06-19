@@ -1,4 +1,4 @@
-require('../../../public/DeliveryPage.css');
+require('../../../public/pages/DeliveryPage.css');
 
 function DeliveryPage() {
 

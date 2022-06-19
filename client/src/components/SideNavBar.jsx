@@ -1,4 +1,4 @@
-require('../../../public/SideBar.css');
+require('../../../public/navbars/SideBar.css');
 const {mainPageContext} = require('../helpers/context.jsx');
 const type = require('../helpers/types.js');
 
@@ -6,6 +6,7 @@ class SideNavBar extends React.Component {
     constructor(props) {
         super(props);
         let icons = [
+            {name: 'popular', type: type.POPULAR},
             {name: 'sandwhich', type: type.SANDWHICH},
             {name: 'salad', type: type.SALAD},
             {name: 'breakfast', type: type.BREAKFAST},
@@ -23,7 +24,8 @@ class SideNavBar extends React.Component {
                 super(props);
                 this.value = props.value.name;
                 this.type = props.value.type;
-                this.state = {isActive : false}
+                this.state = {isActive : this.type == type.POPULAR};
+                SideBar.picked = this.state.isActive ? this : SideBar.picked;
                 this.ClickHandler = this.ClickHandler.bind(this);
             }
 
@@ -54,7 +56,8 @@ class SideNavBar extends React.Component {
                 let {init_products} = gridItems;
                 const category = this.type;
                 
-                if(category == 0) return init_products;
+                if(category == type.POPULAR) 
+                    return init_products.filter(el => el.hasOwnProperty('isPopular') && el.isPopular);
 
                 return init_products.filter(item => item.type === category);
             }
@@ -88,6 +91,7 @@ class SideNavBar extends React.Component {
 
     depickPrevious() {
         if(this.picked) {
+            this.props.setSortLabel('▼ Сортування за популярністю');
             this.picked.ChangeState();
         }
     }
