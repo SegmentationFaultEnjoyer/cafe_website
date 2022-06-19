@@ -23,6 +23,17 @@ class Database {
         const type = 11;
         await this.items.insertMany([
             {
+                name: "Сирники",
+                desc: `Домашній сир, яйця, борошно, ванільний цукор, обсмажуються на вершковому маслі, подаються з джемом та сметаною`,
+                price: 135,
+                type: type,
+                img: "Cheesecakes.webp",
+                extras: [{
+                    name: "сирник",
+                    price: 30
+                }]
+            },
+            {
                 name: "Туна нісуаз",
                 desc: "Свіжий тунець, запечена картопля, спаржева квасоля, половинка булочки бейгл, смажене яйце, фета, оливки, свіжі овочі, ромен, зелене масло, лимон.",
                 price: 210,
@@ -465,6 +476,26 @@ class Database {
                 }],
                 options: [{name: "Булка", contains: ["бейгл", "бріош", "хліб вугільний пшеничний"]}]
             },
+            {
+                name: "Сендвіч з яловичиною",
+                desc: `Бездріжджовий вугільний хліб, яловина печена, маринований огірок, соус солодко-пряний, зелене масло, листя салату/шпинату. Вага 350 гр.`,
+                price: 138,
+                type: 11,
+                img: "Cheesecakes.webp",
+                extras: [{
+                    name: "моцарела",
+                    price: 40
+                },
+                {
+                    name: "фета",
+                    price: 35
+                },
+                {
+                    name: "запечені овочі",
+                    price: 35
+                }],
+                options: [{name: "Булка", contains: ["хліб вугільний пшеничний", "бріош", "бейгл"]}]
+            }
         ])
     }
     async addSalads() {
@@ -918,7 +949,13 @@ class Database {
 // async function main() {
 //     let db = new Database();
 //     await db.connect();
-//     await db.deleteOne({name: "test"})
+//     await db.updateOne(
+//         {
+//             name: "Суп дня"
+//         },{
+//             isPopular: true
+//         }
+//     )
 //     await db.close();
 // }
 // main();
