@@ -480,8 +480,8 @@ class Database {
                 name: "Сендвіч з яловичиною",
                 desc: `Бездріжджовий вугільний хліб, яловина печена, маринований огірок, соус солодко-пряний, зелене масло, листя салату/шпинату. Вага 350 гр.`,
                 price: 138,
-                type: 11,
-                img: "Cheesecakes.webp",
+                type: type,
+                img: "Beef_sandwich.webp",
                 extras: [{
                     name: "моцарела",
                     price: 40
@@ -946,18 +946,18 @@ class Database {
         }
     }
 }
-// async function main() {
-//     let db = new Database();
-//     await db.connect();
-//     await db.updateOne(
-//         {
-//             name: "Суп дня"
-//         },{
-//             isPopular: true
-//         }
-//     )
-//     await db.close();
-// }
-// main();
+async function main() {
+    let db = new Database();
+    await db.connect();
+    await db.updateOne(
+        {
+            img: "Beef_sandwich.webp",
+        },{
+            type: 8
+        }
+    )
+    await db.close();
+}
+main();
 
 module.exports = new Database();
