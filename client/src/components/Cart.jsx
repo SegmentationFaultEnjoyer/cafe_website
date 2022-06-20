@@ -1,7 +1,9 @@
+const {connect} = require('react-redux');
+
 const AbstractModal = require('./AbsModal.jsx');
 const ProductToBuy = require('./ProductToBuy.jsx');
 const OrderMaker = require('./OrderMaker.jsx');
-const {Context} = require('../helpers/context.jsx');
+
 require('../../../public/Cart.css');
 require('../../../public/buttons/CheckOutButton.css');
 
@@ -33,9 +35,9 @@ class Cart extends AbstractModal{
     }
 
     render() {
-        let {product_info} = this.context;
+        let product_info = this.props.contains;
         let price = this.countTotalPrice(product_info.products);
-        console.log('render cart');
+
         return (
             this.modal_wrapper(
                 <>
@@ -52,7 +54,7 @@ class Cart extends AbstractModal{
                 <>  
                     {product_info.products.length > 0 
                         ? product_info.products.map(el => {
-                            return <ProductToBuy info={el} key={el.key}/>})
+                            return <ProductToBuy info={{...el}} key={el.key}/>})
                         : <h1 style={{textAlign: 'center'}}>Корзина пуста 😔</h1>
                         }
 
@@ -76,6 +78,8 @@ class Cart extends AbstractModal{
     }
 }
 
-Cart.contextType = Context;
+const mapStateToProps = (state) => ({
+    contains: state.cart.contains
+});
 
-module.exports = Cart;
+module.exports = connect(mapStateToProps)(Cart);

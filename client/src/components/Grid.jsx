@@ -1,14 +1,14 @@
 require('../../../public/Grid.css');
+
+const { useSelector } = require('react-redux');
+
 const Modal = require('./Modal.jsx');
-const {mainPageContext} = require('../helpers/context.jsx');
 const type = require('../helpers/types.js');
 
-class MainGrid extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+function MainGrid() {
+    const gridItems = useSelector(state => state.grid.items);
 
-    getTitle(category) {
+    function getTitle(category) {
         switch(category) {
             case type.COFFEE:
                 return 'Вагова кава';
@@ -30,22 +30,16 @@ class MainGrid extends React.Component {
                 return 'ціKavi пропозиції'
         }
     }
-
-    render() {
-        let {gridItems} = this.context;
-        console.log('render grid');
-        return (
-            <>
-             <h1 className='grid-title disable-select'>{this.getTitle(gridItems.category)}</h1>
-             <div className='main-grid'>
-                {gridItems.products.map(el => <Modal info={el} key={el._id}/>)}
-            </div>
-            </>
-           
-        )
-    }
+    
+    return (
+        <>
+         <h1 className='grid-title disable-select'>{getTitle(gridItems.category)}</h1>
+         <div className='main-grid'>
+            {gridItems.products.map(el => <Modal info={el} key={el._id}/>)}
+        </div>
+        </>
+       
+    )
 }
-
-MainGrid.contextType = mainPageContext;
 
 module.exports = MainGrid;

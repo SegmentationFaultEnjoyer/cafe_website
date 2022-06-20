@@ -1,5 +1,8 @@
-const {Context} = require('../helpers/context.jsx');
 require('../../../public/buttons/AddToCartButton.css');
+
+const {connect} = require('react-redux');
+
+const {addToCart} = require('../redux/slices/cartSlice.js');
 
 class AddToCart extends React.Component {
     constructor(props) {
@@ -22,22 +25,6 @@ class AddToCart extends React.Component {
     AddHandler() {
         this.Transition();
         this.AddToCart();
-    }
-
-    ArrangeCart(product_info) {
-        let products;
-        let same_product = product_info.products.find(el => el.key === this.info.key);
-
-        if(same_product) {
-            same_product.amount += this.info.amount;
-            products = [
-                ...product_info.products.filter(el => el.key != same_product.key), 
-                same_product];
-        }
-        else
-            products = [...product_info.products, {...this.info}];
-
-        return products;
     }
 
     ExtractNodes(parentNode) {
@@ -79,22 +66,13 @@ class AddToCart extends React.Component {
     }
 
     AddToCart() {
-        let {product_info, addProduct} = this.context;
+        let productToAdd = {...this.info};
+        productToAdd.amount = Number(this.counter.current.value);
+        productToAdd.extras = this.GetExtras();
+        productToAdd.options = this.GetOptions();
+        productToAdd.key = this.makeKeyId(productToAdd);
         
-        this.info.amount = Number(this.counter.current.value);
-        let total_amount = product_info.count + this.info.amount;
-
-        this.info.extras = this.GetExtras();
-        this.info.options = this.GetOptions();
-        this.info.key = this.makeKeyId(this.info);
-        
-        let product = { 
-            count: total_amount,
-            products: this.ArrangeCart(product_info)
-        }
-        console.log('Додано продукт', this.info);
-        addProduct(product);
-        localStorage.setItem('cart', JSON.stringify(product));
+        this.props.dispatch(addToCart(productToAdd));
     }
 
     makeKeyId(product) {
@@ -124,6 +102,5 @@ class AddToCart extends React.Component {
     }
 }
 
-AddToCart.contextType = Context;
 
-module.exports = AddToCart;
+module.exports = connect()(AddToCart);

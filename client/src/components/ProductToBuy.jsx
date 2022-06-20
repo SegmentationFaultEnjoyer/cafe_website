@@ -1,4 +1,5 @@
-const {Context} = require('../helpers/context.jsx');
+const {connect} = require('react-redux');
+const {deleteFromCart} = require('../redux/slices/cartSlice.js');
 
 class ProductToBuy extends React.Component {
     constructor(props) {
@@ -15,18 +16,7 @@ class ProductToBuy extends React.Component {
     }
 
     deleteHandler() {
-        let {product_info, addProduct} = this.context;
-
-        let new_products = product_info.products.filter(el => el.key != this.info.key);
-    
-        let updated = {
-            count: product_info.count - this.info.amount,
-            products: new_products
-        }
-
-        localStorage.setItem('cart', JSON.stringify(updated));
-        
-        addProduct(updated);
+        this.props.dispatch(deleteFromCart(this.info));
     }
 
     render() {
@@ -61,6 +51,4 @@ class ProductToBuy extends React.Component {
     }
 }
 
-ProductToBuy.contextType = Context;
-
-module.exports = ProductToBuy;
+module.exports = connect()(ProductToBuy);

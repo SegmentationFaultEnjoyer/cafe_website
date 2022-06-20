@@ -1,72 +1,41 @@
 require('../../../public/Search.css');
-const {mainPageContext} = require('../helpers/context.jsx');
-const type = require('../helpers/types.js');
+const React = require('react');
+const { useDispatch } = require('react-redux');
 
-class Search extends React.Component {
-    constructor(props) {
-        super(props);
-        this.SubmitHandler = this.SubmitHandler.bind(this);
-        this.onInputChange = this.onInputChange.bind(this);
-        this.search = React.createRef();
-    }
+const { find } = require('../redux/slices/gridSlice.js');
 
-    ValidateInput(value) {
-        return value.trim() != "";
-    }
+function Search() {
+    let search = React.createRef();
+    const dispatch = useDispatch();
 
-    ShowError() {
-        console.log('bad input');
-    }
+    function ValidateInput(value) { return value.trim() != "";}
 
-    SubmitHandler(e) {
-        if(!this.ValidateInput(this.search.current.value)) {
-            this.ShowError();
-            return;
-        }
+    function SubmitHandler(e) {
+        if(!ValidateInput(search.current.value)) return;
 
         e.preventDefault();
-        console.log(this.search.current.value);
-        this.search.current.value = "";
+        search.current.value = "";
     }
 
-    
+    function onInputChange() {
+        if(!ValidateInput(search.current.value)) return;
 
-    find(items, searchValue) {
-        return items.filter(item => {
-            return item.name.toLowerCase().includes(searchValue.toLowerCase());
-        })
+        dispatch(find(search.current.value));
     }
 
-    onInputChange() {
-        if(!this.ValidateInput(this.search.current.value)) {
-            this.ShowError();
-            return;
-        }
-
-        let {gridItems, setGridItems} = this.context;
-        setGridItems({...gridItems,
-            category: type.SEARCH, 
-            products: this.find(gridItems.init_products, this.search.current.value)
-        })
-    }
-
-    render() {
-        return (
-            <div className="search__container">
-                <input 
-                className="search__input" 
-                type="text" 
-                placeholder="Я шукаю..." 
-                ref={this.search}
-                onChange={this.onInputChange}
-                onBlur={() => {this.search.current.value = "";}}
-                />
-                <i className="fa fa-search" onClick={this.SubmitHandler}></i>
-            </div>
-        );
-    }
+    return (
+        <div className="search__container">
+            <input 
+            className="search__input" 
+            type="text" 
+            placeholder="Я шукаю..." 
+            ref={search}
+            onChange={onInputChange}
+            onBlur={() => {search.current.value = "";}}
+            />
+            <i className="fa fa-search" onClick={SubmitHandler}></i>
+        </div>
+    );
 }
-
-Search.contextType = mainPageContext;
 
 module.exports = Search;

@@ -9,6 +9,9 @@ const ErrorPage = require('./src/pages/ErrorPage.jsx');
 
 const TopBar = require('./src/components/TopBar.jsx');
 
+const {store} = require('./src/redux/store.js');
+const {Provider} = require('react-redux');
+
 let root = ReactDOM.createRoot(document.getElementById("app"));
 
 
@@ -29,6 +32,8 @@ function MainApp() {
 
 root.render(
     <BrowserRouter>
-        <MainApp />
+        <Provider store={store}>
+            <MainApp />
+        </Provider>
     </BrowserRouter>
     );

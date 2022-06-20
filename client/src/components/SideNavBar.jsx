@@ -1,40 +1,49 @@
 require('../../../public/navbars/SideBar.css');
-const {mainPageContext} = require('../helpers/context.jsx');
-const type = require('../helpers/types.js');
+
+const React = require('react');
+const { useDispatch } = require('react-redux');
+
+const types = require('../helpers/types.js');
+const { setLabel } = require('../redux/slices/sortSlice.js');
+const { ChangeItemsCategory } = require('../redux/slices/gridSlice.js');
 
 class SideNavBar extends React.Component {
     constructor(props) {
         super(props);
         let icons = [
-            {name: 'popular', type: type.POPULAR},
-            {name: 'sandwhich', type: type.SANDWHICH},
-            {name: 'salad', type: type.SALAD},
-            {name: 'breakfast', type: type.BREAKFAST},
-            {name: 'boul', type: type.BOUL},
-            {name: 'lemonade', type: type.DRINKS},
-            {name: 'dessert', type: type.DESSERTS},
-            {name: 'coffee', type: type.COFFEE}
+            {name: 'popular', type: types.POPULAR},
+            {name: 'sandwhich', type: types.SANDWHICH},
+            {name: 'salad', type: types.SALAD},
+            {name: 'breakfast', type: types.BREAKFAST},
+            {name: 'boul', type: types.BOUL},
+            {name: 'lemonade', type: types.DRINKS},
+            {name: 'dessert', type: types.DESSERTS},
+            {name: 'coffee', type: types.COFFEE}
         ]
         
-        this.picked = null;
+        this.unpick = null;
         let SideBar = this;
 
-        class NavBarEl extends React.Component  {
-            constructor(props) {
-                super(props);
-                this.value = props.value.name;
-                this.type = props.value.type;
-                this.state = {isActive : this.type == type.POPULAR};
-                SideBar.picked = this.state.isActive ? this : SideBar.picked;
-                this.ClickHandler = this.ClickHandler.bind(this);
-            }
+        function NavBarEl(props) {
+            const value = props.value.name;
+            const type = props.value.type;
 
-            ClickHandler() {
-                if(!this.state.isActive) {
+            const [isActive, setIsActive] = React.useState(type == types.POPULAR);
+            const dispatch = useDispatch();
+
+            SideBar.unpick = isActive ? ChangeState : SideBar.unpick;
+
+            let class_name = isActive ? 'picked' : '';
+            let img = isActive ? `icons/${value}_picked.png` : `icons/${value}.png`;
+            
+            const ClickHandler = () => {
+                if(!isActive) {
                     SideBar.depickPrevious();
-                    SideBar.picked = this;
-                    this.ChangeState();
-                    this.ChangeGrid();
+
+                    dispatch(setLabel('▼ Сортування за популярністю'));
+                    dispatch(ChangeItemsCategory(type));
+                    
+                    ChangeState();
                     window.scrollTo({
                         top: 0,
                         left: 0,
@@ -43,56 +52,26 @@ class SideNavBar extends React.Component {
                 }   
             }
 
-            ChangeGrid() {
-                let {gridItems, setGridItems} = this.context;
-                setGridItems({...gridItems, 
-                    category: this.type, 
-                    products: this.getItemsList()
-                })
-            }   
+            function ChangeState() { setIsActive(!isActive);}
 
-            getItemsList() {
-                let {gridItems} = this.context;
-                let {init_products} = gridItems;
-                const category = this.type;
-                
-                if(category == type.POPULAR) 
-                    return init_products.filter(el => el.hasOwnProperty('isPopular') && el.isPopular);
-
-                return init_products.filter(item => item.type === category);
-            }
-
-            ChangeState() {
-                this.setState({isActive: !this.state.isActive});
-            }
-
-            render() {
-               
-                let class_name = this.state.isActive ? 'picked' : '';
-                let img = this.state.isActive ? `icons/${this.value}_picked.png` : `icons/${this.value}.png`;
-            
-                return (
-                    <div onClick={this.ClickHandler} className={class_name}>
-                        <img className="disable-pick picture"
-                        src={img} alt={this.value} />
-                    </div>
-                        )
-            }
+            return (
+                <div onClick={ClickHandler} className={class_name}>
+                    <img className="disable-pick picture"
+                    src={img} alt={value} />
+                </div>
+                    )
         }
-
-        NavBarEl.contextType = mainPageContext;
 
         this.els = [];
 
         for(let icon of icons) {
-            this.els.push(<NavBarEl value={icon} />)
+            this.els.push(<NavBarEl value={icon} key={icon.name}/>)
         }
     }
 
     depickPrevious() {
-        if(this.picked) {
-            this.props.setSortLabel('▼ Сортування за популярністю');
-            this.picked.ChangeState();
+        if(this.unpick) {
+            this.unpick();
         }
     }
 
