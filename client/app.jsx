@@ -7,7 +7,7 @@ const DeliveryPage = require('./src/pages/DeliveryPage.jsx');
 const AboutPage = require('./src/pages/AboutPage.jsx');
 const ErrorPage = require('./src/pages/ErrorPage.jsx');
 
-const TopBar = require('./src/components/TopBar.jsx');
+const TopBar = require('./src/navbars/TopBar.jsx');
 
 const {store} = require('./src/redux/store.js');
 const {Provider} = require('react-redux');

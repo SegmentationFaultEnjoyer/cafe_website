@@ -1,4 +1,4 @@
-const AddToCart = require('./AddToCart.jsx');
+const AddToCart = require('../buttons/AddToCart.jsx');
 const AbstractModal = require('./AbsModal.jsx');
 require('../../../public/Modal.css');
 require('../../../public/animations.css');

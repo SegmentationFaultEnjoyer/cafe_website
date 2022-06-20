@@ -1,7 +1,7 @@
 const {connect} = require('react-redux');
 
 const AbstractModal = require('./AbsModal.jsx');
-const ProductToBuy = require('./ProductToBuy.jsx');
+const ProductToBuy = require('../components/ProductToBuy.jsx');
 const OrderMaker = require('./OrderMaker.jsx');
 
 require('../../../public/Cart.css');

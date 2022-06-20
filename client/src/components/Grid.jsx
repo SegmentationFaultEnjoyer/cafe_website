@@ -2,7 +2,7 @@ require('../../../public/Grid.css');
 
 const { useSelector } = require('react-redux');
 
-const Modal = require('./Modal.jsx');
+const Modal = require('../modals/Modal.jsx');
 const type = require('../helpers/types.js');
 
 function MainGrid() {

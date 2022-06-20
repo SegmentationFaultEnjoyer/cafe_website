@@ -1,5 +1,4 @@
 const AbstractModal = require('./AbsModal.jsx')
-const ErrorMsg = require('../helpers/ErrorMsg.jsx');
 require('../../../public/Form.css');
 
 class OrderMaker extends AbstractModal {
