@@ -16,8 +16,8 @@
 }
 
 .round-button:hover {
-	background-color: var(--coffee-color);
-	box-shadow: 0px 15px 20px rgba(210, 105, 30, 0.4);
+	background-color: rgb(35, 81, 35);
+	box-shadow: 0px 15px 20px rgb(141, 147, 141);
 	color: #fff;
 	transform: translateY(-7px);
   }

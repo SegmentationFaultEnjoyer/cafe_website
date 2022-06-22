@@ -951,9 +951,13 @@ class Database {
 //     await db.connect();
 //     await db.updateOne(
 //         {
-//             img: "Beef_sandwich.webp",
+//             name: "Фреш",
+            
 //         },{
-//             type: 8
+//             options: [{name: "Наповнення", contains: ["апельсин", "яблуко", "грейпфрут", "морква"]}, 
+//                         {name: "Наповнення", contains: ["апельсин", "яблуко", "грейпфрут", "морква"]}]
+        
+
 //         }
 //     )
 //     await db.close();

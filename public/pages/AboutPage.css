@@ -57,7 +57,7 @@
     display: grid;
     grid-template-columns: repeat(4, 20vw);
     grid-template-rows: 40px 130px;
-    background-color: rgba(164, 104, 32, 79%);
+    background-color: rgb(68, 116, 68);
     justify-content: center;
     align-items:baseline;
     column-gap: 10px;
@@ -106,7 +106,7 @@
     } 
 
     .adress div {
-        background-color: rgba(164, 104, 32, 79%);
+        background-color: rgb(68, 116, 68);
         border-radius: 10px;
     }
 

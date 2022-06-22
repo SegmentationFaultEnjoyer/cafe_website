@@ -14,14 +14,14 @@
 }
 .sort-container .field {
 	width: 240px; 
-    background: var(--coffee-color); 
+    background: rgb(35, 81, 35); 
     border-radius: 10px;
     color:#fff; 
     padding:5px; 
     border:none; 
     cursor:pointer;
 	font-size:1em;
-	border:solid 1px var(--coffee-color);
+	border:solid 1px rgb(51, 112, 51);
 	-webkit-transition: all .4s ease-in-out;
 	transition: all .4s ease-in-out;
     text-align: center;
@@ -31,7 +31,7 @@
 	-moz-box-shadow:0 0 5px #999; 
     -webkit-box-shadow:0 0 5px #999; 
     box-shadow:0 0 5px #999;
-    background-color: rgb(183, 136, 79);
+    background-color:  rgb(78, 111, 78)
 }
 .sort-container div ul.list { 
 	position: absolute; 
@@ -51,7 +51,7 @@
 	border-bottom: solid 1px #ccc;
 }
 .sort-container div ul.list li:hover {
-	background:rgb(183, 136, 79); 
+	background:rgb(51, 112, 51); 
     color:#fff;
     cursor: pointer;
 }

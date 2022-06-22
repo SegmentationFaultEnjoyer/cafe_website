@@ -11,7 +11,7 @@
     font-family: inherit;
     font-weight: 500;
     color: black;
-    background-color: rgba(164, 104, 32, 79%);
+    background-color: rgb(68, 116, 68);
    }
 
    .instagram span {
@@ -52,7 +52,7 @@
    }
    
    .instagram::after {
-    background-color: rgba(164, 104, 32, 79%);
+    background-color: rgb(68, 116, 68);
    }
    
    .instagram:hover::after {
