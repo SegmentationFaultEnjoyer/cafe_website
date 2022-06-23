@@ -11,9 +11,11 @@ class Modal extends AbstractModal {
         this.counter = 1;
         this.CounterHandler = this.CounterHandler.bind(this);
         this.ExtrasCounterHandler = this.ExtrasCounterHandler.bind(this);
+        this.CheckBoxHandler = this.CheckBoxHandler.bind(this);
         this.counter_ref = React.createRef();
         this.extras = React.createRef();
         this.options = React.createRef();
+        this.optionsPlural = React.createRef();
     }
 
     CounterHandler(e) {
@@ -32,8 +34,18 @@ class Modal extends AbstractModal {
         e.target.value = "";   
     }
 
+    CheckBoxHandler(e) {
+        let checked = 0;
+        let checkboxes = this.optionsPlural.current.querySelectorAll('input[type=checkbox]');
+        checkboxes.forEach(checkbox => {
+            if(checkbox.checked) checked++;
+        })
+       
+        if(checked > this.product_info.optionsPlural.amount) e.preventDefault();
+    }
+
     render() {
-        let {name, desc, price, img, extras, options} = this.product_info;
+        let {name, desc, price, img, extras, options, optionsPlural} = this.product_info;
         
         return (
             this.modal_wrapper(
@@ -55,13 +67,11 @@ class Modal extends AbstractModal {
                                 {index == 0 ?
                                     <input type="radio" 
                                     name={options[0].name}
-                                    className="checkmark"
                                     defaultChecked
                                     /> 
                                     :
                                     <input type="radio" 
                                     name={options[0].name}
-                                    className="checkmark"
                                     />
                                 }
                                 <span>{el}</span>
@@ -73,6 +83,24 @@ class Modal extends AbstractModal {
                     )
                     }
                     
+                    {optionsPlural && (
+                        <>
+                        <h3>{optionsPlural.name}</h3>
+                        <div className='options-container' ref={this.optionsPlural}>
+                            {optionsPlural.contains.map((el, index) => {
+                                return <div>
+                                    {index == 0 ? <input type="checkbox" name={optionsPlural.name}
+                                    onClick={this.CheckBoxHandler} 
+                                    defaultChecked/> :
+                                    <input type="checkbox" name={optionsPlural.name} 
+                                    onClick={this.CheckBoxHandler}/>}
+                                    <span>{el}</span>
+                                </div>
+                            })}
+                        </div>
+                        </>
+                    )}
+
                     {extras && (
                         <>
                         <h3>Додатки</h3>
@@ -108,7 +136,8 @@ class Modal extends AbstractModal {
                             counter={this.counter_ref} 
                             info={this.product_info} 
                             extras={this.extras}
-                            options={this.options}/>
+                            options={this.options}
+                            optionsPlural={this.optionsPlural}/>
                     </div>
                 </>)
             )

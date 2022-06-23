@@ -3,7 +3,6 @@ const { useDispatch } = require('react-redux');
 
 const { initItems } = require('../redux/slices/gridSlice.js');
 
-
 const SideBar = require('../navbars/SideNavBar.jsx');
 const Cart = require('../modals/Cart.jsx');
 const MainGrid = require('../components/Grid.jsx');

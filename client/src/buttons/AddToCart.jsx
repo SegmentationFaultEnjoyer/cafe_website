@@ -11,6 +11,7 @@ class AddToCart extends React.Component {
         this.counter = props.counter;
         this.extras = props.extras;
         this.options = props.options;
+        this.optionsPlural = props.optionsPlural;
         this.info = {...props.info};
         this.done = React.createRef();
     }
@@ -62,16 +63,27 @@ class AddToCart extends React.Component {
         let options_raw = this.ExtractNodes(this.options.current);
         let pickedNode = options_raw.find(node => node[0].checked == true);
         
-        return pickedNode[1].innerText;
+        return [pickedNode[1].innerText];
+    }
+
+    GetOptionsPlural() {
+        if(this.optionsPlural.current == null) return null;
+
+        let pickedOptions = [];
+        let checkboxes = this.optionsPlural.current.querySelectorAll('input[type=checkbox]');
+        checkboxes.forEach(checkbox => {
+            if(checkbox.checked) pickedOptions.push(checkbox.nextSibling.innerText);
+        })
+        return pickedOptions;
     }
 
     AddToCart() {
         let productToAdd = {...this.info};
         productToAdd.amount = Number(this.counter.current.value);
         productToAdd.extras = this.GetExtras();
-        productToAdd.options = this.GetOptions();
+        productToAdd.options = this.optionsPlural.current == null ? this.GetOptions() : this.GetOptionsPlural();
         productToAdd.key = this.makeKeyId(productToAdd);
-        
+    
         this.props.dispatch(addToCart(productToAdd));
     }
 

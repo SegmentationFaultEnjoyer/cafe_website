@@ -34,7 +34,7 @@ class ProductToBuy extends React.Component {
             <ul className='extras-list'>
                 {this.info.options && (
                     <li><i className="fa fa-plus-square"></i>
-                        <span>{this.info.options}</span>
+                        {this.info.options.map(el => <span>{el}</span>)}
                     </li>)}
                 
                 {this.info.extras.map(el => {

@@ -54,8 +54,8 @@ class TopBar extends React.Component {
             render() {
                 let class_name = this.state.isActive ? 'picked_top' : '';
                 return (
-                    <Link to={this.route} className={class_name}>
-                        <div onClick={this.ClickHandler}>
+                    <Link to={this.route} className={class_name} onClick={this.ClickHandler}>
+                        <div>
                             <p>{this.value}</p>
                         </div>
                     </Link>
