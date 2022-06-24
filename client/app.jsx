@@ -6,8 +6,7 @@ const MainPage = require('./src/pages/MainPage.jsx');
 const DeliveryPage = require('./src/pages/DeliveryPage.jsx');
 const AboutPage = require('./src/pages/AboutPage.jsx');
 const ErrorPage = require('./src/pages/ErrorPage.jsx');
-
-import AdminPanel from './src/admin/AdminPanel.jsx';
+const WelcomePage = require('./src/pages/WelcomePage.jsx');
 
 const TopBar = require('./src/navbars/TopBar.jsx');
 
@@ -18,16 +17,20 @@ let root = ReactDOM.createRoot(document.getElementById("app"));
 
 
 function MainApp() {
+    let app = React.createRef();
+
     return (
         <>
+        <WelcomePage app={app}/>
+        <div ref={app} style={{display: 'none'}}>
         {window.location.pathname != '/admin' && <TopBar />}
         <Routes>
             <Route path='/' element={<MainPage />}/>
             <Route path='/delivery' element={<DeliveryPage />}/>
             <Route path='/about' element={<AboutPage />}/>
-            <Route path='/admin' element={<AdminPanel />}/>
             <Route path='*' element={<ErrorPage />}/>
         </Routes>
+        </div>
         </>
     )
 }
