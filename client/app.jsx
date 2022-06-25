@@ -13,6 +13,8 @@ const TopBar = require('./src/navbars/TopBar.jsx');
 const {store} = require('./src/redux/store.js');
 const {Provider} = require('react-redux');
 
+const AdminPanel = require('./src/admin/AdminPanel.jsx');
+
 let root = ReactDOM.createRoot(document.getElementById("app"));
 
 
@@ -21,15 +23,17 @@ function MainApp() {
 
     return (
         <>
-        <WelcomePage app={app}/>
-        <div ref={app} style={{display: 'none'}}>
-        {window.location.pathname != '/admin' && <TopBar />}
-        <Routes>
-            <Route path='/' element={<MainPage />}/>
-            <Route path='/delivery' element={<DeliveryPage />}/>
-            <Route path='/about' element={<AboutPage />}/>
-            <Route path='*' element={<ErrorPage />}/>
-        </Routes>
+        {window.location.pathname != '/admin' && <WelcomePage app={app}/>}
+
+        <div ref={app} style={{display: window.location.pathname != '/admin' ? 'none' : 'block'}}>
+            {window.location.pathname != '/admin' && <TopBar />}
+            <Routes>
+                <Route path='/' element={<MainPage />}/>
+                <Route path='/delivery' element={<DeliveryPage />}/>
+                <Route path='/about' element={<AboutPage />}/>
+                <Route path='/admin' element={<AdminPanel />}/>
+                <Route path='*' element={<ErrorPage />}/>
+            </Routes>
         </div>
         </>
     )

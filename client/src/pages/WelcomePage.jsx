@@ -10,7 +10,7 @@ function WelcomePage({app}) {
         page.current.style.animationDuration = '0.5s';
         app.current.style.animationName = 'show';
         app.current.style.animationDuration = '0.5s';
-        
+
         setTimeout(() => {
             page.current.style.display = 'none';
             document.body.style.overflow = '';
@@ -21,8 +21,8 @@ function WelcomePage({app}) {
     return (
         <div className='welcome' ref={page}>
             <img className='disable-pick' src="logo/WelcomePage.png" alt="ЦіКава" />
-            <div className='flex-container column'>
-                <img src="logo/mainLogo.png" alt="logo" />
+            <div className='flex-container column disable-select'>
+                <img className='disable-interactions' src="logo/mainLogo.png" alt="logo" />
                 <button className='instagram' onClick={ClickHandler}> 
                     <span>Перейти до меню</span>
                 </button>
