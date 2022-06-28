@@ -9,7 +9,7 @@ const style = {
 function Loader() {
     return(
         <div className='main-grid' style={style}>
-            <Circles color="chocolate" height={200} width={200}/>
+            <Circles color="var(--coffee-color)" height={200} width={200}/>
         </div>
         
     )

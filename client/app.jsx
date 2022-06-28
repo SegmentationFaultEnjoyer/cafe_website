@@ -8,12 +8,13 @@ const AboutPage = require('./src/pages/AboutPage.jsx');
 const ErrorPage = require('./src/pages/ErrorPage.jsx');
 const WelcomePage = require('./src/pages/WelcomePage.jsx');
 
+const Loader = require('./src/helpers/Loader.jsx');
 const TopBar = require('./src/navbars/TopBar.jsx');
 
 const {store} = require('./src/redux/store.js');
 const {Provider} = require('react-redux');
 
-const AdminPanel = require('./src/admin/AdminPanel.jsx');
+const AdminPanel = React.lazy(() => import('./src/admin/AdminPanel.jsx'));
 
 let root = ReactDOM.createRoot(document.getElementById("app"));
 
@@ -23,15 +24,18 @@ function MainApp() {
 
     return (
         <>
-        {window.location.pathname != '/admin' && <WelcomePage app={app}/>}
+        {window.location.pathname != '/admins' && <WelcomePage app={app}/>}
 
-        <div ref={app} style={{display: window.location.pathname != '/admin' ? 'none' : 'block'}}>
-            {window.location.pathname != '/admin' && <TopBar />}
+        <div ref={app} style={{display: window.location.pathname != '/admins' ? 'none' : 'block'}}>
+            {window.location.pathname != '/admins' && <TopBar />}
             <Routes>
                 <Route path='/' element={<MainPage />}/>
                 <Route path='/delivery' element={<DeliveryPage />}/>
                 <Route path='/about' element={<AboutPage />}/>
-                <Route path='/admin' element={<AdminPanel />}/>
+                <Route path='/admins/*' element={
+                    <React.Suspense fallback={<Loader />}>
+                        <AdminPanel />
+                    </React.Suspense>}/>
                 <Route path='*' element={<ErrorPage />}/>
             </Routes>
         </div>

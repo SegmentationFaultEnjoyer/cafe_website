@@ -5,19 +5,24 @@ const HOST = get_host();
 const DataBase = require('./mongodb/db');
 DataBase.connect();
 
+const cookieParser = require("cookie-parser");
+
 const { 
     express, 
     path, 
     webpack, 
     webpackConfig, 
-    webpackMiddleware } = require('./helpers/components');
+    webpackMiddleware
+} = require('./helpers/components');
+
 const { publicPath } = webpackConfig.output;
 
 const router = require('./routers/router');
 const app = express();
 const compiler = webpack(webpackConfig);
 
-
+app.use(express.json());
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(express.static(path.join(__dirname, '..', 'views', 'assets')));
 app.use(webpackMiddleware(compiler, { publicPath }));

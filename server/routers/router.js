@@ -4,7 +4,11 @@ const controller = require('../controllers/controller');
 
 router.get('/', controller.ShowMainPage);
 
-router.get('/getItems', controller.GetItems);
+router.get('/api/items', controller.GetItems);
+
+router.post('/login', controller.LogIn);
+
+router.get('/auth', controller.isAuth, controller.auth);
 
 router.get('/*', controller.ShowMainPage);
 
