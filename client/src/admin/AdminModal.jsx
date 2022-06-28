@@ -1,5 +1,9 @@
 const AbstractModal = require('../modals/AbsModal.jsx');
 const AdminForm = require('./AdminForm.jsx');
+const request = require('../helpers/SendRequest.js');
+
+const { useDispatch } = require('react-redux');
+const { deleteItem } = require('../redux/slices/gridSlice.js');
 
 class AdminModal extends AbstractModal {
     constructor(props) {
@@ -19,9 +23,13 @@ class AdminModal extends AbstractModal {
 
 function PreviewCard(props) {
     let {info, onClick} = props;
+    const dispatch = useDispatch();
 
     async function DeleteItem() {
         console.log('УДОЛЯЮ');
+        let {success} = await request('/api/items', 'DELETE', {_id: info._id});
+        if(success) dispatch(deleteItem(info._id));
+        console.log(success);
     }
 
     return (

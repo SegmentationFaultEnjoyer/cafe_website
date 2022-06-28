@@ -56,10 +56,19 @@ export const gridSlice = createSlice({
             state.items.products = state.items.init_products.filter(item => {
                 return item.name.toLowerCase().includes(action.payload.toLowerCase());
             })
+        },
+
+        deleteItem(state, action) {
+            state.items.init_products = state.items.init_products.filter(item => {
+                return item._id !== action.payload;
+            })
+            state.items.products = state.items.products.filter(item => {
+                return item._id !== action.payload;
+            })
         }
     }
 })
 
-export const { initItems, sort, ChangeItemsCategory, find } = gridSlice.actions
+export const { initItems, sort, ChangeItemsCategory, find, deleteItem} = gridSlice.actions
 
 export default gridSlice.reducer;

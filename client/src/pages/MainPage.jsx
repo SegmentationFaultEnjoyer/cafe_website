@@ -15,7 +15,7 @@ function MainPage() {
     const dispatch = useDispatch(); 
 
     React.useEffect(() => {
-        fetch('api/items')
+        fetch('/api/items')
             .then((items) => items.json())
             .then(({products}) => {
                 dispatch(initItems(products));

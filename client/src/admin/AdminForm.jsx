@@ -1,5 +1,6 @@
 const type = require('../helpers/types.js');
 const getTitle = require('../helpers/GetTitle.js');
+const request = require('../helpers/SendRequest.js');
 
 class AdminForm extends React.Component {
     constructor(props) {
@@ -110,15 +111,18 @@ class AdminForm extends React.Component {
             contains: options}] : null;
     }
     
-    ValidateInput({name, desc, price}) {
+    ValidateInput({name, desc, price, img}) {
         if(name == '' || desc == '') return false;
 
         if(isNaN(price)) return false;
 
+        if(this.props.isEmpty && img == '') 
+            return false;
+
         return true;
     }
 
-    SubmitHandler(e) {
+    async SubmitHandler(e) {
         e.preventDefault();
 
         const formData = new FormData(e.target);
@@ -128,16 +132,29 @@ class AdminForm extends React.Component {
         let newProduct = {
             name: formData.get('name').trim(),
             desc: formData.get('desc').trim(),
-            img: 'IDK',
+            img: formData.get('img').name,
             isPopular: formData.get('isPopular') ? true : false,
             price: parseInt(formData.get('price')),
             type: parseInt(formData.get('category')),
             extras: this.parseExtras(),
             options: this.parseOptions()
         }
-        
+
+        if(this.product_info) {
+            newProduct._id = this.product_info._id;
+        }
+
         if(this.ValidateInput(newProduct)) {
-            console.log(newProduct);
+            let resp;
+            if(this.props.isEmpty)
+                resp = await request('/api/items', 'POST', newProduct);
+            else
+                resp = await request('/api/items', 'PUT', newProduct);
+
+            if(resp.success && newProduct.img != '') {
+                await fetch('upload_photo', {method: 'POST', body: formData});
+            }
+            console.log(resp, newProduct);
         }
         else
             alert('Введені некоректні данні! Перевірте поля ще раз.');
@@ -149,7 +166,7 @@ class AdminForm extends React.Component {
 
         return (
             <> 
-                <form className='edit-form' onSubmit={this.SubmitHandler}>
+                <form className='edit-form' onSubmit={this.SubmitHandler} encType="multipart/form-data">
                     <h3>Назва</h3>
                     <input type="text" name="name" 
                         defaultValue={this.product_info ? this.product_info.name : ''}/>

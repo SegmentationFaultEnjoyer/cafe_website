@@ -45,3 +45,52 @@ exports.auth = function (req, resp) {
     else
         resp.json({isAuth: false});
 }
+
+exports.UploadPhoto = function (req, resp) {
+    if(!req.file) {
+        console.log('Bad file');
+        resp.json({isUploaded: false});
+    }
+
+    else {
+        console.log('Image uploaded');
+        resp.json({isUploaded: true});
+    }
+        
+}
+
+exports.UpdateProduct = async function (req, resp) {
+    if(!resp.user) {
+        resp.json({success: false});
+        return;
+    }
+    
+    let id = new require('mongodb').ObjectId(req.body._id);
+    delete req.body._id;
+
+    await DataBase.updateOne({_id: id}, req.body);
+    resp.json({success: true});
+}
+
+exports.AddProduct = async function (req, resp) {
+    if(!resp.user) {
+        resp.json({success: false});
+        return;
+    }
+
+    await DataBase.addOne(req.body);
+    resp.json({success: true});
+    
+}
+
+exports.DeleteProduct = async function (req, resp) {
+    if(!resp.user) {
+        resp.json({success: false});
+        return;
+    }
+
+    let id = new require('mongodb').ObjectId(req.body._id);
+   
+    await DataBase.deleteOne({_id: id});
+    resp.json({success: true});
+}

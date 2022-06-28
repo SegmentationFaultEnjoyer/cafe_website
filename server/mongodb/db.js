@@ -920,7 +920,8 @@ class Database {
             await this.items.insertOne(obj);
             return 0;
         }
-        catch {
+        catch(e) {
+            console.log(e.message);
             return 1;
         }
     }
@@ -932,7 +933,8 @@ class Database {
             );
             return 0;
         }
-        catch {
+        catch(e) {
+            console.log(e.message);
             return 1;
         }
     }
@@ -941,7 +943,8 @@ class Database {
             await this.items.deleteOne(filter);
             return 0;
         }
-        catch {
+        catch(e) {
+            console.log(e.message);
             return 1;
         }
     }
@@ -951,11 +954,18 @@ class Database {
 //     await db.connect();
 //     await db.updateOne(
 //         {
-//             name: "Фреш",
+//             name: 'Суп дня'
             
 //         },{
+//             name: 'Суп дня',
+//             desc: "Щодня готуємо різноманітні крем супи. В нас бувають: томатний, грибний, гарбузовий, кукурудзяний, сочевичний, квасолевий з беконом, шпинатний з зеленим горошком, цвітна капуста з болгарським перцем. Можеш просто замовити або зателефонувати в кав'ярню, щоб дізнатись чи сьогоднішній суп тобі до вподоби). Подається з двома грінками. Об'єм 350 мл.",
+//             isPopular: true,
+//             price: 750,
+//             type: 4,
+//             extras: [ { name: 'хліб', price: 0 } ],
 //             options: null
-//         }
+//           }
+          
 //     )
 //     await db.close();
 // }

@@ -30,10 +30,10 @@ class AbstractModal extends React.Component {
             <React.Fragment>
                 {trigger}
                 {this.state.isOpen && 
-                (<div className="modal" ref={this.window} onClick={this.change_state}>
-                    <div className="modal-body disable-select" onClick={
+                (<div className="modal" ref={this.window} onMouseDown={this.change_state}>
+                    <div className="modal-body disable-select" onMouseDown={
                         (e) => {e.stopPropagation();}}>
-                        <div className="closeModal" onClick={this.change_state}></div>
+                        <div className="closeModal" onMouseDown={this.change_state}></div>
                         {content}
                     </div>
                 </div>)}
