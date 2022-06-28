@@ -27,7 +27,7 @@ function PreviewCard(props) {
 
     async function DeleteItem() {
         console.log('УДОЛЯЮ');
-        let {success} = await request('/api/items', 'DELETE', {_id: info._id});
+        let {success} = await request('/api/items', 'DELETE', {_id: info._id, img: info.img});
         if(success) dispatch(deleteItem(info._id));
         console.log(success);
     }

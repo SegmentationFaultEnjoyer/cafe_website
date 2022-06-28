@@ -1,4 +1,4 @@
-const {path} = require('../helpers/components');
+const {path, fs} = require('../helpers/components');
 const jwt = require("jsonwebtoken");
 const secureKey = "eb686e3c7e34ecc1a1f0d5efa40dabc7549d5624ef9e2b65521a1d688101f470d1de246e7147ab3fe5591b19637521b8";
 const DataBase = require('../mongodb/db');
@@ -91,6 +91,12 @@ exports.DeleteProduct = async function (req, resp) {
 
     let id = new require('mongodb').ObjectId(req.body._id);
    
-    await DataBase.deleteOne({_id: id});
-    resp.json({success: true});
+    let result = await DataBase.deleteOne({_id: id});
+    if(result == 0) {
+        fs.unlinkSync(path.join(__dirname, '../..', 'views', 'assets', req.body.img));
+        resp.json({success: true});
+    }
+        
+    else 
+        resp.json({success: false});
 }
