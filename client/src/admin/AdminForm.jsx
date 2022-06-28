@@ -204,7 +204,7 @@ class AdminForm extends React.Component {
                     </div>
                     
 
-                    <button className='green checkout-btn'>ЗБЕРЕГТИ ЗМІНИ</button>
+                    <button className='green checkout-btn'>{this.props.isEmpty ? 'ДОДАТИ' : 'ЗБЕРЕГТИ ЗМІНИ'}</button>
                 </form>
                 </>
         )

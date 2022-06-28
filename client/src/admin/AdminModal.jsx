@@ -1,5 +1,3 @@
-require('../../../public/admin/AdminModal.css');
-const type = require('../helpers/types.js');
 const AbstractModal = require('../modals/AbsModal.jsx');
 const AdminForm = require('./AdminForm.jsx');
 
