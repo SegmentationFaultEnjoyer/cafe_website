@@ -208,11 +208,6 @@ class OrderMaker extends AbstractModal {
                         <div className='input-container'>
                             {this.state._nameInput}
                         </div>
-                        {/* <div className='input-container'>
-                        <input className='input' type="email" name="email" placeholder=" "/>
-                        <div className="cut"></div>
-                        <label htmlFor="email" className="placeholder">Пошта</label>
-                    </div> */}
                         <div className='input-container'>
                             {this.state._phoneInput}
                         </div>
@@ -224,7 +219,6 @@ class OrderMaker extends AbstractModal {
                                 ref={this.select}>
                                 <option value={0}>Безготівковий розрахунок</option>
                                 <option value={1}>Переказ на картку</option>
-                                <option value={2}>Сракою</option>
                             </select>
                             <div className="cut"></div>
                             <label htmlFor="payment" className="placeholder">Оплата</label>

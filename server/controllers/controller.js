@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const secureKey = "eb686e3c7e34ecc1a1f0d5efa40dabc7549d5624ef9e2b65521a1d688101f470d1de246e7147ab3fe5591b19637521b8";
 const DataBase = require('../mongodb/db');
 const bot = require("../app/bot/bot");
+const convertImg = require('../helpers/convertImage');
 
 exports.ShowMainPage = function(req, resp) {
     resp.sendFile(path.join(__dirname, '../..', 'views', 'index.html'));
@@ -54,7 +55,8 @@ exports.UploadPhoto = function (req, resp) {
     }
 
     else {
-        console.log('Image uploaded');
+        console.log('Image uploaded', req.file.filename);
+        convertImg(path.join(__dirname, '../..', 'views', 'assets'), req.file.filename);
         resp.json({isUploaded: true});
     }
         

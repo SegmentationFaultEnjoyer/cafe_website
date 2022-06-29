@@ -1,9 +1,12 @@
 const AbstractModal = require('../modals/AbsModal.jsx');
+const ConfirmationModal = require('../modals/ConfirmModal.jsx');
 const AdminForm = require('./AdminForm.jsx');
 const request = require('../helpers/SendRequest.js');
 
+const {useState} = require('react');
 const { useDispatch } = require('react-redux');
 const { deleteItem } = require('../redux/slices/gridSlice.js');
+
 
 class AdminModal extends AbstractModal {
     constructor(props) {
@@ -24,12 +27,18 @@ class AdminModal extends AbstractModal {
 function PreviewCard(props) {
     let {info, onClick} = props;
     const dispatch = useDispatch();
+    let [state, setState] = useState({isOpen: false, confirmCallback: null})
 
     async function DeleteItem() {
         console.log('УДОЛЯЮ');
-        let {success} = await request('/api/items', 'DELETE', {_id: info._id, img: info.img});
-        if(success) dispatch(deleteItem(info._id));
-        console.log(success);
+        setState({
+            isOpen: true,
+            confirmCallback: async () => {
+                let {success} = await request('/api/items', 'DELETE', {_id: info._id, img: info.img});
+                if(success) dispatch(deleteItem(info._id));
+                console.log(success);
+            }
+        });
     }
 
     return (
@@ -44,6 +53,12 @@ function PreviewCard(props) {
                 <h3>{info.name}</h3>
             </div>
             <p className="price-label">{`${info.price} грн`}</p>
+            
+            <ConfirmationModal
+                    isOpen={state.isOpen}
+                    setIsOpen={(isOpen) => {setState({...state, isOpen})}}
+                    afterConfirmCallback={state.confirmCallback}
+                    contains={`Хочете видалити ${info.name} назавжди?`}/>
         </div>
     )
 }

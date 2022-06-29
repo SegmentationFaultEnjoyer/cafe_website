@@ -1,6 +1,7 @@
 const type = require('../helpers/types.js');
 const getTitle = require('../helpers/GetTitle.js');
 const request = require('../helpers/SendRequest.js');
+const ConfirmationModal = require('../modals/ConfirmModal.jsx');
 
 class AdminForm extends React.Component {
     constructor(props) {
@@ -9,7 +10,9 @@ class AdminForm extends React.Component {
         this.product_info = !props.isEmpty ? props.info : null;
         this.state = {
             extras: this.init_extras(),
-            options: this.init_options()
+            options: this.init_options(),
+            isWaitingForConfirmation: false,
+            ConfirmCallback: null
         }
         this.addField = this.addField.bind(this);
         this.SubmitHandler = this.SubmitHandler.bind(this);
@@ -98,7 +101,7 @@ class AdminForm extends React.Component {
         return extras.length > 0 ? extras : null;
     }
 
-    parseOptions() {
+    parseOptions(name) {
         let options = [];
         let nodes = this.options.current.querySelectorAll('div');
         nodes.forEach(node => {
@@ -107,7 +110,7 @@ class AdminForm extends React.Component {
                 options.push(name.value.trim());
         })
         return options.length > 0 ? [{
-            name: (this.product_info && this.product_info.options) ? this.product_info.options[0].name : 'Опції на вибір', 
+            name, 
             contains: options}] : null;
     }
     
@@ -137,24 +140,35 @@ class AdminForm extends React.Component {
             price: parseInt(formData.get('price')),
             type: parseInt(formData.get('category')),
             extras: this.parseExtras(),
-            options: this.parseOptions()
+            options: this.parseOptions(formData.get('options_name'))
         }
 
         if(this.product_info) {
             newProduct._id = this.product_info._id;
+            if(newProduct.img == '') newProduct.img = this.product_info.img;
         }
 
         if(this.ValidateInput(newProduct)) {
             let resp;
-            if(this.props.isEmpty)
-                resp = await request('/api/items', 'POST', newProduct);
-            else
-                resp = await request('/api/items', 'PUT', newProduct);
+            
+            this.setState({
+                isWaitingForConfirmation: true, 
+                ConfirmCallback: async () => {
+                    if(newProduct.img != '') {
+                        await fetch('upload_photo', {method: 'POST', body: formData});
+                        newProduct.img = newProduct.img.split('.')[0] + '.webp';
+                    }
 
-            if(resp.success && newProduct.img != '') {
-                await fetch('upload_photo', {method: 'POST', body: formData});
-            }
-            console.log(resp, newProduct);
+                    if(this.props.isEmpty)
+                        resp = await request('/api/items', 'POST', newProduct);
+                    else
+                        resp = await request('/api/items', 'PUT', newProduct);
+
+                    
+                    console.log(resp, newProduct);
+                }    
+            });
+            
         }
         else
             alert('Введені некоректні данні! Перевірте поля ще раз.');
@@ -188,7 +202,7 @@ class AdminForm extends React.Component {
                                 .map(el => <option value={el}>{getTitle(el)}</option>)}
                         </select>
                         <div>
-                            <label htmlFor="popular">На головну сторінку</label>
+                            <label htmlFor="popular" style={{paddingRight: '5px'}}>На головну сторінку</label>
                             {(this.product_info && this.product_info.hasOwnProperty('isPopular') && this.product_info.isPopular) ?
                             <input type='checkbox' defaultChecked name='isPopular'/> :
                             <input type='checkbox' name='isPopular'/>
@@ -211,7 +225,10 @@ class AdminForm extends React.Component {
                    
 
                     <div className='flex-container'>
-                        <h3>Опції</h3>
+                        <input type="text" name='options_name' style={{fontWeight: 'bold'}} 
+                            defaultValue={(this.product_info && this.product_info.options) ? 
+                                            this.product_info.options[0].name :
+                                            'Опції на вибір'} />
                         <i className="fa fa-plus-circle" onClick={() => {this.addField('option')}} style={{
                             fontSize: '30px'
                         }}></i>
@@ -223,6 +240,12 @@ class AdminForm extends React.Component {
 
                     <button className='green checkout-btn'>{this.props.isEmpty ? 'ДОДАТИ' : 'ЗБЕРЕГТИ ЗМІНИ'}</button>
                 </form>
+                        
+                <ConfirmationModal
+                    isOpen={this.state.isWaitingForConfirmation}
+                    setIsOpen={(state) => {this.setState({isWaitingForConfirmation: state})}}
+                    afterConfirmCallback={this.state.ConfirmCallback}
+                    contains="Ви впевнені?"/>
                 </>
         )
     }
