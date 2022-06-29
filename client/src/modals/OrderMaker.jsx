@@ -1,4 +1,5 @@
-const AbstractModal = require('./AbsModal.jsx')
+const AbstractModal = require('./AbsModal.jsx');
+const request = require("../helpers/SendRequest")
 require('../../../public/Form.css');
 
 class OrderMaker extends AbstractModal {
@@ -8,7 +9,7 @@ class OrderMaker extends AbstractModal {
         this.orderInfo = props.info;
 
         this.state = {
-            name: "", 
+            name: "",
             phoneNumber: "",
             eMail: "",
             addres: "",
@@ -27,11 +28,11 @@ class OrderMaker extends AbstractModal {
     }
 
     dataTypeMatch(data, type) {
-        if(!type) return true;
+        if (!type) return true;
 
         let RegExp;
 
-        switch(type) {
+        switch (type) {
             case 'digit':
                 RegExp = /[0-9]/;
                 break;
@@ -46,8 +47,8 @@ class OrderMaker extends AbstractModal {
     }
 
     translatePropToUkr(string, ...props) {
-       const translate = (prop) => {
-            switch(prop) {
+        const translate = (prop) => {
+            switch (prop) {
                 case 'name':
                     return "Ім'я";
                 case 'number':
@@ -65,28 +66,28 @@ class OrderMaker extends AbstractModal {
     }
 
     validateForm(formData, validationOptions) {
-        if(validationOptions.length != Object.keys(formData).length) {
+        if (validationOptions.length != Object.keys(formData).length) {
             console.warn('Wrong amount of options passed for validation');
-            return {valid: false, errors: []};
+            return { valid: false, errors: [] };
         }
 
         let errors = [];
         let optionCounter = 0;
 
-        for(let key in formData) {
+        for (let key in formData) {
             let data = formData[key];
             let option = validationOptions[optionCounter];
             let error_list = [];
 
-            if(!option) continue;
+            if (!option) continue;
 
-            if(!this.lengthMatch(data.length, option.length))
+            if (!this.lengthMatch(data.length, option.length))
                 error_list.push(this.translatePropToUkr`${key} має некоректну довжину`);
- 
-            else if(!this.dataTypeMatch(data, option.restrictedSymbol))
+
+            else if (!this.dataTypeMatch(data, option.restrictedSymbol))
                 error_list.push(this.translatePropToUkr`${key} містить заборонений символ`);
 
-            if(error_list.length > 0) errors.push({field: key, list: error_list});
+            if (error_list.length > 0) errors.push({ field: key, list: error_list });
 
             optionCounter++;
         }
@@ -98,53 +99,53 @@ class OrderMaker extends AbstractModal {
     }
 
     showErrors(errors) {
-        for(let error of errors) {
+        for (let error of errors) {
             let error_list = error.list.map(error => {
                 return <p className='error'>{error}</p>
             })
 
-            switch(error.field) {
+            switch (error.field) {
                 case 'name':
-                    if(this.state._nameInput.length <= 3)
-                    this.setState({_nameInput: [...this.state._nameInput, error_list]});
+                    if (this.state._nameInput.length <= 3)
+                        this.setState({ _nameInput: [...this.state._nameInput, error_list] });
                     break;
                 case 'number':
-                    if(this.state._phoneInput.length <= 3)
-                    this.setState({_phoneInput: [...this.state._phoneInput, error_list]});
+                    if (this.state._phoneInput.length <= 3)
+                        this.setState({ _phoneInput: [...this.state._phoneInput, error_list] });
                     break;
                 case 'addres':
-                    if(this.state._addresInput.length <= 3)
-                    this.setState({_addresInput: [...this.state._addresInput, error_list]});
+                    if (this.state._addresInput.length <= 3)
+                        this.setState({ _addresInput: [...this.state._addresInput, error_list] });
                     break;
                 default:
                     break;
             }
         }
-        
+
     }
 
     CleanErrors = () => {
-        for(let key in this.state) {
-            if(key.toString()[0] == '_' && this.state[key].length > 3) {
-                this.setState({[key] : this.state[key].splice(0, 3)})
+        for (let key in this.state) {
+            if (key.toString()[0] == '_' && this.state[key].length > 3) {
+                this.setState({ [key]: this.state[key].splice(0, 3) })
             }
-        }   
+        }
     }
 
-    handleSubmit(e) {
+    async handleSubmit(e) {
         e.preventDefault();
 
         const validationOptions = [
             {
-                length: {min: 2, max: 25},
+                length: { min: 2, max: 25 },
                 restrictedSymbol: 'digit'
             },
             {
-                length: {min: 10, max: 13},
+                length: { min: 10, max: 13 },
                 restrictedSymbol: 'char'
             },
             {
-                length: {min: 10, max: 100},
+                length: { min: 10, max: 100 },
                 restrictedSymbol: null
             },
             null
@@ -161,32 +162,33 @@ class OrderMaker extends AbstractModal {
 
         let isValid = this.validateForm(order, validationOptions);
 
-        if(!isValid.valid) {
+        if (!isValid.valid) {
             this.showErrors(isValid.errors);
             return;
         }
 
         console.table(order);
         console.log(this.orderInfo);
+        await request("/api/order", "POST", order)
     }
 
     change_state() {
         this.fade_out()
             .then(() => {
-                this.setState({isOpen: !this.state.isOpen});
-                this.prevWindow.setState({MakingOrder: false});
+                this.setState({ isOpen: !this.state.isOpen });
+                this.prevWindow.setState({ MakingOrder: false });
             })
             .catch((error) => console.error(error));
     }
 
     nameInput = [
-        <input className='input' type="text" name='name' placeholder=" " onFocus={this.CleanErrors}/>,
+        <input className='input' type="text" name='name' placeholder=" " onFocus={this.CleanErrors} />,
         <div className="cut cut-short"></div>,
         <label htmlFor="name" className="placeholder">Ім'я</label>
     ]
 
     phoneInput = [
-        <input className='input' type="tel" name="phoneNumber" placeholder=" " onFocus={this.CleanErrors}/>,
+        <input className='input' type="tel" name="phoneNumber" placeholder=" " onFocus={this.CleanErrors} />,
         <div className="cut cut-long"></div>,
         <label htmlFor="phoneNumber" className="placeholder">Номер телефону</label>
     ]
@@ -199,39 +201,39 @@ class OrderMaker extends AbstractModal {
 
     render() {
         return (
-            this.modal_wrapper(<></>, 
+            this.modal_wrapper(<></>,
                 <>
-                <h1 className='title'>Оформлення замовлення</h1>
-                <form onSubmit={this.handleSubmit} className="form">
-                    <div className='input-container'>
-                        {this.state._nameInput}
-                    </div>
-                    {/* <div className='input-container'>
+                    <h1 className='title'>Оформлення замовлення</h1>
+                    <form onSubmit={this.handleSubmit} className="form">
+                        <div className='input-container'>
+                            {this.state._nameInput}
+                        </div>
+                        {/* <div className='input-container'>
                         <input className='input' type="email" name="email" placeholder=" "/>
                         <div className="cut"></div>
                         <label htmlFor="email" className="placeholder">Пошта</label>
                     </div> */}
-                    <div className='input-container'>
-                        {this.state._phoneInput}
-                    </div>
-                    <div className='input-container'>
-                        {this.state._addresInput}
-                    </div>
-                    <div className='input-container'>
-                        <select className='input' name='payment'
-                        ref={this.select}>
-                            <option value={0}>Безготівковий розрахунок</option>
-                            <option value={1}>Переказ на картку</option>
-                            <option value={2}>Сракою</option>
-                        </select>
-                        <div className="cut"></div>
-                        <label htmlFor="payment" className="placeholder">Оплата</label>
-                    </div>
-                    <div className='input-container'>
-                        <button type='submit' className='brown checkout-btn'>Замовити</button>
-                    </div>
-                    
-                </form>
+                        <div className='input-container'>
+                            {this.state._phoneInput}
+                        </div>
+                        <div className='input-container'>
+                            {this.state._addresInput}
+                        </div>
+                        <div className='input-container'>
+                            <select className='input' name='payment'
+                                ref={this.select}>
+                                <option value={0}>Безготівковий розрахунок</option>
+                                <option value={1}>Переказ на картку</option>
+                                <option value={2}>Сракою</option>
+                            </select>
+                            <div className="cut"></div>
+                            <label htmlFor="payment" className="placeholder">Оплата</label>
+                        </div>
+                        <div className='input-container'>
+                            <button type='submit' className='brown checkout-btn'>Замовити</button>
+                        </div>
+
+                    </form>
                 </>
             )
         )

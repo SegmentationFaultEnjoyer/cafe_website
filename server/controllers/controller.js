@@ -2,6 +2,7 @@ const {path, fs} = require('../helpers/components');
 const jwt = require("jsonwebtoken");
 const secureKey = "eb686e3c7e34ecc1a1f0d5efa40dabc7549d5624ef9e2b65521a1d688101f470d1de246e7147ab3fe5591b19637521b8";
 const DataBase = require('../mongodb/db');
+const bot = require("../app/bot/bot");
 
 exports.ShowMainPage = function(req, resp) {
     resp.sendFile(path.join(__dirname, '../..', 'views', 'index.html'));
@@ -99,4 +100,14 @@ exports.DeleteProduct = async function (req, resp) {
         
     else 
         resp.json({success: false});
+}
+
+exports.PostOrder = async function(req, resp) {
+    try {
+        console.log("here");
+        await bot.messageBroadcaster(req.body);
+        resp.json({success: true});
+    } catch (error) {
+        resp.json({success: false});
+    }
 }

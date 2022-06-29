@@ -19,6 +19,8 @@ router.post('/api/items', controller.isAuth, controller.AddProduct);
 
 router.delete('/api/items', controller.isAuth, controller.DeleteProduct);
 
+router.post('/api/order', controller.PostOrder);
+
 router.get('/*', controller.ShowMainPage);
 
 module.exports = router;
