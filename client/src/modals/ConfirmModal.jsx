@@ -1,4 +1,13 @@
 const { Button, Icon, Modal } = require('semantic-ui-react');
+loadStyle();
+
+function loadStyle() {
+    var elem = document.createElement('link');
+    elem.rel = 'stylesheet';
+    elem.type = 'text/css';
+    document.body.appendChild(elem);
+    elem.href = "https://cdn.jsdelivr.net/npm/semantic-ui@2/dist/semantic.min.css";
+}
 
 function ConfirmationModal({isOpen, setIsOpen, afterConfirmCallback, contains}) {
     

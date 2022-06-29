@@ -127,6 +127,7 @@ class AdminForm extends React.Component {
 
     async SubmitHandler(e) {
         e.preventDefault();
+        let needUpload = true;
 
         const formData = new FormData(e.target);
 
@@ -145,7 +146,10 @@ class AdminForm extends React.Component {
 
         if(this.product_info) {
             newProduct._id = this.product_info._id;
-            if(newProduct.img == '') newProduct.img = this.product_info.img;
+            if(newProduct.img == '') {
+                newProduct.img = this.product_info.img;
+                needUpload = false;
+            }
         }
 
         if(this.ValidateInput(newProduct)) {
@@ -154,7 +158,8 @@ class AdminForm extends React.Component {
             this.setState({
                 isWaitingForConfirmation: true, 
                 ConfirmCallback: async () => {
-                    if(newProduct.img != '') {
+                    if(needUpload) {
+                        console.log(newProduct.img, 'ITS OK UPLOADING');
                         await fetch('upload_photo', {method: 'POST', body: formData});
                         newProduct.img = newProduct.img.split('.')[0] + '.webp';
                     }

@@ -948,7 +948,7 @@ class Database {
             return 1;
         }
     }
-    async findOne(filter, options) {
+    async getOne(filter) {
         try {
             return await this.items.findOne(filter);
         }

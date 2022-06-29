@@ -71,8 +71,17 @@ exports.UpdateProduct = async function (req, resp) {
     let id = new require('mongodb').ObjectId(req.body._id);
     delete req.body._id;
 
-    await DataBase.updateOne({_id: id}, req.body);
-    resp.json({success: true});
+    let oldProduct = await DataBase.getOne({_id: id});
+
+    let res = await DataBase.updateOne({_id: id}, req.body);
+
+    if(res == 0 && oldProduct.img != req.body.img) {
+        console.log(oldProduct.img, req.body.img);
+        console.log('deleting old image', oldProduct.img);
+        fs.unlinkSync(path.join(__dirname, '../..', 'views', 'assets', oldProduct.img));
+    }
+
+    resp.json({success: res == 0});
 }
 
 exports.AddProduct = async function (req, resp) {
@@ -81,8 +90,8 @@ exports.AddProduct = async function (req, resp) {
         return;
     }
 
-    await DataBase.addOne(req.body);
-    resp.json({success: true});
+    let res = await DataBase.addOne(req.body);
+    resp.json({success: res == 0});
     
 }
 
@@ -95,13 +104,11 @@ exports.DeleteProduct = async function (req, resp) {
     let id = new require('mongodb').ObjectId(req.body._id);
    
     let result = await DataBase.deleteOne({_id: id});
-    if(result == 0) {
+
+    if(result == 0)
         fs.unlinkSync(path.join(__dirname, '../..', 'views', 'assets', req.body.img));
-        resp.json({success: true});
-    }
-        
-    else 
-        resp.json({success: false});
+    
+    resp.json({success: result == 0});
 }
 
 exports.PostOrder = async function(req, resp) {
