@@ -7,6 +7,8 @@ const DeliveryPage = require('./src/pages/DeliveryPage.jsx');
 const AboutPage = require('./src/pages/AboutPage.jsx');
 const ErrorPage = require('./src/pages/ErrorPage.jsx');
 const WelcomePage = require('./src/pages/WelcomePage.jsx');
+const PublicPage = require('./src/pages/PublicPage.jsx');
+const PolicyPage = require('./src/pages/PolicyPage.jsx');
 
 const Loader = require('./src/helpers/Loader.jsx');
 const TopBar = require('./src/navbars/TopBar.jsx');
@@ -32,6 +34,8 @@ function MainApp() {
                 <Route path='/' element={<MainPage />}/>
                 <Route path='/delivery' element={<DeliveryPage />}/>
                 <Route path='/about' element={<AboutPage />}/>
+                <Route path='/dogovir-publichnoyi-oferty' element={<PublicPage />}/>
+                <Route path='/policy' element={<PolicyPage />}/>
                 <Route path='/admins/*' element={
                     <React.Suspense fallback={<Loader />}>
                         <AdminPanel />
