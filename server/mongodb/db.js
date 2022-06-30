@@ -1,9 +1,10 @@
 const {MongoClient} = require('mongodb'); 
+require("dotenv").config();
 
 class Database {
     constructor() {this.client; this.db; this.items}
     async connect() {
-        this.client = new MongoClient('mongodb+srv://mango:vpU3X7cgpNxskUW@cluster0.mmxo3.mongodb.net/?retryWrites=true&w=majority');
+        this.client = new MongoClient('mongodb+srv://' + process.env.MONGO_DB_KEY);
         await this.client.connect();        
         console.log("DB connected!");
         this.db = this.client.db('tsicava')
@@ -978,6 +979,16 @@ class Database {
         }
     }
 }
+<<<<<<< HEAD
+async function main() {
+    let db = new Database();
+    await db.connect();
+    let admin = await db.getMany({},{_id: 0}, 'location_photo');
+    console.log(admin);
+    db.close();
+}
+main();
+=======
 // async function main() {
 //     let images = ['location/zaklad_0.webp', 'location/zaklad_1.webp', 'location/zaklad_2.webp', 'location/zaklad_3.webp']
 //     let db = new Database();
@@ -990,5 +1001,6 @@ class Database {
 //     db.close();
 // }
 // main();
+>>>>>>> cf2716baf7c866b2daddd2e3b6ac12b922788bd4
 
 module.exports = new Database();
