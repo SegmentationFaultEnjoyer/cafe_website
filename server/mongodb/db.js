@@ -957,15 +957,21 @@ class Database {
             return 1;
         }
     }
+    async getAdmin() {
+        try {
+            return await this.db.collection('admin').findOne();
+        }
+        catch(e) {
+            console.log(e.message);
+            return 1;
+        }
+    }
 }
 // async function main() {
 //     let db = new Database();
 //     await db.connect();
-//     let finder = await db.findOne(
-//         {name: 'Суп дня'}
-//     )
-//     console.log(finder);
-//     await db.close();
+//     console.log(await db.getAdmin());
+//     db.close();
 // }
 // main();
 
