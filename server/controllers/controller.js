@@ -124,5 +124,5 @@ exports.PostOrder = async function(req, resp) {
 exports.GetPayBtn = async function(req, resp) {
     const {amount, description, order_id} = req.body;
     const htmlBtn = createOrderBTN(amount, description, order_id)
-    resp.send(htmlBtn);    
+    resp.json(htmlBtn);    
 }

@@ -24,8 +24,7 @@ function ParseHTML(html) {
     let str2 = str1;
     str1 = str1.split(`" /><input type="hidden"`)[0];
 
-    
     str2 = str2.split(`<input type="hidden" name="signature" value="`)[1];
     str2 = str2.split(`" /><input type="image"`)[0];
-    return [str1, str2];
+    return {value1: str1, value2: str2};
 }
