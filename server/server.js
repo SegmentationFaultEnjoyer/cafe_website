@@ -6,7 +6,6 @@ const DataBase = require('./mongodb/db');
 DataBase.connect();
 
 const cookieParser = require("cookie-parser");
-
 const { 
     express, 
     path, 
@@ -22,6 +21,7 @@ const app = express();
 const compiler = webpack(webpackConfig);
 
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(express.static(path.join(__dirname, '..', 'views', 'assets')));

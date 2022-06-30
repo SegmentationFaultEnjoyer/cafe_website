@@ -4,7 +4,7 @@ const secureKey = "eb686e3c7e34ecc1a1f0d5efa40dabc7549d5624ef9e2b65521a1d688101f
 const DataBase = require('../mongodb/db');
 const bot = require("../app/bot/bot");
 const convertImg = require('../helpers/convertImage');
-
+const {createOrderBTN} = require("../app/liqpay/pay");
 exports.ShowMainPage = function(req, resp) {
     resp.sendFile(path.join(__dirname, '../..', 'views', 'index.html'));
 }
@@ -70,7 +70,7 @@ exports.UpdateProduct = async function (req, resp) {
     
     let id = new require('mongodb').ObjectId(req.body._id);
     delete req.body._id;
-
+ 
     let oldProduct = await DataBase.getOne({_id: id});
 
     let res = await DataBase.updateOne({_id: id}, req.body);
@@ -119,4 +119,11 @@ exports.PostOrder = async function(req, resp) {
     } catch (error) {
         resp.json({success: false});
     }
+}
+
+exports.GetPayBtn = async function(req, resp) {
+    
+    const {amount, description, order_id} = req.body;
+    const htmlBtn = createOrderBTN(amount, description, order_id)
+    resp.send(htmlBtn);    
 }
