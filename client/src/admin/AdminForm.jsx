@@ -144,9 +144,12 @@ class AdminForm extends React.Component {
             options: this.parseOptions(formData.get('options_name'))
         }
 
-        if(this.product_info) {
+         //if UPDATE --> id stays the same;
+        if(this.product_info) { 
             newProduct._id = this.product_info._id;
-            if(newProduct.img == '') {
+
+            //if photo wasn`t picked during UPDATE --> it stays the same;
+            if(newProduct.img == '') { 
                 newProduct.img = this.product_info.img;
                 needUpload = false;
             }
@@ -165,12 +168,14 @@ class AdminForm extends React.Component {
                     }
 
                     if(this.props.isEmpty)
-                        resp = await request('/api/items', 'POST', newProduct);
+                        resp = await request('/api/items', 'POST', newProduct); //ADD
                     else
-                        resp = await request('/api/items', 'PUT', newProduct);
+                        resp = await request('/api/items', 'PUT', newProduct); //UPDATE
 
-                    
                     console.log(resp, newProduct);
+                    
+                    if(resp.success)
+                        window.location.reload();
                 }    
             });
             

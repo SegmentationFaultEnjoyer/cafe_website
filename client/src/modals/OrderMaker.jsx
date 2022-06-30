@@ -1,4 +1,5 @@
 const AbstractModal = require('./AbsModal.jsx');
+const PaymentButton = require('../buttons/PaymentBtn.jsx');
 const request = require("../helpers/SendRequest")
 require('../../../public/Form.css');
 
@@ -14,6 +15,7 @@ class OrderMaker extends AbstractModal {
             eMail: "",
             addres: "",
             isOpen: true,
+            payButton: null,
             _nameInput: this.nameInput,
             _phoneInput: this.phoneInput,
             _addresInput: this.addresInput
@@ -169,7 +171,16 @@ class OrderMaker extends AbstractModal {
 
         console.table(order);
         console.log(this.orderInfo);
-        await request("/api/order", "POST", order)
+        if(order.payment == 0) {
+            // let {button} = await request('/payBtn', 'POST', {
+            //     amount: 3, 
+            //     description: 'YOUR MOM', 
+            //     order_id: Date.now()
+            // });
+            // console.log(button);
+            this.setState({payButton: <PaymentButton />});
+        }
+        //await request("/api/order", "POST", order)
     }
 
     change_state() {
@@ -202,9 +213,10 @@ class OrderMaker extends AbstractModal {
     render() {
         return (
             this.modal_wrapper(<></>,
-                <>
+                <> 
                     <h1 className='title'>Оформлення замовлення</h1>
-                    <form onSubmit={this.handleSubmit} className="form">
+                    {this.state.payButton == null ? (
+                        <form onSubmit={this.handleSubmit} className="form">
                         <div className='input-container'>
                             {this.state._nameInput}
                         </div>
@@ -228,6 +240,8 @@ class OrderMaker extends AbstractModal {
                         </div>
 
                     </form>
+                    ) : this.state.payButton}
+                    
                 </>
             )
         )

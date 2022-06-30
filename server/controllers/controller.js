@@ -16,9 +16,9 @@ exports.GetItems = async function(req, resp) {
 }
 
 exports.LogIn = async function(req, resp) {
-    let [login, password] = ['admin', 'admin'];
-    
-    if(req.body.login === login && req.body.password == password) {
+    let {login, password} = await DataBase.getAdmin();
+
+    if(req.body.login === login && HashMatch(req.body.password, password)) {
         let token = jwt.sign({login, password}, secureKey);
         resp.cookie("token", token);
         resp.json({isAuth: true});
@@ -122,7 +122,6 @@ exports.PostOrder = async function(req, resp) {
 }
 
 exports.GetPayBtn = async function(req, resp) {
-    
     const {amount, description, order_id} = req.body;
     const htmlBtn = createOrderBTN(amount, description, order_id)
     resp.send(htmlBtn);    

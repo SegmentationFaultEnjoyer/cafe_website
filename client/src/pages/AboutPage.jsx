@@ -1,5 +1,10 @@
 require('../../../public/pages/AboutPage.css');
 require('../../../public/buttons/InstagramButton.css');
+require('react-slideshow-image/dist/styles.css');
+
+const {Slide} = require('react-slideshow-image');
+
+let images = ['location/zaklad_0.webp', 'location/zaklad_1.webp', 'location/zaklad_2.webp', 'location/zaklad_3.webp']
 
 function AboutPage() {
     return (
@@ -24,11 +29,13 @@ function AboutPage() {
                 
             </div>
 
-            <div className='slider'>
+            {/* <div className='slider'>
                 <figure>
                 {new Array(4).fill('').map((_, i) => <img src={`location/zaklad_${i}.webp`} alt={`photo${i}`}></img>)}
                 </figure>
-            </div>
+            </div> */}
+            <Slider />
+            
 
             <div className='adress'>
                 <div className='flex-container column'>
@@ -51,6 +58,21 @@ function AboutPage() {
         </div>
        
     )
+}
+
+function Slider () {
+    return (
+        <div className="slide-container" style={{marginTop: '20px'}}>
+          <Slide indicators={true} transitionDuration={500}>
+           {images.map((slideImage, index)=> (
+              <div className="each-slide-effect" key={index}>
+                <div style={{'backgroundImage': `url(${slideImage})`}}>
+                </div>
+              </div>
+            ))} 
+          </Slide>
+        </div>
+      )
 }
 
 module.exports = AboutPage;

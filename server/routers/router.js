@@ -9,7 +9,7 @@ router.get('/auth', controller.isAuth, controller.auth);
 
 router.post('/login', controller.LogIn);
 
-router.get("/payBtn", controller.GetPayBtn);
+router.post("/payBtn", controller.GetPayBtn);
 
 router.post('/upload_photo', downloader, controller.UploadPhoto);
 
