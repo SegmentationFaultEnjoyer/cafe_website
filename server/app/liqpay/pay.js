@@ -1,22 +1,26 @@
 const LiqPay = require("./lib/liqpay");
 require("dotenv").config();
-
+const get_host = require("../../helpers/get_host");
 const liqpay = new LiqPay(process.env.LIQPAY_PUBLIC_KEY, process.env.LIQPAY_PRIVATE_KEY);
 
-const createOrderBTN = (amount, description, order_id, action = "pay", currency = "UAH") => {
-    const html =  liqpay.cnb_form({
+const createOrderBTN = (amount, description, order_id, info ,action = "pay", currency = "UAH") => {
+    const params = {
         'action': action,
         'amount': `${amount}`,
         'currency': currency,
         'description': description,
         'order_id': order_id,
         'version': '3',
-        //"server_url": "server response",
-        //"result_url": "return to site for client"
-    });
 
+        "email"   : "apereliez1@gmail.com",
+        "server_url": "http://127.0.0.1:8080/api/pay",
+        "result_url": `http://127.0.0.1:8080`
+    };
+    const html =  liqpay.cnb_form(params);
     return ParseHTML(html);
 }
+
+
 
 function ParseHTML(html) {
     let str1 = html;
@@ -28,5 +32,7 @@ function ParseHTML(html) {
     str2 = str2.split(`" /><input type="image"`)[0];
     return {value1: str1, value2: str2};
 }
+
+module.exports = liqpay;
 
 module.exports = createOrderBTN;
