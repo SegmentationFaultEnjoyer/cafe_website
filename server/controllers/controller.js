@@ -4,7 +4,7 @@ const secureKey = "eb686e3c7e34ecc1a1f0d5efa40dabc7549d5624ef9e2b65521a1d688101f
 const DataBase = require('../mongodb/db');
 const bot = require("../app/bot/bot");
 const convertImg = require('../helpers/convertImage');
-
+const {createOrderBTN} = require("../app/liqpay/pay");
 exports.ShowMainPage = function(req, resp) {
     resp.sendFile(path.join(__dirname, '../..', 'views', 'index.html'));
 }
@@ -70,9 +70,18 @@ exports.UpdateProduct = async function (req, resp) {
     
     let id = new require('mongodb').ObjectId(req.body._id);
     delete req.body._id;
+ 
+    let oldProduct = await DataBase.getOne({_id: id});
 
-    await DataBase.updateOne({_id: id}, req.body);
-    resp.json({success: true});
+    let res = await DataBase.updateOne({_id: id}, req.body);
+
+    if(res == 0 && oldProduct.img != req.body.img) {
+        console.log(oldProduct.img, req.body.img);
+        console.log('deleting old image', oldProduct.img);
+        fs.unlinkSync(path.join(__dirname, '../..', 'views', 'assets', oldProduct.img));
+    }
+
+    resp.json({success: res == 0});
 }
 
 exports.AddProduct = async function (req, resp) {
@@ -81,8 +90,8 @@ exports.AddProduct = async function (req, resp) {
         return;
     }
 
-    await DataBase.addOne(req.body);
-    resp.json({success: true});
+    let res = await DataBase.addOne(req.body);
+    resp.json({success: res == 0});
     
 }
 
@@ -95,13 +104,11 @@ exports.DeleteProduct = async function (req, resp) {
     let id = new require('mongodb').ObjectId(req.body._id);
    
     let result = await DataBase.deleteOne({_id: id});
-    if(result == 0) {
+
+    if(result == 0)
         fs.unlinkSync(path.join(__dirname, '../..', 'views', 'assets', req.body.img));
-        resp.json({success: true});
-    }
-        
-    else 
-        resp.json({success: false});
+    
+    resp.json({success: result == 0});
 }
 
 exports.PostOrder = async function(req, resp) {
@@ -112,4 +119,11 @@ exports.PostOrder = async function(req, resp) {
     } catch (error) {
         resp.json({success: false});
     }
+}
+
+exports.GetPayBtn = async function(req, resp) {
+    
+    const {amount, description, order_id} = req.body;
+    const htmlBtn = createOrderBTN(amount, description, order_id)
+    resp.send(htmlBtn);    
 }

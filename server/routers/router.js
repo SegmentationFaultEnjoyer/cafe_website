@@ -9,6 +9,8 @@ router.get('/auth', controller.isAuth, controller.auth);
 
 router.post('/login', controller.LogIn);
 
+router.get("/payBtn", controller.GetPayBtn);
+
 router.post('/upload_photo', downloader, controller.UploadPhoto);
 
 router.get('/api/items', controller.GetItems);
@@ -20,6 +22,8 @@ router.post('/api/items', controller.isAuth, controller.AddProduct);
 router.delete('/api/items', controller.isAuth, controller.DeleteProduct);
 
 router.post('/api/order', controller.PostOrder);
+
+
 
 router.get('/*', controller.ShowMainPage);
 
