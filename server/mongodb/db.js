@@ -979,28 +979,15 @@ class Database {
         }
     }
 }
-<<<<<<< HEAD
-async function main() {
-    let db = new Database();
-    await db.connect();
-    let admin = await db.getMany({},{_id: 0}, 'location_photo');
-    console.log(admin);
-    db.close();
-}
-main();
-=======
+
 // async function main() {
-//     let images = ['location/zaklad_0.webp', 'location/zaklad_1.webp', 'location/zaklad_2.webp', 'location/zaklad_3.webp']
 //     let db = new Database();
 //     await db.connect();
-//     for(let i of images) {
-//         await db.addOne({photo: i}, 'location_photo');
-//     }
-//     // let admin = await db.addOne(, 'orders');
-//     // console.log(admin);
+//     let admin = await db.getMany({},{_id: 0}, 'location_photo');
+//     console.log(admin);
 //     db.close();
 // }
 // main();
->>>>>>> cf2716baf7c866b2daddd2e3b6ac12b922788bd4
+
 
 module.exports = new Database();

@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
-const secureKey = "eb686e3c7e34ecc1a1f0d5efa40dabc7549d5624ef9e2b65521a1d688101f470d1de246e7147ab3fe5591b19637521b8";
 const HashMatch = require('../helpers/hashing');
 const {path, fs} = require('../helpers/components');
 const convertImg = require('../helpers/convertImage');
+require("dotenv").config();
 
 const DataBase = require('../mongodb/db');
 
@@ -11,7 +11,7 @@ exports.LogIn = async function(req, resp) {
     let {login, password} = await DataBase.getAdmin();
 
     if(req.body.login === login && HashMatch(req.body.password, password)) {
-        let token = jwt.sign({login, password}, secureKey);
+        let token = jwt.sign({login, password}, process.env.JWT_KEY);
         resp.cookie("token", token);
         resp.json({isAuth: true});
     }
@@ -22,7 +22,7 @@ exports.LogIn = async function(req, resp) {
 exports.isAuth = function (req, resp, next) {
     try {
         if (req.cookies.token) {
-            const decoded = jwt.verify(req.cookies.token, secureKey);
+            const decoded = jwt.verify(req.cookies.token, process.env.JWT_KEY);
             resp.user = decoded;
         }
         next();
