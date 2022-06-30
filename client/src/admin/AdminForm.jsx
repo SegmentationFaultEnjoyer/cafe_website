@@ -77,7 +77,7 @@ class AdminForm extends React.Component {
             let id = this.counter++;
             newOptions.push(
                 <div className='flex-container' key={id}>
-                    <input type="text" placeholder='Назва опції'/>
+                    <input type="text" placeholder='Варіант'/>
                     <i className="fa fa-trash" onClick={() => this.removeField('option', id)}></i>
                 </div>
             )
@@ -144,9 +144,12 @@ class AdminForm extends React.Component {
             options: this.parseOptions(formData.get('options_name'))
         }
 
-        if(this.product_info) {
+         //if UPDATE --> id stays the same;
+        if(this.product_info) { 
             newProduct._id = this.product_info._id;
-            if(newProduct.img == '') {
+
+            //if photo wasn`t picked during UPDATE --> it stays the same;
+            if(newProduct.img == '') { 
                 newProduct.img = this.product_info.img;
                 needUpload = false;
             }
@@ -165,12 +168,14 @@ class AdminForm extends React.Component {
                     }
 
                     if(this.props.isEmpty)
-                        resp = await request('/api/items', 'POST', newProduct);
+                        resp = await request('/api/items', 'POST', newProduct); //ADD
                     else
-                        resp = await request('/api/items', 'PUT', newProduct);
+                        resp = await request('/api/items', 'PUT', newProduct); //UPDATE
 
-                    
                     console.log(resp, newProduct);
+                    
+                    if(resp.success)
+                        window.location.reload();
                 }    
             });
             
@@ -233,7 +238,7 @@ class AdminForm extends React.Component {
                         <input type="text" name='options_name' style={{fontWeight: 'bold'}} 
                             defaultValue={(this.product_info && this.product_info.options) ? 
                                             this.product_info.options[0].name :
-                                            'Опції на вибір'} />
+                                            'Назва опції'} />
                         <i className="fa fa-plus-circle" onClick={() => {this.addField('option')}} style={{
                             fontSize: '30px'
                         }}></i>

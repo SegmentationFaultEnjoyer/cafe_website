@@ -1,7 +1,26 @@
 require('../../../public/pages/AboutPage.css');
 require('../../../public/buttons/InstagramButton.css');
+require('react-slideshow-image/dist/styles.css');
+
+const {useState, useEffect} = require('react');
+
+const Slider = require('../helpers/Slider.jsx');
+const Loader = require('../helpers/Loader.jsx');
+const request = require('../helpers/SendRequest.js');
 
 function AboutPage() {
+    let [photos, setPhotos] = useState([]);
+    let [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        async function getPhotos() {
+            let response = await request('/api/photos');
+            setPhotos(response);
+            setIsLoading(false);
+        }
+        getPhotos();
+    }, []);
+
     return (
         <div className='about-page-container'>
 
@@ -24,12 +43,8 @@ function AboutPage() {
                 
             </div>
 
-            <div className='slider'>
-                <figure>
-                {new Array(4).fill('').map((_, i) => <img src={`location/zaklad_${i}.webp`} alt={`photo${i}`}></img>)}
-                </figure>
-            </div>
-
+            {isLoading ? <Loader /> : <Slider images={photos}/>}
+            
             <div className='adress'>
                 <div className='flex-container column'>
                     <i className="fa fa-map-marker"></i>
@@ -52,5 +67,7 @@ function AboutPage() {
        
     )
 }
+
+
 
 module.exports = AboutPage;

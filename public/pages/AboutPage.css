@@ -1,3 +1,24 @@
+.slide-container {
+    width: 70vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.each-slide-effect > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    height: 600px;
+  }
+  
+.each-slide-effect span {
+    padding: 20px;
+    font-size: 20px;
+    background: #efefef;
+    text-align: center;
+}
+
 .about-page-container {
     margin-top: 70px;
     width: 90%;
@@ -20,35 +41,6 @@
     text-decoration: none;
     width: 100%;
 }
-
-@keyframes slidy {
-    0% { left: 0%; }
-    25% { left: 0%; }
-    50% { left: -100%; }
-    75% { left: -100%; }
-    100% { left: 0%; }
-    }
-
-.slider {
-    margin-top: 20px;
-    overflow: hidden;
-}
-
-.slider figure { 
-    position: relative;
-    width: 200%;
-    margin: 0;
-    left: 0;
-    text-align: left;
-    font-size: 0;
-    animation: 8s slidy infinite; 
-}
-   
-.slider figure img { 
-    width: 25%; 
-    float: left;
-}
-
 
 .adress {
     margin-top: 30px;
@@ -91,6 +83,13 @@
 }
 
 @media screen and (max-width: 775px) {
+    .slide-container {
+        width: 100%;
+    }
+
+    .each-slide-effect > div  {
+        height: 300px;
+    }
     .about-page-container > div {
         flex-direction: column-reverse;
     }
