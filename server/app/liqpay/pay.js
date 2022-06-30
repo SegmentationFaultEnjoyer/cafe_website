@@ -28,3 +28,5 @@ function ParseHTML(html) {
     str2 = str2.split(`" /><input type="image"`)[0];
     return {value1: str1, value2: str2};
 }
+
+module.exports = createOrderBTN;

@@ -77,7 +77,7 @@ class AdminForm extends React.Component {
             let id = this.counter++;
             newOptions.push(
                 <div className='flex-container' key={id}>
-                    <input type="text" placeholder='Назва опції'/>
+                    <input type="text" placeholder='Варіант'/>
                     <i className="fa fa-trash" onClick={() => this.removeField('option', id)}></i>
                 </div>
             )
@@ -238,7 +238,7 @@ class AdminForm extends React.Component {
                         <input type="text" name='options_name' style={{fontWeight: 'bold'}} 
                             defaultValue={(this.product_info && this.product_info.options) ? 
                                             this.product_info.options[0].name :
-                                            'Опції на вибір'} />
+                                            'Назва опції'} />
                         <i className="fa fa-plus-circle" onClick={() => {this.addField('option')}} style={{
                             fontSize: '30px'
                         }}></i>

@@ -1,19 +1,15 @@
-const request = require("../helpers/SendRequest");
-const React = require('react');
 
-async function  getBTN(){
-    const rawData = await fet("/payBtn", "POST", {
-        amount: `25`,
-        description: "test jabki",
-        order_id: 2,
-    })
-
-    console.log(rawData);
-    return rawData;
+const PaymentButton = ({ value1, value2 }) => {
+    return (
+        <form method="POST" action="https://www.liqpay.ua/api/3/checkout" acceptCharset="utf-8">
+            <input type="hidden" name="data" 
+            value={value1} />
+            <input type="hidden" name="signature" value={value2} />
+            <div className='input-container'>
+                <button type='submit' className='brown checkout-btn'>Оплатити</button>
+            </div>
+        </form>
+    )
 }
 
-const PaymentBtn = (props) => {
-    
-}
-
-module.exports = PaymentBtn;
+module.exports = PaymentButton;
