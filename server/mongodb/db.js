@@ -948,9 +948,18 @@ class Database {
             return 1;
         }
     }
-    async findOne(filter, options) {
+    async getOne(filter) {
         try {
             return await this.items.findOne(filter);
+        }
+        catch(e) {
+            console.log(e.message);
+            return 1;
+        }
+    }
+    async getAdmin() {
+        try {
+            return await this.db.collection('admin').findOne();
         }
         catch(e) {
             console.log(e.message);
@@ -961,11 +970,8 @@ class Database {
 // async function main() {
 //     let db = new Database();
 //     await db.connect();
-//     let finder = await db.findOne(
-//         {name: 'Суп дня'}
-//     )
-//     console.log(finder);
-//     await db.close();
+//     console.log(await db.getAdmin());
+//     db.close();
 // }
 // main();
 

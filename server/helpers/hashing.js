@@ -1,5 +1,3 @@
-const { resolveBrowserLocale } = require('react-admin');
-
 bcrypt = require('bcrypt');
 
 async function hashing(password) {
