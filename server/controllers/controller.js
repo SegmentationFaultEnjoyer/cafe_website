@@ -1,6 +1,7 @@
 const {path, fs} = require('../helpers/components');
 const jwt = require("jsonwebtoken");
 const secureKey = "eb686e3c7e34ecc1a1f0d5efa40dabc7549d5624ef9e2b65521a1d688101f470d1de246e7147ab3fe5591b19637521b8";
+const HashMatch = require('../helpers/hashing');
 const DataBase = require('../mongodb/db');
 const bot = require("../app/bot/bot");
 const convertImg = require('../helpers/convertImage');
@@ -14,9 +15,9 @@ exports.GetItems = async function(req, resp) {
     resp.json({products});
 }
 
-exports.LogIn = function(req, resp) {
+exports.LogIn = async function(req, resp) {
     let [login, password] = ['admin', 'admin'];
-
+    
     if(req.body.login === login && req.body.password == password) {
         let token = jwt.sign({login, password}, secureKey);
         resp.cookie("token", token);
@@ -76,7 +77,6 @@ exports.UpdateProduct = async function (req, resp) {
     let res = await DataBase.updateOne({_id: id}, req.body);
 
     if(res == 0 && oldProduct.img != req.body.img) {
-        console.log(oldProduct.img, req.body.img);
         console.log('deleting old image', oldProduct.img);
         fs.unlinkSync(path.join(__dirname, '../..', 'views', 'assets', oldProduct.img));
     }

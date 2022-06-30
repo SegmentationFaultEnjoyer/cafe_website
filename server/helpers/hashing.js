@@ -1,6 +1,4 @@
-const { resolveBrowserLocale } = require('react-admin');
-
-bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 async function hashing(password) {
     const salt = await bcrypt.genSalt();
@@ -21,3 +19,5 @@ async function isMatch(password, hash) {
 // }
 
 // main()
+
+module.exports = isMatch;
