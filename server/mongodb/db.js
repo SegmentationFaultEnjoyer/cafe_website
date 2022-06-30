@@ -915,9 +915,9 @@ class Database {
     async close() {
         await this.client.close()
     }
-    async addOne(obj) {
+    async addOne(obj, collection = 'items') {
         try {
-            await this.items.insertOne(obj);
+            await this.db.collection(collection).insertOne(obj);
             return 0;
         }
         catch(e) {
@@ -925,9 +925,9 @@ class Database {
             return 1;
         }
     }
-    async updateOne(filter, update) {
+    async updateOne(filter, update, collection = 'items') {
         try {
-            await this.items.updateOne(
+            await this.db.collection(collection).updateOne(
                 filter,
                 {$set: update}
             );
@@ -938,9 +938,9 @@ class Database {
             return 1;
         }
     }
-    async deleteOne(filter) {
+    async deleteOne(filter, collection = 'items') {
         try {
-            await this.items.deleteOne(filter);
+            await this.db.collection(collection)(filter);
             return 0;
         }
         catch(e) {
@@ -948,9 +948,20 @@ class Database {
             return 1;
         }
     }
-    async getOne(filter) {
+    async getOne(filter = {}, options = {}, collection = 'items') {
         try {
-            return await this.items.findOne(filter);
+            let result = await this.db.collection(collection).findOne(filter, {projection: options});
+            return result
+        }
+        catch(e) {
+            console.log(e.message);
+            return 1;
+        }
+    }
+    async getMany(filter = {}, options = {}, collection = 'items') {
+        try {
+            let result = await this.db.collection(collection).find(filter, {projection: options}).toArray();
+            return result
         }
         catch(e) {
             console.log(e.message);
@@ -970,9 +981,10 @@ class Database {
 // async function main() {
 //     let db = new Database();
 //     await db.connect();
-//     console.log(await db.getAdmin());
+//     let admin = await db.addOne({}, 'orders');
+//     console.log(admin);
 //     db.close();
 // }
-// main();
+//main();
 
 module.exports = new Database();
