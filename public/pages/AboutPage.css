@@ -90,7 +90,7 @@
     .each-slide-effect > div  {
         height: 300px;
     }
-    .about-page-container > div {
+    .about-page-container > div:first-of-type {
         flex-direction: column-reverse;
     }
     .about-page-container p {

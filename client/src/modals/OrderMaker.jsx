@@ -171,13 +171,15 @@ class OrderMaker extends AbstractModal {
 
         console.table(order);
         console.log(this.orderInfo);
+
+
         if(order.payment == 0) {
             let info = await request('/payBtn', 'POST', {
                 amount: 3, 
                 description: 'YOUR MOM', 
                 order_id: Date.now()
             });
-            console.log(info);
+            
             this.setState({payButton: <PaymentButton value1={info.value1} value2={info.value2}/>});
         }
         //await request("/api/order", "POST", order)
@@ -242,7 +244,8 @@ class OrderMaker extends AbstractModal {
                     </form>
                     ) : 
                     <>
-                        <h3>Дякуємо за замовлення! Натисніть кнопку нижче аби перейти до оплати 😉</h3>
+                        <h3>Дякуємо за замовлення!</h3>
+                        <h3>Натисніть кнопку нижче аби перейти до оплати 😉</h3>
                         {this.state.payButton}
                     </>}
                     

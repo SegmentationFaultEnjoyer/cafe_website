@@ -2,7 +2,9 @@ require('../../../public/pages/AboutPage.css');
 require('../../../public/buttons/InstagramButton.css');
 require('react-slideshow-image/dist/styles.css');
 
+const Footer = require('../components/Footer.jsx');
 const {useState, useEffect} = require('react');
+
 
 const Slider = require('../helpers/Slider.jsx');
 const Loader = require('../helpers/Loader.jsx');
@@ -63,6 +65,7 @@ function AboutPage() {
                     <p>вул.Промислова 27 (територія заводу Маяк) <br/> тел. 068-526-56-16</p>
                 </div>
             </div>
+            <Footer />
         </div>
        
     )
