@@ -42,16 +42,30 @@ exports.auth = function (req, resp) {
 }
 
 exports.UploadPhoto = function (req, resp) {
-    if(!req.file) {
+    if(!req.file && !req.files) {
         console.log('Bad file');
         resp.json({isUploaded: false});
+        return;
     }
 
-    else {
+    if(req.file) { //SINGLE FILE
         console.log('Image uploaded', req.file.filename);
         convertImg(path.join(__dirname, '../..', 'views', 'assets'), req.file.filename);
         resp.json({isUploaded: true});
     }
+
+    else if(req.files) { //MANY FILES
+        for(let file of req.files) {
+            console.log('Image uploaded', file.filename);
+            convertImg(
+                path.join(__dirname, '../..', 'views', 'assets'), 
+                file.filename, 
+                path.join(__dirname, '../..', 'views', 'assets', 'location')
+            );
+        }
+        resp.json({isUploaded: true});
+    }
+    
         
 }
 
@@ -101,4 +115,31 @@ exports.DeleteProduct = async function (req, resp) {
         fs.unlinkSync(path.join(__dirname, '../..', 'views', 'assets', req.body.img));
     
     resp.json({success: result == 0});
+}
+
+exports.DeleteLocationPhoto = async function (req, resp) {
+    if(!resp.user) {
+        resp.json({success: false});
+        return;
+    }
+    
+    let res = await DataBase.deleteOne({photo: req.body.photo}, 'location_photo');
+
+    if(res == 0)
+        fs.unlinkSync(path.join(__dirname, '../..', 'views', 'assets', req.body.photo));
+
+    resp.json({success: res == 0});
+}
+
+exports.AddLocationPhoto = async function (req, resp) {
+    if(!resp.user) {
+        resp.json({success: false});
+        return;
+    }
+
+    for(let photo of req.body.photos) {
+        await DataBase.addOne({photo: `location/${photo}`}, 'location_photo');
+    }   
+    
+    resp.json({success: true});
 }
