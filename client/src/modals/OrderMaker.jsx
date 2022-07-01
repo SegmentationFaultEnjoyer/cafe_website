@@ -203,7 +203,7 @@ class OrderMaker extends AbstractModal {
                             price: extra[2]  //цена ингредиента
                         }
                     }) : null,
-                    option: el.options ? el.options[0] : null //выбранная опция (например на каком хлебе сендвич)
+                    option: el.options ? el.options : null //выбранная опция (например на каком хлебе сендвич)
                 }
             }),
             payment: order.payment,  //0 --> LiqPay; 1 --> оплата на карту
