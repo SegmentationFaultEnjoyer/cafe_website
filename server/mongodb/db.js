@@ -941,7 +941,7 @@ class Database {
     }
     async deleteOne(filter, collection = 'items') {
         try {
-            await this.db.collection(collection)(filter);
+            await this.db.collection(collection).deleteOne(filter);
             return 0;
         }
         catch(e) {
