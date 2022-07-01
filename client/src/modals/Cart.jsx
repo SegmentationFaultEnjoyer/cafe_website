@@ -47,7 +47,7 @@ class Cart extends AbstractModal{
                     (<span className="count">{product_info.count}</span>)}
                 </button>
                 {this.state.MakingOrder && (
-                    <OrderMaker context={this} info={product_info.products}/>
+                    <OrderMaker context={this} info={product_info.products} totalPrice={price}/>
                 )}
                 </>
                 ,

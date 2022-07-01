@@ -169,20 +169,51 @@ class OrderMaker extends AbstractModal {
             return;
         }
 
-        console.table(order);
-        console.log(this.orderInfo);
+        // console.table(order);
+        // console.log(this.orderInfo);
 
 
-        if(order.payment == 0) {
-            let info = await request('/payBtn', 'POST', {
-                amount: 3, 
-                description: 'YOUR MOM', 
-                order_id: Date.now()
-            });
+        let orderFullInfo = this.formOrder(order);
+        console.log(orderFullInfo);
+        //PAYMENT
+
+        // if(order.payment == 0) {
+        //     let info = await request('/payBtn', 'POST', {
+        //         amount: 3, 
+        //         description: 'YOUR MOM', 
+        //         order_id: Date.now()
+        //     });
             
-            this.setState({payButton: <PaymentButton value1={info.value1} value2={info.value2}/>});
-        }
+        //     this.setState({payButton: <PaymentButton value1={info.value1} value2={info.value2}/>});
+        // }
         //await request("/api/order", "POST", order)
+    }
+
+    formOrder(order) {
+        return {
+            order_id: Date.now(),  //должен быть уникальным и браться из бд наверное
+            contains: this.orderInfo.map(el => {  //массив из заказанных позиций
+                return {
+                    name: el.name,  //имя позиции
+                    price: el.price, //цена позиции
+                    extras: el.extras.length > 0 ? el.extras.map(extra => { //массив из доп. ингредиентов
+                        return {
+                            name: extra[1], //имя ингредиента
+                            amount: extra[0], //количество ингредиентов
+                            price: extra[2]  //цена ингредиента
+                        }
+                    }) : null,
+                    option: el.options ? el.options[0] : null //выбранная опция (например на каком хлебе сендвич)
+                }
+            }),
+            payment: order.payment,  //0 --> LiqPay; 1 --> оплата на карту
+            totalPrice: this.props.totalPrice, //общая стоимость заказа
+            customerInfo: {  //инфа об покупателе
+                name: order.name, //имя покупателя
+                phoneNumber: order.number, //номер телефона покупателя
+                addres: order.addres //адресс куда нужно доставить
+            }
+        }
     }
 
     change_state() {
