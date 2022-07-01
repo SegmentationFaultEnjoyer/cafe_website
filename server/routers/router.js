@@ -2,7 +2,7 @@ const {express} = require('../helpers/components');
 const router = express.Router();
 const controller = require('../controllers/controller');
 const adminController = require('../controllers/adminController');
-const downloader = require('../helpers/fileDownloader');
+const {downloadSingle, downloadMultiple} = require('../helpers/fileDownloader');
 
 router.get('/', controller.ShowMainPage);
 
@@ -12,11 +12,17 @@ router.post('/login', adminController.LogIn);
 
 router.post("/payBtn", controller.GetPayBtn);
 
-router.post('/upload_photo', downloader, adminController.UploadPhoto);
+router.post('/upload_photo', downloadSingle, adminController.UploadPhoto);
+
+router.post('/upload_photos', downloadMultiple, adminController.UploadPhoto);
 
 router.get('/api/items', controller.GetItems);
 
 router.get('/api/photos', controller.GetLocationPhotos);
+
+router.delete('/api/photos', adminController.isAuth, adminController.DeleteLocationPhoto);
+
+router.post('/api/photos', adminController.isAuth, adminController.AddLocationPhoto);
 
 router.put('/api/items', adminController.isAuth, adminController.UpdateProduct);
 
