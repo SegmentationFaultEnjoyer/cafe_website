@@ -10,7 +10,9 @@ router.get('/auth', adminController.isAuth, adminController.auth);
 
 router.post('/login', adminController.LogIn);
 
-router.post("/payBtn", controller.GetPayBtn);
+
+router.post("api/md5/Secure", )
+
 
 router.post('/upload_photo', downloadSingle, adminController.UploadPhoto);
 
