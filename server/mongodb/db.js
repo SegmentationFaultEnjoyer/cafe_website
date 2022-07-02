@@ -979,14 +979,14 @@ class Database {
     }
 }
 
-async function main() {
-    let db = new Database();
-    await db.connect();
-    let admin = await db.addOne({name: "aboba"});
-    console.log(admin);
-    db.close();
-}
-main();
+// async function main() {
+//     let db = new Database();
+//     await db.connect();
+//     let admin = await db.addOne({name: "aboba"});
+//     console.log(admin);
+//     db.close();
+// }
+// main();
 
 
 module.exports = new Database();

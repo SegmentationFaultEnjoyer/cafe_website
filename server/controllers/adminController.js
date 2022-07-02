@@ -97,7 +97,7 @@ exports.AddProduct = async function (req, resp) {
     }
 
     let res = await DataBase.addOne(req.body);
-    resp.json({success: res == 0});
+    resp.json({success: res != 1});
     
 }
 

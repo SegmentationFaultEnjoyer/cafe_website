@@ -1,5 +1,5 @@
 const AbstractModal = require('./AbsModal.jsx');
-const PaymentButton = require('../buttons/PaymentBtn.jsx');
+const PaymentHandler = require('../buttons/PaymentHandler.js');
 const request = require("../helpers/SendRequest")
 require('../../../public/Form.css');
 
@@ -15,7 +15,6 @@ class OrderMaker extends AbstractModal {
             eMail: "",
             addres: "",
             isOpen: true,
-            payButton: null,
             _nameInput: this.nameInput,
             _phoneInput: this.phoneInput,
             _addresInput: this.addresInput
@@ -170,26 +169,43 @@ class OrderMaker extends AbstractModal {
         }
 
         // console.table(order);
-        // console.log(this.orderInfo);
+        //console.log(this.orderInfo);
 
 
         let orderFullInfo = this.formOrder(order);
-        console.log(orderFullInfo);
-        //PAYMENT
 
-        if(order.payment == 0) {
-            this.setState({payButton: <PaymentButton />});
+        let resp = await request('/api/order', 'POST', {order: orderFullInfo});
+        
+        if(!resp.success) {
+            console.warn('error while adding order to DB');
+            return;
         }
+        orderFullInfo.order_id = resp.order_id;
+        console.log(orderFullInfo);
+       
+        //PAYMENT
+        if(order.payment == 0) {
+            console.log('starting payment procedure');
+            let paymentHandler = new PaymentHandler(orderFullInfo, this.sendToBot);
+            paymentHandler.pay();
+        }
+        else
+            this.sendToBot(orderFullInfo);
+        
+    }
+
+    sendToBot(info) {
+        console.log('SENDING TO BOT');
         //await request("/api/order", "POST", order)
     }
 
     formOrder(order) {
         return {
-            order_id: Date.now(),  //должен быть уникальным и браться из бд наверное
             contains: this.orderInfo.map(el => {  //массив из заказанных позиций
                 return {
                     name: el.name,  //имя позиции
                     price: el.price, //цена позиции
+                    amount: el.amount, //количество
                     extras: el.extras.length > 0 ? el.extras.map(extra => { //массив из доп. ингредиентов
                         return {
                             name: extra[1], //имя ингредиента
@@ -242,8 +258,7 @@ class OrderMaker extends AbstractModal {
             this.modal_wrapper(<></>,
                 <> 
                     <h1 className='title'>Оформлення замовлення</h1>
-                    {this.state.payButton == null ? (
-                        <form onSubmit={this.handleSubmit} className="form">
+                    <form onSubmit={this.handleSubmit} className="form">
                         <div className='input-container'>
                             {this.state._nameInput}
                         </div>
@@ -265,15 +280,7 @@ class OrderMaker extends AbstractModal {
                         <div className='input-container'>
                             <button type='submit' className='brown checkout-btn'>Замовити</button>
                         </div>
-
-                    </form>
-                    ) : 
-                    <>
-                        <h3>Дякуємо за замовлення!</h3>
-                        <h3>Натисніть кнопку нижче аби перейти до оплати 😉</h3>
-                        {this.state.payButton}
-                    </>}
-                    
+                    </form>          
                 </>
             )
         )

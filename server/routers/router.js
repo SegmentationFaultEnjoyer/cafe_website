@@ -32,7 +32,9 @@ router.post('/api/items', adminController.isAuth, adminController.AddProduct);
 
 router.delete('/api/items', adminController.isAuth, adminController.DeleteProduct);
 
-router.post('/api/order', controller.PostOrder);
+router.post('/api/order', controller.AddOrder);
+
+router.post('/api/order/transfer', controller.ProcessToBot);
 
 
 

@@ -6,7 +6,7 @@ require("dotenv").config();
 
 exports.MD5Secure = function(req, resp){
     const str = req.body.str;
-    const key = process.env.SECTRET_WAYFORPAY;
+    const key = process.env.SECRET_WAYFORPAY;
     const hash =  crypto.createHmac('md5', key).update(str).digest('hex');
     resp.json({result: hash});
 }
@@ -26,11 +26,17 @@ exports.GetLocationPhotos = async function(req, resp) {
     resp.json(photos);
 }
 
-exports.PostOrder = async function(req, resp) {
+exports.ProcessToBot = async function(req, resp) {
     try {
         await bot.messageBroadcaster(req.body);
         resp.json({success: true});
     } catch (error) {
         resp.json({success: false});
     }
+}
+
+exports.AddOrder = async function(req, resp) {
+    let res = await DataBase.addOne(req.body.order, 'orders');
+
+    resp.json({success: res != 1, order_id: res});
 }
