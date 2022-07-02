@@ -11,7 +11,7 @@ router.get('/auth', adminController.isAuth, adminController.auth);
 router.post('/login', adminController.LogIn);
 
 
-router.post("api/md5/Secure", )
+router.post('/api/md5/Secure', controller.MD5Secure);
 
 
 router.post('/upload_photo', downloadSingle, adminController.UploadPhoto);

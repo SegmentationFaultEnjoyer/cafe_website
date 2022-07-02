@@ -177,15 +177,9 @@ class OrderMaker extends AbstractModal {
         console.log(orderFullInfo);
         //PAYMENT
 
-        // if(order.payment == 0) {
-        //     let info = await request('/payBtn', 'POST', {
-        //         amount: 3, 
-        //         description: 'YOUR MOM', 
-        //         order_id: Date.now()
-        //     });
-            
-        //     this.setState({payButton: <PaymentButton value1={info.value1} value2={info.value2}/>});
-        // }
+        if(order.payment == 0) {
+            this.setState({payButton: <PaymentButton />});
+        }
         //await request("/api/order", "POST", order)
     }
 
