@@ -60,19 +60,17 @@ class PaymentButton extends React.Component {
         for (let i of params.productCount) {
             str += i + ';';
         }
-        for (let i of params.productPrice) {
-            str += i + ';';
-        }
         for (let i = 0; i < params.productPrice.length; i++) {
-            if (params.productPrice.length == i) {
-                str += i;
+            if (params.productPrice.length == i + 1) {
+                str += params.productPrice[i];
             }
             else {
-                str += i + ';';
+                str += params.productPrice[i] + ';';
             }
         }
         return str;
     }
+
 
     render() {
         return (

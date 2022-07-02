@@ -6,7 +6,7 @@ require("dotenv").config();
 
 exports.MD5Secure = function(req, resp){
     const str = req.body.str;
-    const key = process.env.SECRET_WAYFORPAY;
+    const key = process.env.SECTRET_WAYFORPAY;
     const hash =  crypto.createHmac('md5', key).update(str).digest('hex');
     resp.json({result: hash});
 }
