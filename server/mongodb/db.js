@@ -918,8 +918,7 @@ class Database {
     }
     async addOne(obj, collection = 'items') {
         try {
-            await this.db.collection(collection).insertOne(obj);
-            return 0;
+            return await (await this.db.collection(collection).insertOne(obj)).insertedId;
         }
         catch(e) {
             console.log(e.message);
@@ -980,14 +979,14 @@ class Database {
     }
 }
 
-// async function main() {
-//     let db = new Database();
-//     await db.connect();
-//     let admin = await db.getMany({},{_id: 0}, 'location_photo');
-//     console.log(admin);
-//     db.close();
-// }
-// main();
+async function main() {
+    let db = new Database();
+    await db.connect();
+    let admin = await db.addOne({name: "aboba"});
+    console.log(admin);
+    db.close();
+}
+main();
 
 
 module.exports = new Database();
