@@ -26,6 +26,9 @@ function MainApp() {
 
     return (
         <>
+
+        {/* Welcome page won`t be displayed for admin */}
+
         {window.location.pathname != '/admins' && <WelcomePage app={app}/>}
 
         <div ref={app} style={{display: window.location.pathname != '/admins' ? 'none' : 'block'}}>

@@ -10,6 +10,8 @@ const storageConfig = multer.diskStorage({
     }
 });
 
-const download = multer({storage: storageConfig}).single('img');
+const downloadSingle = multer({storage: storageConfig}).single('img');
 
-module.exports = download;
+const downloadMultiple = multer({storage: storageConfig}).array('img');
+
+module.exports = {downloadSingle, downloadMultiple};
