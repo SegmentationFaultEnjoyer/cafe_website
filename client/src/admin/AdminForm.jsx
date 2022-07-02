@@ -21,10 +21,12 @@ class AdminForm extends React.Component {
     }
 
     init_options() {
-        if(this.props.isEmpty || !this.product_info.options)
+        if(this.props.isEmpty || (!this.product_info.options && !this.product_info.optionsPlural))
             return [];
+        
+        let options = this.product_info.options ? this.product_info.options[0].contains : this.product_info.optionsPlural.contains;
 
-        return this.product_info.options[0].contains.map(el => {
+        return options.map(el => {
             let id = this.counter++;
             return <div className='flex-container' key={id}>
                     <input type="text" defaultValue={el}/>
@@ -143,7 +145,7 @@ class AdminForm extends React.Component {
             extras: this.parseExtras(),
             options: this.parseOptions(formData.get('options_name'))
         }
-
+        
          //if UPDATE --> id stays the same;
         if(this.product_info) { 
             newProduct._id = this.product_info._id;
@@ -153,7 +155,16 @@ class AdminForm extends React.Component {
                 newProduct.img = this.product_info.img;
                 needUpload = false;
             }
+
+            
+            if(this.product_info.optionsPlural) {
+                newProduct.optionsPlural = {...newProduct.options[0]};
+                newProduct.optionsPlural.amount = this.product_info.optionsPlural.amount;
+                newProduct.options = null;
+            }
         }
+
+        console.log(newProduct);
 
         if(this.ValidateInput(newProduct)) {
             let resp;
@@ -236,9 +247,9 @@ class AdminForm extends React.Component {
 
                     <div className='flex-container'>
                         <input type="text" name='options_name' style={{fontWeight: 'bold'}} 
-                            defaultValue={(this.product_info && this.product_info.options) ? 
-                                            this.product_info.options[0].name :
-                                            'Назва опції'} />
+                            defaultValue={(this.product_info && (this.product_info.options || this.product_info.optionsPlural)) ? 
+                                (this.product_info.options ? this.product_info.options[0].name : this.product_info.optionsPlural.name) :
+                                'Назва опції'} />
                         <i className="fa fa-plus-circle" onClick={() => {this.addField('option')}} style={{
                             fontSize: '30px'
                         }}></i>

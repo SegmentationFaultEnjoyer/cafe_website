@@ -17,8 +17,8 @@ function DeliveryPage() {
                     </p>
                 </div>
                 <div>
-                    <p><b>LiqPay</b>  <br /><br />
-                    Розраховуйтесь онлайн через сервіс LiqPay. 
+                    <p><b>WayForPay</b>  <br /><br />
+                    Розраховуйтесь онлайн через сервіс WayForPay. 
                     Легко карткою, Apple Pay, Google Pay або ж Privat Pay.
                     </p>
                 </div>

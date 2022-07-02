@@ -75,7 +75,7 @@ class Photos extends AbsModal {
                     photos,
                     photoInputs: [] 
                 });
-            }, 200) 
+            }, 300) 
         }
     }
 
