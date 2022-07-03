@@ -48,7 +48,7 @@ function parsingMessage(message) {
 
     for (let i of message.contains) {
         let count = 1;
-        str += `<b>Замовлення</b> ${message.order_id}\n`
+        str += `<b>Замовлення</b> ${message.order_id}\n\n`
         str += `${count}. <u>${i.name}</u> - <i>${i.amount} шт.</i> \n`;
         str += `Ціна: <i> ${i.price} грн</i>  \n`;
         str += "Додатки: \n";
@@ -69,7 +69,7 @@ function parsingMessage(message) {
         str += "=========================" + '\n';
         count++;
     }
-    const orderPayMethod = message.payment ? "переказаз на картку" : "здійснена на сайті";
+    const orderPayMethod = message.payment ? "переказ на картку" : "здійснена на сайті";
 
     str += `Спосіб оплати замовлення: <b>${orderPayMethod}</b> \n`;
     str += `Загальна вартість: <b>${message.totalPrice} грн </b> 💰 \n\n`;
