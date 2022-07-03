@@ -34,6 +34,8 @@ router.delete('/api/items', adminController.isAuth, adminController.DeleteProduc
 
 router.post('/api/order', controller.AddOrder);
 
+router.delete('/api/order', controller.DeleteOrder);
+
 router.post('/api/order/transfer', controller.ProcessToBot);
 
 

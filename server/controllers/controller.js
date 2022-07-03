@@ -40,3 +40,12 @@ exports.AddOrder = async function(req, resp) {
 
     resp.json({success: res != 1, order_id: res});
 }
+
+
+exports.DeleteOrder = async function(req, resp) {
+    let id = new require('mongodb').ObjectId(req.body.id);
+    
+    let res = await DataBase.deleteOne({_id: id}, 'orders');
+
+    resp.json({success: res == 0});
+}

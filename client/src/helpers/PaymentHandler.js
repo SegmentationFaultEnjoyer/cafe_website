@@ -1,4 +1,4 @@
-const request = require('../helpers/SendRequest.js');
+const request = require('./SendRequest.js');
 
 class PaymentHandler {
     constructor(order, afterPayCallback) {
@@ -52,8 +52,10 @@ class PaymentHandler {
                 //Шлем боту инфу
             },
             //Блять... чел даун: отменил
-            function (response) {
+            async function (response) {
                 console.log(response);
+                let {success} = await request('/api/order', 'DELETE', {id: this.order.order_id});
+                console.log(`order deleted: ${success}`);
             },
             //Сука, он сидит на оплате и еще не оплатил
             function (response) {

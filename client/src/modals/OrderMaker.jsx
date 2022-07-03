@@ -1,5 +1,5 @@
 const AbstractModal = require('./AbsModal.jsx');
-const PaymentHandler = require('../buttons/PaymentHandler.js');
+const PaymentHandler = require('../helpers/PaymentHandler.js');
 const request = require("../helpers/SendRequest")
 require('../../../public/Form.css');
 
@@ -194,9 +194,10 @@ class OrderMaker extends AbstractModal {
         
     }
 
-    sendToBot(info) {
+    async sendToBot(info) {
         console.log('SENDING TO BOT');
-        //await request("/api/order", "POST", order)
+        let {success} = await request('/api/order/transfer', "POST", info);
+        console.log(`WAS SEND: ${success}`);
     }
 
     formOrder(order) {
