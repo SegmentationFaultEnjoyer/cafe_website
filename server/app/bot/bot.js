@@ -45,14 +45,15 @@ function checkPersons(ctx) {
 
 function parsingMessage(message) {
     let str = "";
-
+    str += `<b>Замовлення</b> ${message.order_id}\n\n`
     for (let i of message.contains) {
         let count = 1;
-        str += `<b>Замовлення</b> ${message.order_id}\n\n`
+        
         str += `${count}. <u>${i.name}</u> - <i>${i.amount} шт.</i> \n`;
         str += `Ціна: <i> ${i.price} грн</i>  \n`;
-        str += "Додатки: \n";
+        
         if (i.extras != null) {
+            str += "Додатки: \n";
             for (let extraItem of i.extras) {
                 str += `\t\t•<i>${extraItem.name} ${extraItem.amount} шт. 💴 ${extraItem.price} грн </i>\n`;
             }
@@ -65,7 +66,7 @@ function parsingMessage(message) {
             }
             str += `Обрані опції: <i>${tmpstr}</i>  \n`;
         }
-
+        str += `Вартість: <i>${i.totalPrice}</i> грн\n`
         str += "=========================" + '\n';
         count++;
     }
