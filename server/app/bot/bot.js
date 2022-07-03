@@ -20,7 +20,7 @@ module.exports.messageBroadcaster = async function (message) {
         const parsedMessage = parsingMessage(message);
         for (let userID of jsonObj.users) {
             console.log(userID);
-            await bot.telegram.sendMessage(userID, parsedMessage);
+            await bot.telegram.sendMessage(userID, parsedMessage, { parse_mode: 'HTML' });
         }
         return "ok";
     } catch (err) {
@@ -33,7 +33,6 @@ function checkPersons(ctx) {
     let jsonObj = JSON.parse(rawData);
     if (jsonObj.users.length === 0 || !jsonObj.users.includes(ctx.update.message.chat.id)) {
         jsonObj.users.push(ctx.update.message.chat.id);
-        console.log(jsonObj);
         fs.writeFileSync(join(__dirname, "persons.json"), JSON.stringify(jsonObj));
         ctx.reply('Ласкаво просимо до команди');
         return;
@@ -43,48 +42,39 @@ function checkPersons(ctx) {
 
 
 
+
 function parsingMessage(message) {
     let str = "";
+
     for (let i of message.contains) {
-        str += "Назва:" + i.name + '\n';
-        str += "Ціна: " + i.price + " грн" + '\n';
-        str += "Кількість: " + i.amount + '\n';
-        str += "Додатки: ";
-        if (i.extras == null)
-            str += "❌\n";
-        else {
-            str += "✅\n";
-            // console.log(i.extras[0]);
-
-
-
+        let count = 1;
+        str += `<b>Замовлення</b> ${message.order_id}\n`
+        str += `${count}. <u>${i.name}</u> - <i>${i.amount} шт.</i> \n`;
+        str += `Ціна: <i> ${i.price} грн</i>  \n`;
+        str += "Додатки: \n";
+        if (i.extras != null) {
             for (let extraItem of i.extras) {
-                
-                str += "\t\t•Назва добавки: " + extraItem.name + "\n";
-                str += "\t\t•Кількість добавки: " + extraItem.amount + "\n";
-                str += "\t\t•Ціна Добавки: " + extraItem.price + " грн" + "\n";
-
+                str += `\t\t•<i>${extraItem.name} ${extraItem.amount} шт. 💴 ${extraItem.price} грн </i>\n`;
             }
 
         }
         if (i.option != null) {
             let tmpstr = "";
-            for(let opt of i.option){
+            for (let opt of i.option) {
                 tmpstr += opt + " ";
             }
-            str += "Опції: " + tmpstr + "\n";
-        } else {
-            str += "Опції: " + "❌" + "\n";
+            str += `Обрані опції: <i>${tmpstr}</i>  \n`;
         }
 
-        str += "===============" + '\n';
+        str += "=========================" + '\n';
+        count++;
     }
-    const orderPayMethod = message.payment ? "Оплата переказом на картку" : "Оплата здійснена на сайті";
+    const orderPayMethod = message.payment ? "переказаз на картку" : "здійснена на сайті";
 
-    str += "Спосіб оплати замовлення: " + orderPayMethod + "\n";
-    str += "Ціна замовлення: " + message.totalPrice +" грн" +"\n\n";
+    str += `Спосіб оплати замовлення: <b>${orderPayMethod}</b> \n`;
+    str += `Загальна вартість: <b>${message.totalPrice} грн </b> 💰 \n\n`;
 
-    str += "Інформація клієнта\n";
+    str += "<b>Інформація про замовника</b>\n";
     str += "Ім'я: " + message.customerInfo.name + "\n";
     str += "Номер телефону: " + message.customerInfo.phoneNumber + "\n";
     str += "Адреса: " + message.customerInfo.addres;
