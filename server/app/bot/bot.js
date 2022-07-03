@@ -45,9 +45,10 @@ function checkPersons(ctx) {
 
 function parsingMessage(message) {
     let str = "";
+    let count = 1;
     str += `<b>Замовлення</b> ${message.order_id}\n\n`
     for (let i of message.contains) {
-        let count = 1;
+        
         
         str += `${count}. <u>${i.name}</u> - <i>${i.amount} шт.</i> \n`;
         str += `Ціна: <i> ${i.price} грн</i>  \n`;
