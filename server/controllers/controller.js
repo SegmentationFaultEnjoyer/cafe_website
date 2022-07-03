@@ -2,6 +2,8 @@ const {path} = require('../helpers/components');
 const DataBase = require('../mongodb/db');
 const bot = require("../app/bot/bot");
 const crypto = require('crypto');
+const MONTH = 30 * 24 * 60 * 60 * 1000;
+
 require("dotenv").config();
 
 exports.MD5Secure = function(req, resp){
@@ -36,15 +38,16 @@ exports.ProcessToBot = async function(req, resp) {
 }
 
 exports.AddOrder = async function(req, resp) {
+    req.body.order.expireAt = new Date(Date.now() + 3 * MONTH);
     let res = await DataBase.addOne(req.body.order, 'orders');
-
+    
     resp.json({success: res != 1, order_id: res});
 }
 
 
 exports.DeleteOrder = async function(req, resp) {
     let id = new require('mongodb').ObjectId(req.body.id);
-    
+
     let res = await DataBase.deleteOne({_id: id}, 'orders');
 
     resp.json({success: res == 0});

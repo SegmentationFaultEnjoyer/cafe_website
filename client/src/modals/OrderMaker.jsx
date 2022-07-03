@@ -173,7 +173,8 @@ class OrderMaker extends AbstractModal {
 
 
         let orderFullInfo = this.formOrder(order);
-
+        
+        //adding order to DB and taking its ID
         let resp = await request('/api/order', 'POST', {order: orderFullInfo});
         
         if(!resp.success) {
