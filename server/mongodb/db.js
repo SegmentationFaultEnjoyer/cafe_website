@@ -948,6 +948,13 @@ class Database {
             return 1;
         }
     }
+    async deleteOld(days, collection) {
+        return await this.db.collection(collection).deleteMany({
+            createdAt: {
+              $lt: new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString() 
+            }
+        });
+    }
     async getOne(filter = {}, options = {}, collection = 'items') {
         try {
             let result = await this.db.collection(collection).findOne(filter, {projection: options});
