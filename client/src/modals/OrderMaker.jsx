@@ -15,6 +15,7 @@ class OrderMaker extends AbstractModal {
             eMail: "",
             addres: "",
             isOpen: true,
+            isFinished: false,
             _nameInput: this.nameInput,
             _phoneInput: this.phoneInput,
             _addresInput: this.addresInput
@@ -199,6 +200,7 @@ class OrderMaker extends AbstractModal {
         console.log('SENDING TO BOT');
         let {success} = await request('/api/order/transfer', "POST", info);
         console.log(`WAS SEND: ${success}`);
+        this.setState({isFinished: true});
     }
 
     formOrder(order) {
@@ -260,30 +262,34 @@ class OrderMaker extends AbstractModal {
         return (
             this.modal_wrapper(<></>,
                 <> 
-                    <h1 className='title'>Оформлення замовлення</h1>
-                    <form onSubmit={this.handleSubmit} className="form">
-                        <div className='input-container'>
-                            {this.state._nameInput}
-                        </div>
-                        <div className='input-container'>
-                            {this.state._phoneInput}
-                        </div>
-                        <div className='input-container'>
-                            {this.state._addresInput}
-                        </div>
-                        <div className='input-container'>
-                            <select className='input' name='payment'
-                                ref={this.select}>
-                                <option value={0}>Безготівковий розрахунок</option>
-                                <option value={1}>Переказ на картку</option>
-                            </select>
-                            <div className="cut"></div>
-                            <label htmlFor="payment" className="placeholder">Оплата</label>
-                        </div>
-                        <div className='input-container'>
-                            <button type='submit' className='brown checkout-btn'>Замовити</button>
-                        </div>
-                    </form>          
+                    {this.state.isFinished ? <h1 style={{textAlign: 'center'}}>Дякуємо за замовлення! Адміністратор зв'яжеться з вами 😉</h1>
+                    : <>
+                        <h1 className='title'>Оформлення замовлення</h1>
+                            <form onSubmit={this.handleSubmit} className="form">
+                                <div className='input-container'>
+                                    {this.state._nameInput}
+                                </div>
+                                <div className='input-container'>
+                                    {this.state._phoneInput}
+                                </div>
+                                <div className='input-container'>
+                                    {this.state._addresInput}
+                                </div>
+                                <div className='input-container'>
+                                    <select className='input' name='payment'
+                                        ref={this.select}>
+                                        <option value={0}>Безготівковий розрахунок</option>
+                                        <option value={1}>Переказ на картку</option>
+                                    </select>
+                                    <div className="cut"></div>
+                                    <label htmlFor="payment" className="placeholder">Оплата</label>
+                                </div>
+                                <div className='input-container'>
+                                    <button type='submit' className='brown checkout-btn'>Замовити</button>
+                                </div>
+                            </form>         
+                    </>}
+                     
                 </>
             )
         )
