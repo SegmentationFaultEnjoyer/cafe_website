@@ -949,11 +949,7 @@ class Database {
         }
     }
     async deleteOld(days, collection) {
-        return await this.db.collection(collection).deleteMany({
-            createdAt: {
-              $lt: new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString() 
-            }
-        });
+        await this.db.collection(collection).createIndex( { "createdAt": 1 }, { expireAfterSeconds: days * 24 * 60 * 60 } )
     }
     async getOne(filter = {}, options = {}, collection = 'items') {
         try {
