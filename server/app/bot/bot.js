@@ -8,7 +8,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN)
 bot.start((ctx) => {
     checkPersons(ctx);
 })
-//bot.launch();
+bot.launch();
 console.log("Bot started");
 
 
