@@ -28,9 +28,11 @@ exports.GetLocationPhotos = async function(req, resp) {
 
 exports.ProcessToBot = async function(req, resp) {
     try {
+        console.log("wtf");
         await bot.messageBroadcaster(req.body);
         resp.json({success: true});
     } catch (error) {
+        console.log(error);
         resp.json({success: false});
     }
 }
