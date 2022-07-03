@@ -173,7 +173,7 @@ class OrderMaker extends AbstractModal {
 
 
         let orderFullInfo = this.formOrder(order);
-        
+
         //adding order to DB and taking its ID
         let resp = await request('/api/order', 'POST', {order: orderFullInfo});
         
@@ -215,7 +215,8 @@ class OrderMaker extends AbstractModal {
                             price: extra[2]  //цена ингредиента
                         }
                     }) : null,
-                    option: el.options ? el.options : null //выбранная опция (например на каком хлебе сендвич)
+                    option: el.options ? el.options : null, //выбранная опция (например на каком хлебе сендвич)
+                    totalPrice: (this.prevWindow.countExtrasPrice(el.extras) + el.price) * el.amount
                 }
             }),
             payment: order.payment,  //0 --> LiqPay; 1 --> оплата на карту

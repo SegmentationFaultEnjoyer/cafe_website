@@ -15,6 +15,8 @@ class Cart extends AbstractModal{
     }
 
     countExtrasPrice(extras) {
+        if(!extras) return 0;
+        
         return extras.reduce((price, extra) => {
             return price + extra[0] * extra[2];
         }, 0)
