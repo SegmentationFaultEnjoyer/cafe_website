@@ -72,7 +72,7 @@ function parsingMessage(message) {
     }
     const orderPayMethod = message.payment ? "переказ на картку" : "здійснена на сайті";
 
-    str += `Спосіб оплати замовлення: <b>${orderPayMethod}</b> \n`;
+    str += `Спосіб оплати: <b>${orderPayMethod}</b> \n`;
     str += `Загальна вартість: <b>${message.totalPrice} грн </b> 💰 \n\n`;
 
     str += "<b>Інформація про замовника</b>\n";
