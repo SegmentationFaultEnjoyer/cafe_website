@@ -7,8 +7,8 @@ class PaymentHandler {
         this.order = order;
 
         this.params = {
-            merchantAccount: "test_merch_n1", //Тестовая хуйня
-            merchantDomainName: "www.market.ua",//Тестовый домен
+            merchantAccount: "tsikava_com_ua",
+            merchantDomainName: "tsikava.com.ua",
             authorizationType: "SimpleSignature",
             merchantSignature: "c8e023631891ecbcb005725cf66550a2",// Тут должен быть хэш код тип MD5(StrForMD5(params));
             orderReference: `${order.order_id}`,//Уникальный id заказа
