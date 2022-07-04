@@ -1,8 +1,8 @@
 const path = require("path");
 const RELEASE = false;
 
-let mode = RELEASE ? "release" : "development";
-let outputPath = RELEASE ? path.resolve(__dirname, "./public") : "/";
+let mode = RELEASE ? "production" : "development";
+let outputPath = RELEASE ? path.resolve(__dirname, "./public/bundle") : "/";
 
 module.exports = {
     mode: mode,
@@ -33,5 +33,10 @@ module.exports = {
                 use: ["source-map-loader"],
             }
         ]
+    },
+    performance: {
+        hints: false,
+        maxEntrypointSize: 512000,
+        maxAssetSize: 512000
     }
 }

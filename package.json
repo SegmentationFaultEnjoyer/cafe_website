@@ -46,7 +46,7 @@
   },
   "scripts": {
     "dev": "nodemon --ext js jsx server/server.js",
-    "webpack": "webpack serve",
+    "start": "node server/server.js",
     "build": "webpack"
   },
   "main": "webpack.config.js",
