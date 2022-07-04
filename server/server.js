@@ -1,7 +1,6 @@
 const get_host = require('./helpers/get_host');
 
 const PORT = process.env.PORT ?? 8080;
-const HOST = get_host();
 const DataBase = require('./mongodb/db');
 DataBase.connect();
 
@@ -28,4 +27,4 @@ app.use(express.static(path.join(__dirname, '..', 'views', 'assets')));
 app.use(webpackMiddleware(compiler, { publicPath }));
 app.use(router);
 
-app.listen(PORT, HOST, () => console.log(`http://${HOST}:${PORT}`));
+app.listen(PORT, HOST, () => console.log(`http://localhost:${PORT}`));
