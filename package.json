@@ -47,7 +47,6 @@
   },
   "scripts": {
     "dev": "nodemon --ext js jsx server/server.js",
-    "webpack": "webpack serve",
     "build": "webpack",
     "start": "pm2 start server/server.js"
   },

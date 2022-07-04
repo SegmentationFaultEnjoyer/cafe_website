@@ -1,8 +1,8 @@
 const path = require("path");
-const RELEASE = false;
+const RELEASE = true;
 
 let mode = RELEASE ? "production" : "development";
-let outputPath = RELEASE ? path.resolve(__dirname, "./public/bundle") : "/";
+let outputPath = RELEASE ? path.resolve(__dirname, "./public") : "/";
 
 module.exports = {
     mode: mode,
