@@ -38,7 +38,7 @@ class PaymentHandler {
     }
     
 
-    async pay(order, afterPayCallback) {
+    async pay(order, afterPayCallback, orderMakerContext) {
         const data = await request('/api/md5/Secure', 'POST', {str: this.StrForMD5(this.params)});
 
         const signature = data.result;
@@ -48,9 +48,8 @@ class PaymentHandler {
             //Заебись, чел оплатил
             function (response) {
                 console.log("order info: ", order);
-                afterPayCallback(order);
+                afterPayCallback(order, orderMakerContext);
                 
-                //Шлем боту инфу
             },
             //Блять... чел даун: отменил
             async function (response) {

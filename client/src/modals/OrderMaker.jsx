@@ -189,18 +189,18 @@ class OrderMaker extends AbstractModal {
         if (order.payment == 0) {
             console.log('starting payment procedure');
             let paymentHandler = new PaymentHandler(orderFullInfo);
-            await paymentHandler.pay(orderFullInfo, this.sendToBot);
+            await paymentHandler.pay(orderFullInfo, this.sendToBot, this);
         }
         else
             this.sendToBot(orderFullInfo);
 
     }
 
-    async sendToBot(info) {
+    async sendToBot(info, context) {
         console.log('SENDING TO BOT');
         let { success } = await request('/api/order/transfer', "POST", info);
         console.log(`WAS SEND: ${success}`);
-        this.setState({ isFinished: true });
+        context.setState({ isFinished: true });
     }
 
     formOrder(order) {
