@@ -176,31 +176,31 @@ class OrderMaker extends AbstractModal {
         let orderFullInfo = this.formOrder(order);
 
         //adding order to DB and taking its ID
-        let resp = await request('/api/order', 'POST', {order: orderFullInfo});
-        
-        if(!resp.success) {
+        let resp = await request('/api/order', 'POST', { order: orderFullInfo });
+
+        if (!resp.success) {
             console.warn('error while adding order to DB');
             return;
         }
         orderFullInfo.order_id = resp.order_id;
         console.log(orderFullInfo);
-       
+
         //PAYMENT
-        if(order.payment == 0) {
+        if (order.payment == 0) {
             console.log('starting payment procedure');
-            let paymentHandler = new PaymentHandler(orderFullInfo, this.sendToBot);
-            await paymentHandler.pay();
+            let paymentHandler = new PaymentHandler(orderFullInfo);
+            await paymentHandler.pay(orderFullInfo, this.sendToBot);
         }
         else
             this.sendToBot(orderFullInfo);
-        
+
     }
 
     async sendToBot(info) {
         console.log('SENDING TO BOT');
-        let {success} = await request('/api/order/transfer', "POST", info);
+        let { success } = await request('/api/order/transfer', "POST", info);
         console.log(`WAS SEND: ${success}`);
-        this.setState({isFinished: true});
+        this.setState({ isFinished: true });
     }
 
     formOrder(order) {
@@ -261,10 +261,10 @@ class OrderMaker extends AbstractModal {
     render() {
         return (
             this.modal_wrapper(<></>,
-                <> 
-                    {this.state.isFinished ? <h1 style={{textAlign: 'center'}}>Дякуємо за замовлення! Адміністратор зв'яжеться з вами 😉</h1>
-                    : <>
-                        <h1 className='title'>Оформлення замовлення</h1>
+                <>
+                    {this.state.isFinished ? <h1 style={{ textAlign: 'center' }}>Дякуємо за замовлення! Адміністратор зв'яжеться з вами 😉</h1>
+                        : <>
+                            <h1 className='title'>Оформлення замовлення</h1>
                             <form onSubmit={this.handleSubmit} className="form">
                                 <div className='input-container'>
                                     {this.state._nameInput}
@@ -287,9 +287,9 @@ class OrderMaker extends AbstractModal {
                                 <div className='input-container'>
                                     <button type='submit' className='brown checkout-btn'>Замовити</button>
                                 </div>
-                            </form>         
-                    </>}
-                     
+                            </form>
+                        </>}
+
                 </>
             )
         )

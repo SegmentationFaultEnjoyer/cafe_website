@@ -3,9 +3,7 @@ const request = require('./SendRequest.js');
 class PaymentHandler {
     constructor(order, afterPayCallback) {
         this.wayforpay = new Wayforpay();
-        this.afterPayCallback = afterPayCallback;
         
-        this.order = order;
 
         this.params = {
             merchantAccount: "test_merch_n1", //Тестовая хуйня
@@ -38,8 +36,9 @@ class PaymentHandler {
             language: "UA"
         }
     }
+    
 
-    async pay() {
+    async pay(order, afterPayCallback) {
         const data = await request('/api/md5/Secure', 'POST', {str: this.StrForMD5(this.params)});
 
         const signature = data.result;
@@ -48,18 +47,15 @@ class PaymentHandler {
         this.wayforpay.run(this.params,
             //Заебись, чел оплатил
             function (response) {
-                console.log("order info: ", this.order);
-                console.log("PAYPAYPAY");
-                console.log("this-",this);
-                console.log(" this.afterPayCallback", this.afterPayCallback);
-                this.afterPayCallback(this.order);
+                console.log("order info: ", order);
+                afterPayCallback(order);
                 
                 //Шлем боту инфу
             },
             //Блять... чел даун: отменил
             async function (response) {
                 console.log(response);
-                let {success} = await request('/api/order', 'DELETE', {id: this.order.order_id});
+                let {success} = await request('/api/order', 'DELETE', {id: order.order_id});
                 console.log(`order deleted: ${success}`);
             },
             //Сука, он сидит на оплате и еще не оплатил
