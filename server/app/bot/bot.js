@@ -46,7 +46,8 @@ function checkPersons(ctx) {
 function parsingMessage(message) {
     let str = "";
     let count = 1;
-    str += `<b>Замовлення</b> ${message.order_id}\n\n`
+    str += `<b>Замовлення</b> ${message.order_id}\n\n`;
+    console.table(message);
     for (let i of message.contains) {
         
         

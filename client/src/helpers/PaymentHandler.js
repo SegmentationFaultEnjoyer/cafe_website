@@ -4,11 +4,12 @@ class PaymentHandler {
     constructor(order, afterPayCallback) {
         this.wayforpay = new Wayforpay();
         this.afterPayCallback = afterPayCallback;
+        
         this.order = order;
 
         this.params = {
-            merchantAccount: "tsikava_com_ua",
-            merchantDomainName: "tsikava.com.ua",
+            merchantAccount: "test_merch_n1", //Тестовая хуйня
+            merchantDomainName: "tsikava.com.ua",//Тестовый домен
             authorizationType: "SimpleSignature",
             merchantSignature: "c8e023631891ecbcb005725cf66550a2",// Тут должен быть хэш код тип MD5(StrForMD5(params));
             orderReference: `${order.order_id}`,//Уникальный id заказа
@@ -47,8 +48,12 @@ class PaymentHandler {
         this.wayforpay.run(this.params,
             //Заебись, чел оплатил
             function (response) {
-                console.log(response);
+                console.log("order info: ", this.order);
+                console.log("PAYPAYPAY");
+                console.log("this-",this);
+                console.log(" this.afterPayCallback", this.afterPayCallback);
                 this.afterPayCallback(this.order);
+                
                 //Шлем боту инфу
             },
             //Блять... чел даун: отменил

@@ -189,7 +189,7 @@ class OrderMaker extends AbstractModal {
         if(order.payment == 0) {
             console.log('starting payment procedure');
             let paymentHandler = new PaymentHandler(orderFullInfo, this.sendToBot);
-            paymentHandler.pay();
+            await paymentHandler.pay();
         }
         else
             this.sendToBot(orderFullInfo);
