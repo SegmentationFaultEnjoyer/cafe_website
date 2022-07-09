@@ -6,7 +6,7 @@ class PaymentHandler {
         
 
         this.params = {
-            merchantAccount: "test_merch_n1", //Тестовая хуйня
+            merchantAccount: "tsikava_com_ua", //Тестовая хуйня
             merchantDomainName: "tsikava.com.ua",//Тестовый домен
             authorizationType: "SimpleSignature",
             merchantSignature: "c8e023631891ecbcb005725cf66550a2",// Тут должен быть хэш код тип MD5(StrForMD5(params));
