@@ -29,7 +29,7 @@ class PaymentHandler {
             }),//Цена на каждый товар и не дай бог их сумма не совпадет с amount
             productCount: order.contains.map(el => `${el.amount}`), //Кол-во товаров Аналогично с productPrice
             clientFirstName: order.customerInfo.name,
-            clientLastName: "Пупкин", //Нет блять, Иванов
+            clientLastName: " ", //Нет блять, Иванов
             clientAddress: order.customerInfo.addres,
             defaultPaymentSystem: "card",
             clientPhone: order.customerInfo.phoneNumber,
