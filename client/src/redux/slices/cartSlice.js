@@ -34,10 +34,16 @@ export const cartSlice = createSlice({
         state.contains.count -= productToDelete.amount;
         
         localStorage.setItem('cart', JSON.stringify(state.contains));
+    },
+
+    cleanCart(state) {
+      state.contains.products = [];
+      state.contains.count = 0;
+      localStorage.removeItem('cart');
     }
   }
 })
 
-export const { addToCart, deleteFromCart } = cartSlice.actions
+export const { addToCart, deleteFromCart, cleanCart } = cartSlice.actions
 
 export default cartSlice.reducer;

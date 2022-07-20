@@ -1,3 +1,7 @@
+const {connect} = require('react-redux');
+
+const {cleanCart} = require('../redux/slices/cartSlice.js');
+
 const AbstractModal = require('./AbsModal.jsx');
 const PaymentHandler = require('../helpers/PaymentHandler.js');
 const request = require("../helpers/SendRequest")
@@ -192,7 +196,7 @@ class OrderMaker extends AbstractModal {
             await paymentHandler.pay(orderFullInfo, this.sendToBot, this);
         }
         else
-            this.sendToBot(orderFullInfo);
+            this.sendToBot(orderFullInfo, this);
 
     }
 
@@ -200,6 +204,7 @@ class OrderMaker extends AbstractModal {
         console.log('SENDING TO BOT');
         let { success } = await request('/api/order/transfer', "POST", info);
         console.log(`WAS SEND: ${success}`);
+        this.props.dispatch(cleanCart())
         context.setState({ isFinished: true });
     }
 
@@ -296,4 +301,4 @@ class OrderMaker extends AbstractModal {
     }
 }
 
-module.exports = OrderMaker;
+module.exports = connect()(OrderMaker);
