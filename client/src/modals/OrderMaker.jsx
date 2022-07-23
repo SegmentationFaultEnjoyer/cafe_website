@@ -163,7 +163,7 @@ class OrderMaker extends AbstractModal {
             name: formData.get('name'),
             number: formData.get('phoneNumber'),
             addres: formData.get('addres'),
-            payment: this.select.current.selectedIndex
+            payment: formData.get("payment")
         }
 
         let isValid = this.validateForm(order, validationOptions);
