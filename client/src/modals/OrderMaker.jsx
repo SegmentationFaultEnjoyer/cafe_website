@@ -163,7 +163,7 @@ class OrderMaker extends AbstractModal {
             name: formData.get('name'),
             number: formData.get('phoneNumber'),
             addres: formData.get('addres'),
-            payment: formData.get("payment")
+            payment: this.select.current.selectedIndex
         }
 
         let isValid = this.validateForm(order, validationOptions);
@@ -283,7 +283,7 @@ class OrderMaker extends AbstractModal {
                                 <div className='input-container'>
                                     <select className='input' name='payment'
                                         ref={this.select}>
-                                        {/* <option value={0}>Безготівковий розрахунок</option> */}
+                                        <option value={0}>Безготівковий розрахунок</option>
                                         <option value={1}>Переказ на картку</option>
                                     </select>
                                     <div className="cut"></div>
