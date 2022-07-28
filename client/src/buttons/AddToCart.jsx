@@ -28,16 +28,16 @@ class AddToCart extends React.Component {
         this.AddToCart();
     }
 
-    ExtractNodes(parentNode) {
+    ExtractNodes(parentNode, isDeep = false) {
         let children = [];
-        parentNode.childNodes.forEach(el => children.push(el.childNodes));
+        parentNode.childNodes.forEach(el => children.push(isDeep ? el.childNodes : el));
         return children;
     }
 
     GetExtras() {
         if(this.extras.current == null) return [];
 
-        let extras_raw = this.ExtractNodes(this.extras.current);
+        let extras_raw = this.ExtractNodes(this.extras.current, true);
 
         extras_raw = extras_raw.map(item => {
             let items = [];
@@ -60,10 +60,21 @@ class AddToCart extends React.Component {
     GetOptions() {
         if(this.options.current == null) return null;
 
-        let options_raw = this.ExtractNodes(this.options.current);
-        let pickedNode = options_raw.find(node => node[0].checked == true);
+        let result = []
+        let options = this.ExtractNodes(this.options.current)
+       
+        for(let option_container of options) {
+            let options_raw = this.ExtractNodes(option_container, true);
+            let nodes = Array.from(options_raw[1])
+            
+            let pickedNode = nodes.find(node => node.childNodes[0].checked === true);
+            result.push({
+                name: options_raw[0][0].data,
+                pickedOption: pickedNode.childNodes[1].innerText
+            })
+        }
         
-        return [pickedNode[1].innerText];
+        return result;
     }
 
     GetOptionsPlural() {
@@ -89,12 +100,21 @@ class AddToCart extends React.Component {
 
     makeKeyId(product) {
         let extrasKeyPart = [];
+        let optionsKeyPart = [];
         for(let extra of product.extras) {
             for(let i = 0; i < extra.length - 1; i++) {
                 extrasKeyPart.push(extra[i])
             }
         }
-        let finalKey = [product._id, ...extrasKeyPart, product.options ?? ''].join('_');
+        
+        if(product.options != null) {
+            for(let option of product.options) {
+                optionsKeyPart.push(option.name)
+                optionsKeyPart.push(option.pickedOption)
+            }
+        }
+       
+        let finalKey = [product._id, ...extrasKeyPart, ...optionsKeyPart].join('_');
         console.log(finalKey);
         return finalKey;
     }

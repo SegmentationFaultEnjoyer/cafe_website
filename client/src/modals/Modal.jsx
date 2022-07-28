@@ -57,31 +57,33 @@ class Modal extends AbstractModal {
                     <img className="picture fit disable-pick" src={img} alt={img}
                         onError={(e) => {e.target.src = 'not_found.webp'}}/>
                     
-                    {options && (
-                        <>
-                        <h3>{options[0].name}</h3>
-                        <div className='options-container' ref={this.options}>
-                        {options[0].contains.map((el, index) => {
-                            return (
-                                <div>
-                                {index == 0 ?
-                                    <input type="radio" 
-                                    name={options[0].name}
-                                    defaultChecked
-                                    /> 
-                                    :
-                                    <input type="radio" 
-                                    name={options[0].name}
-                                    />
-                                }
-                                <span>{el}</span>
-                                </div>
+                    <div ref={this.options}>
+                        {options && (options.map(option => {
+                            return <div>
+                            <h3>{option.name}</h3>
+                            <div className='options-container'>
+                            {option.contains.map((el, index) => {
+                                return (
+                                    <div>
+                                    {index == 0 ? <input type="radio" 
+                                        name={option.name}
+                                        defaultChecked
+                                        /> 
+                                        :
+                                        <input type="radio" 
+                                        name={options[0].name}
+                                        />
+                                    }
+                                    <span>{el}</span>
+                                    </div>
+                                )
+                            })}
+                            </div>
+                            </div>
+                            })
                             )
-                        })}
-                        </div>
-                        </>
-                    )
-                    }
+                        }
+                    </div>
                     
                     {optionsPlural && (
                         <>
