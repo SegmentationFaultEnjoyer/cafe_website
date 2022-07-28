@@ -8,7 +8,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN)
 bot.start((ctx) => {
     checkPersons(ctx);
 })
-bot.launch();
+//bot.launch();
 console.log("Bot started");
 
 
@@ -20,8 +20,10 @@ module.exports.messageBroadcaster = async function (message) {
         const parsedMessage = parsingMessage(message);
         for (let userID of jsonObj.users) {
             console.log(userID);
-            await bot.telegram.sendMessage(userID, parsedMessage, { parse_mode: 'HTML' });
+            
+            //await bot.telegram.sendMessage(userID, parsedMessage, { parse_mode: 'HTML' });
         }
+        console.log(parsedMessage)
         return "ok";
     } catch (err) {
         throw err;
@@ -61,12 +63,12 @@ function parsingMessage(message) {
             }
 
         }
-        if (i.option != null) {
+        if (i.option != null && i.option.length != 0) {
             let tmpstr = "";
             for (let opt of i.option) {
-                tmpstr += opt + " ";
+                tmpstr +=`\t\t•<i>${opt.name}: ${opt.pickedOption}</i>\n`;
             }
-            str += `Обрані опції: <i>${tmpstr}</i>  \n`;
+            str += `Опції:\n${tmpstr}`;
         }
         str += `Вартість: <i>${i.totalPrice}</i> грн\n`
         str += "=========================" + '\n';

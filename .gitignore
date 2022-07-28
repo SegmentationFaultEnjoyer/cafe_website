@@ -3,3 +3,4 @@ examples
 package-lock.json
 .env
 *bundle.js
+persons.json
