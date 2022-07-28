@@ -15,6 +15,7 @@ class PaymentHandler {
             amount: `${order.totalPrice}`,// Общая сумма заказа
             orderTimeout: "49000",// Время для оплаты
             currency: "UAH",
+            straightWidget: true,
             productName: order.contains.map(el => el.name),//Названия всех выбранных товаров
             productPrice: order.contains.map(el => {
                 let extrasPrice = 0;
@@ -29,7 +30,7 @@ class PaymentHandler {
             }),//Цена на каждый товар и не дай бог их сумма не совпадет с amount
             productCount: order.contains.map(el => `${el.amount}`), //Кол-во товаров Аналогично с productPrice
             clientFirstName: order.customerInfo.name,
-            clientLastName: "Пупкин", //Нет блять, Иванов
+            clientLastName: " ", //Нет блять, Иванов
             clientAddress: order.customerInfo.addres,
             defaultPaymentSystem: "card",
             clientPhone: order.customerInfo.phoneNumber,

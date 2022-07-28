@@ -204,7 +204,7 @@ class OrderMaker extends AbstractModal {
         console.log('SENDING TO BOT');
         let { success } = await request('/api/order/transfer', "POST", info);
         console.log(`WAS SEND: ${success}`);
-        this.props.dispatch(cleanCart())
+        context.props.dispatch(cleanCart())
         context.setState({ isFinished: true });
     }
 
