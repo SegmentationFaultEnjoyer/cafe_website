@@ -8,7 +8,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN)
 bot.start((ctx) => {
     checkPersons(ctx);
 })
-//bot.launch();
+bot.launch();
 console.log("Bot started");
 
 
@@ -21,7 +21,7 @@ module.exports.messageBroadcaster = async function (message) {
         for (let userID of jsonObj.users) {
             console.log(userID);
             
-            //await bot.telegram.sendMessage(userID, parsedMessage, { parse_mode: 'HTML' });
+            await bot.telegram.sendMessage(userID, parsedMessage, { parse_mode: 'HTML' });
         }
         console.log(parsedMessage)
         return "ok";
