@@ -41,7 +41,7 @@ class Modal extends AbstractModal {
             if(checkbox.checked) checked++;
         })
        
-        if(checked > this.product_info.optionsPlural.amount) e.preventDefault();
+        if(checked > this.product_info.optionsPlural.amount || checked < 1) e.preventDefault();
     }
 
     render() {
@@ -88,6 +88,7 @@ class Modal extends AbstractModal {
                     {optionsPlural && (
                         <>
                         <h3>{optionsPlural.name}</h3>
+                        <h5>{`Оберіть від 1 до ${optionsPlural.amount} опцій`}</h5>
                         <div className='options-container' ref={this.optionsPlural}>
                             {optionsPlural.contains.map((el, index) => {
                                 return <div>

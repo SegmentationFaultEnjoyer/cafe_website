@@ -85,7 +85,8 @@ class AddToCart extends React.Component {
         checkboxes.forEach(checkbox => {
             if(checkbox.checked) pickedOptions.push(checkbox.nextSibling.innerText);
         })
-        return pickedOptions;
+        
+        return [{name: 'Наповнення', pickedOption: pickedOptions.join(' ')}];
     }
 
     AddToCart() {
