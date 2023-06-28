@@ -50,11 +50,11 @@ function AboutPage() {
             <div className='adress'>
                 <div className='flex-container column'>
                     <i className="fa fa-map-marker"></i>
-                    <p>вул.Кубійовича 2 <br/> тел. 098-123-91-69</p>
+                    <p>вул.Шота Руставелі 13 <br/> тел. 067-575-61-68</p>
                 </div>
                 <div className='flex-container column'>
                     <i className="fa fa-map-marker"></i>
-                    <p>вул.Хорватська 15 <br/> тел. 067-575-61-68</p>
+                    <p>вул.Личаківська 86 <br/> тел. 098-123-91-69</p>
                 </div>
                 <div className='flex-container column'>
                     <i className="fa fa-map-marker"></i>
@@ -62,7 +62,7 @@ function AboutPage() {
                 </div>
                 <div className='flex-container column'>
                     <i className="fa fa-map-marker"></i>
-                    <p>вул.Промислова 27 (територія заводу Маяк) <br/> тел. 068-526-56-16</p>
+                    <p>вул.Промислова 27 (тер. заводу Маяк) <br/> тел. 068-526-56-16</p>
                 </div>
             </div>
             <Footer />
