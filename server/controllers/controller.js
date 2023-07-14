@@ -107,7 +107,7 @@ exports.ConfirmOrder = async function(req, resp) {
 
         const key = process.env.SECRET_WAYFORPAY;
         const orderConfirmTime = Date.now()
-        const signature =  crypto.createHmac('md5', key).update(`${orderId};accept;${orderConfirmTime}`).digest('hex');
+        const signature =  crypto.createHmac('md5', key).update(`${wayforpayResp.orderReference};accept;${orderConfirmTime}`).digest('hex');
 
         resp.sendStatus(200).json({
           orderReference: wayforpayResp.orderReference,
