@@ -53,3 +53,78 @@ exports.DeleteOrder = async function(req, resp) {
 
     resp.json({success: res == 0});
 }
+
+/* 
+type WayForPayResponse = {
+  "merchantAccount": "tsikava_com_ua",
+  "orderReference": "64b12e4aa23ea517344fd332",
+  "merchantSignature": "79a9c521a9ff050bb4d97d6fe39a7822",
+  "amount": 1,
+  "currency": "UAH",
+  "authCode": "667798",
+  "email": "aboba@a.com",
+  "phone": "0000000000",
+  "createdDate": 1689333323,
+  "processingDate": 1689333371,
+  "cardPan": "53****2196",
+  "cardType": "MasterCard",
+  "issuerBankCountry": "Ukraine",
+  "issuerBankName": "JSC \\"UNIVERSAL BANK\\"",
+  "recToken": "",
+  "transactionStatus": "Approved",
+  "reason": "Ok",
+  "reasonCode": 1100,
+  "fee": 0.02,
+  "paymentSystem": "card",
+  "acquirerBankName": "WayForPay",
+  "cardProduct": "debit",
+  "clientName": "\\u041c\\u0410\\u0420\\u041a"
+}
+*/
+
+exports.ConfirmOrder = async function(req, resp) {
+    console.log('WAY FOR PAY RESPONSE')
+    console.log(req.body);
+
+    try {
+        const orderId = req.body.orderReference
+
+        const orderInfo = await DataBase.getOne({ _id: orderId }, 'orders')
+
+        console.log('ORDER INFO', orderInfo)
+
+        await bot.messageBroadcaster({
+           contains: orderInfo.contains,
+           order_id: orderId,
+        });
+
+        console.log('SUCCESs!')
+        resp.sendStatus(200)
+    } catch (error) {
+        console.error(error.message)
+        resp.sendStatus(500)
+    }
+}
+
+/* 
+type BotExpects = {
+  contains: [ <--FROM DB
+    {
+      name: 'TEST',
+      price: 1,
+      amount: 1,
+      extras: [
+        { name: 'моцарела', amount: 2, price: 50 },
+      ],
+      option: [
+        { name: 'Булка', pickedOption: 'бріош' },
+      ],
+      totalPrice: 1 <--FROM DB
+    }
+  ],
+  payment: 1, <--FROM DB
+  totalPrice: 1, <--FROM DB
+  customerInfo: { name: 'TEST', phoneNumber: '0000000000', addres: 'NOWHERE222' },
+  order_id: '64b1300a418be93f995099eb' <--FROM RESPONSE
+}
+*/

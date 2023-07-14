@@ -38,10 +38,7 @@ router.delete('/api/order', controller.DeleteOrder);
 
 router.post('/api/order/transfer', controller.ProcessToBot);
 
-router.post('/api/order/confirm', (req, resp) => {
-    console.log('WAY FOR PAY RESPONSE')
-    console.log(req.body);
-})
+router.post('/api/order/confirm', controller.ConfirmOrder)
 
 
 

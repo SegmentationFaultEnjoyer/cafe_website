@@ -3,7 +3,7 @@ const request = require('./SendRequest.js');
 const BASE_URL = 'https://tsikava.com.ua'
 
 class PaymentHandler {
-    constructor(order, afterPayCallback) {
+    constructor(order) {
         this.wayforpay = new Wayforpay();
         
 
@@ -42,7 +42,7 @@ class PaymentHandler {
     }
     
 
-    async pay(order, afterPayCallback, orderMakerContext) {
+    async pay(order) {
         const data = await request('/api/md5/Secure', 'POST', {str: this.StrForMD5(this.params)});
 
         const signature = data.result;
@@ -52,7 +52,6 @@ class PaymentHandler {
             //Заебись, чел оплатил
             function (response) {
                 console.log("order info: ", order);
-                afterPayCallback(order, orderMakerContext);
                 
             },
             //Блять... чел даун: отменил
