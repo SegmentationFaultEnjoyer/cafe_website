@@ -1,6 +1,6 @@
 const request = require('./SendRequest.js');
 
-const BASE_URL = 'https://tsikava.com.ua/'
+const BASE_URL = 'https://tsikava.com.ua'
 
 class PaymentHandler {
     constructor(order, afterPayCallback) {
