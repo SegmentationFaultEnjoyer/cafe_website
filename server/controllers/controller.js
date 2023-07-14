@@ -86,6 +86,12 @@ exports.ConfirmOrder = async function(req, resp) {
     console.log('WAY FOR PAY RESPONSE')
     console.log(req.body);
 
+    const wayforpayResp = Object.keys(req.body)[0]
+
+    console.log(wayforpayResp);
+
+    console.log(JSON.parse(wayforpayResp));
+
     try {
         let orderId = new require('mongodb').ObjectId(req.body.orderReference);
 
@@ -93,8 +99,13 @@ exports.ConfirmOrder = async function(req, resp) {
 
         console.log('ORDER INFO', orderInfo)
 
+        if (!orderInfo) throw new Error('Order doesnt exist')
+
         await bot.messageBroadcaster({
            contains: orderInfo.contains,
+           payment: orderInfo.payment,
+           totalPrice: orderInfo.totalPrice,
+           customerInfo: orderInfo.customerInfo,
            order_id: orderId,
         });
 
