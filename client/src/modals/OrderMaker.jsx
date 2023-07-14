@@ -189,14 +189,23 @@ class OrderMaker extends AbstractModal {
         orderFullInfo.order_id = resp.order_id;
         console.log(orderFullInfo);
 
-        //PAYMENT
-        if (order.payment == 0) {
-            console.log('starting payment procedure');
-            let paymentHandler = new PaymentHandler(orderFullInfo);
-            await paymentHandler.pay(orderFullInfo);
+        try {
+            if (order.payment == 0) {
+                console.log('starting payment procedure');
+                let paymentHandler = new PaymentHandler(orderFullInfo);
+
+                await paymentHandler.pay(orderFullInfo);
+    
+                this.props.dispatch(cleanCart())
+                this.setState({ isFinished: true });
+            }
+            else
+                this.sendToBot(orderFullInfo, this);
+        } catch (error) {
+            console.error(error)
         }
-        else
-            this.sendToBot(orderFullInfo, this);
+        //PAYMENT
+       
 
     }
 
