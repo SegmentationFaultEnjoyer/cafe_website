@@ -89,7 +89,7 @@ exports.ConfirmOrder = async function(req, resp) {
     try {
         let orderId = new require('mongodb').ObjectId(req.body.orderReference);
 
-        const orderInfo = await DataBase.getOne({ _id: orderId }, 'orders')
+        const orderInfo = await DataBase.getOne({ _id: orderId }, {}, 'orders')
 
         console.log('ORDER INFO', orderInfo)
 
