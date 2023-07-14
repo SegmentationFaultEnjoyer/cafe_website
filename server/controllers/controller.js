@@ -86,14 +86,10 @@ exports.ConfirmOrder = async function(req, resp) {
     console.log('WAY FOR PAY RESPONSE')
     console.log(req.body);
 
-    const wayforpayResp = Object.keys(req.body)[0]
-
-    console.log(wayforpayResp);
-
-    console.log(JSON.parse(wayforpayResp));
+    const wayforpayResp = JSON.parse(Object.keys(req.body)[0])
 
     try {
-        let orderId = new require('mongodb').ObjectId(req.body.orderReference);
+        let orderId = new require('mongodb').ObjectId(wayforpayResp.orderReference);
 
         const orderInfo = await DataBase.getOne({ _id: orderId }, {}, 'orders')
 
