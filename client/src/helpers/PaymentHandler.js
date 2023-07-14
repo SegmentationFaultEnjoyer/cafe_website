@@ -1,5 +1,7 @@
 const request = require('./SendRequest.js');
 
+const BASE_URL = 'https://tsikava.com.ua/'
+
 class PaymentHandler {
     constructor(order, afterPayCallback) {
         this.wayforpay = new Wayforpay();
@@ -34,7 +36,8 @@ class PaymentHandler {
             clientAddress: order.customerInfo.addres,
             defaultPaymentSystem: "card",
             clientPhone: order.customerInfo.phoneNumber,
-            language: "UA"
+            language: "UA",
+            serviceUrl: `${BASE_URL}/api/order/confirm`,
         }
     }
     
