@@ -14,6 +14,8 @@ const {
     webpackMiddleware
 } = require('./helpers/components');
 
+/* UNCOMMENT THESE LINES TO ENABLE DEV MOD */
+
 //const { publicPath } = webpackConfig.output;
 
 const router = require('./routers/router');

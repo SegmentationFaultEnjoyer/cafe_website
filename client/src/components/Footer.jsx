@@ -8,7 +8,7 @@ function Footer() {
             <div className='flex-container' style={{width: '33%', marginTop: 0}}>
                 <span>Сайт розроблений: </span>
                 <div className='flex-container' style={{width: '50%', marginTop: 0}}>
-                    <a style={{all: 'unset'}} href="https://t.me/ne_evrey" target='_blank'>
+                    <a style={{all: 'unset'}} href="https://t.me/MarkVoishvillo" target='_blank'>
                         <i style={{fontSize: '27px'}} className="fa fa-telegram" ></i>
                     </a>
                     <a href="https://www.instagram.com/jesuschrist1337/" style={{all: 'unset'}} target='_blank'> 
