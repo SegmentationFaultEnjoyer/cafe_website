@@ -64,6 +64,10 @@ function AboutPage() {
                     <i className="fa fa-map-marker"></i>
                     <p>вул.Промислова 27 (тер. заводу Маяк) <br/> тел. 068-526-56-16</p>
                 </div>
+                <div className='flex-container column'>
+                    <i className="fa fa-map-marker"></i>
+                    <p>вул. Жовківська 22 <br/> тел. 097-351-22-80</p>
+                </div>
             </div>
             <Footer />
         </div>
