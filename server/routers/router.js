@@ -38,6 +38,8 @@ router.delete('/api/order', controller.DeleteOrder);
 
 router.post('/api/order/transfer', controller.ProcessToBot);
 
+router.post('/api/order/confirm', controller.ConfirmOrder)
+
 
 
 router.get('/*', controller.ShowMainPage);

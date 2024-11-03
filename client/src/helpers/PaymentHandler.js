@@ -1,7 +1,9 @@
 const request = require('./SendRequest.js');
 
+const BASE_URL = 'https://tsikava.com.ua'
+
 class PaymentHandler {
-    constructor(order, afterPayCallback) {
+    constructor(order) {
         this.wayforpay = new Wayforpay();
         
 
@@ -34,35 +36,40 @@ class PaymentHandler {
             clientAddress: order.customerInfo.addres,
             defaultPaymentSystem: "card",
             clientPhone: order.customerInfo.phoneNumber,
-            language: "UA"
+            language: "UA",
+            serviceUrl: `${BASE_URL}/api/order/confirm`,
         }
     }
     
 
-    async pay(order, afterPayCallback, orderMakerContext) {
+    async pay(order) {
         const data = await request('/api/md5/Secure', 'POST', {str: this.StrForMD5(this.params)});
 
         const signature = data.result;
         this.params.merchantSignature = signature// Тут должен быть хэш код тип MD5(StrForMD5(params));
+
+        return new Promise((resolve, reject) => {
+            this.wayforpay.run(this.params,
+                //Заебись, чел оплатил
+                function (response) {
+                    console.log("order info: ", order);
+                    resolve()
+                },
+                //Блять... чел даун: отменил
+                async function (response) {
+                    console.log(response);
+                    let {success} = await request('/api/order', 'DELETE', {id: order.order_id});
+                    console.log(`order deleted: ${success}`);
+                    reject()
+                },
+                //Сука, он сидит на оплате и еще не оплатил
+                function (response) {
+                    console.log(response);
+                }
+            );
+        })
         
-        this.wayforpay.run(this.params,
-            //Заебись, чел оплатил
-            function (response) {
-                console.log("order info: ", order);
-                afterPayCallback(order, orderMakerContext);
-                
-            },
-            //Блять... чел даун: отменил
-            async function (response) {
-                console.log(response);
-                let {success} = await request('/api/order', 'DELETE', {id: order.order_id});
-                console.log(`order deleted: ${success}`);
-            },
-            //Сука, он сидит на оплате и еще не оплатил
-            function (response) {
-                console.log(response);
-            }
-        );
+        
     }
 
     StrForMD5(params) {
