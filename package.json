@@ -47,7 +47,7 @@
   },
   "scripts": {
     "dev": "nodemon --ext js jsx server/server.js",
-    "build": "webpack",
+    "build": "rm -rf public/*bundle* && webpack",
     "start": "pm2 start server/server.js"
   },
   "main": "webpack.config.js",
